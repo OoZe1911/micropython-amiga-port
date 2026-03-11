@@ -7,10 +7,6 @@ except ImportError:
     print("SKIP")
     raise SystemExit
 
-if not hasattr(tls, "PROTOCOL_DTLS_SERVER"):
-    print("SKIP")
-    raise SystemExit
-
 PORT = 8000
 
 # These are test certificates. See tests/README.md for details.

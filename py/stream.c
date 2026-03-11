@@ -108,17 +108,6 @@ const mp_stream_p_t *mp_get_stream_raise(mp_obj_t self_in, int flags) {
     mp_raise_msg(&mp_type_OSError, MP_ERROR_TEXT("stream operation not supported"));
 }
 
-static MP_NORETURN void mp_stream_raise_error(mp_obj_t stream, int error) {
-    #if MICROPY_STREAMS_DELEGATE_ERROR
-    const mp_stream_p_t *stream_p = mp_get_stream(stream);
-    if (stream_p->ioctl != NULL) {
-        int err;
-        stream_p->ioctl(stream, MP_STREAM_RAISE_ERROR, error, &err);
-    }
-    #endif
-    mp_raise_OSError(error);
-}
-
 static mp_obj_t stream_read_generic(size_t n_args, const mp_obj_t *args, byte flags) {
     // What to do if sz < -1?  Python docs don't specify this case.
     // CPython does a readall, but here we silently let negatives through,
@@ -162,7 +151,7 @@ static mp_obj_t stream_read_generic(size_t n_args, const mp_obj_t *args, byte fl
                     }
                     break;
                 }
-                mp_stream_raise_error(args[0], error);
+                mp_raise_OSError(error);
             }
 
             if (out_sz < more_bytes) {
@@ -230,7 +219,7 @@ static mp_obj_t stream_read_generic(size_t n_args, const mp_obj_t *args, byte fl
             // this as EOF.
             return mp_const_none;
         }
-        mp_stream_raise_error(args[0], error);
+        mp_raise_OSError(error);
     } else {
         vstr.len = out_sz;
         if (stream_p->is_text) {
@@ -261,7 +250,7 @@ mp_obj_t mp_stream_write(mp_obj_t self_in, const void *buf, size_t len, byte fla
             // no single byte could be readily written to it."
             return mp_const_none;
         }
-        mp_stream_raise_error(self_in, error);
+        mp_raise_OSError(error);
     } else {
         return MP_OBJ_NEW_SMALL_INT(out_sz);
     }
@@ -338,7 +327,7 @@ static mp_obj_t stream_readall(mp_obj_t self_in) {
                 }
                 break;
             }
-            mp_stream_raise_error(self_in, error);
+            mp_raise_OSError(error);
         }
         if (out_sz == 0) {
             break;
@@ -396,7 +385,7 @@ static mp_obj_t stream_unbuffered_readline(size_t n_args, const mp_obj_t *args) 
                     goto done;
                 }
             }
-            mp_stream_raise_error(args[0], error);
+            mp_raise_OSError(error);
         }
         if (out_sz == 0) {
         done:
@@ -446,7 +435,7 @@ mp_obj_t mp_stream_close(mp_obj_t stream) {
     int error;
     mp_uint_t res = stream_p->ioctl(stream, MP_STREAM_CLOSE, 0, &error);
     if (res == MP_STREAM_ERROR) {
-        mp_stream_raise_error(stream, error);
+        mp_raise_OSError(error);
     }
     return mp_const_none;
 }
@@ -474,7 +463,7 @@ static mp_obj_t stream_seek(size_t n_args, const mp_obj_t *args) {
     int error;
     mp_off_t res = mp_stream_seek(args[0], offset, whence, &error);
     if (res == (mp_off_t)-1) {
-        mp_stream_raise_error(args[0], error);
+        mp_raise_OSError(error);
     }
 
     // TODO: Could be uint64
@@ -495,7 +484,7 @@ static mp_obj_t stream_flush(mp_obj_t self) {
     int error;
     mp_uint_t res = stream_p->ioctl(self, MP_STREAM_FLUSH, 0, &error);
     if (res == MP_STREAM_ERROR) {
-        mp_stream_raise_error(self, error);
+        mp_raise_OSError(error);
     }
     return mp_const_none;
 }
@@ -516,7 +505,7 @@ static mp_obj_t stream_ioctl(size_t n_args, const mp_obj_t *args) {
     int error;
     mp_uint_t res = stream_p->ioctl(args[0], mp_obj_get_int(args[1]), val, &error);
     if (res == MP_STREAM_ERROR) {
-        mp_stream_raise_error(args[0], error);
+        mp_raise_OSError(error);
     }
 
     return mp_obj_new_int(res);

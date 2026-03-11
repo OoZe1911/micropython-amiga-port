@@ -1,0 +1,80 @@
+build/extmod/vfs_rom.o: ../../extmod/vfs_rom.c \
+ /opt/amiga/m68k-amigaos/libnix/include/string.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/cdefs.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/_default_types.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/features.h \
+ /opt/amiga/m68k-amigaos/libnix/include/_newlib_version.h \
+ /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stddef.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/types.h \
+ /opt/amiga/m68k-amigaos/sys-include/_ansi.h \
+ /opt/amiga/m68k-amigaos/sys-include/newlib.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/config.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/ieeefp.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/_types.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_types.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/lock.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_stdint.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_pthreadtypes.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/types.h \
+ /opt/amiga/m68k-amigaos/libnix/include/strsup.h ../../py/bc.h \
+ ../../py/runtime.h ../../py/mpstate.h \
+ /opt/amiga/m68k-amigaos/sys-include/stdint.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_intsup.h ../../py/mpconfig.h \
+ /opt/amiga/m68k-amigaos/sys-include/limits.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/limits.h mpconfigport.h \
+ /opt/amiga/m68k-amigaos/sys-include/alloca.h \
+ /opt/amiga/m68k-amigaos/sys-include/_ansi.h \
+ /opt/amiga/m68k-amigaos/libnix/include/sys/reent.h ../../py/mpthread.h \
+ ../../py/misc.h /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdbool.h \
+ build/genhdr/compressed.data.h ../../py/nlr.h \
+ /opt/amiga/m68k-amigaos/sys-include/assert.h \
+ /opt/amiga/m68k-amigaos/sys-include/setjmp.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/setjmp.h ../../py/obj.h \
+ ../../py/qstr.h build/genhdr/qstrdefs.generated.h ../../py/mpprint.h \
+ ../../py/runtime0.h ../../py/objlist.h ../../py/objexcept.h \
+ ../../py/objtuple.h build/genhdr/root_pointers.h ../../py/pystack.h \
+ ../../py/cstack.h ../../py/mperrno.h \
+ /opt/amiga/m68k-amigaos/libnix/include/errno.h \
+ /opt/amiga/m68k-amigaos/libnix/include/sys/errno.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/errno.h ../../extmod/vfs.h \
+ ../../py/builtin.h ../../extmod/vfs_rom.h
+../../extmod/vfs_rom.c :
+ /opt/amiga/m68k-amigaos/libnix/include/string.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/cdefs.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/_default_types.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/features.h :
+ /opt/amiga/m68k-amigaos/libnix/include/_newlib_version.h :
+ /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stddef.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/types.h :
+ /opt/amiga/m68k-amigaos/sys-include/_ansi.h :
+ /opt/amiga/m68k-amigaos/sys-include/newlib.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/config.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/ieeefp.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/_types.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_types.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/lock.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_stdint.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_pthreadtypes.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/types.h :
+ /opt/amiga/m68k-amigaos/libnix/include/strsup.h ../../py/bc.h :
+ ../../py/runtime.h ../../py/mpstate.h :
+ /opt/amiga/m68k-amigaos/sys-include/stdint.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_intsup.h ../../py/mpconfig.h :
+ /opt/amiga/m68k-amigaos/sys-include/limits.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/limits.h mpconfigport.h :
+ /opt/amiga/m68k-amigaos/sys-include/alloca.h :
+ /opt/amiga/m68k-amigaos/sys-include/_ansi.h :
+ /opt/amiga/m68k-amigaos/libnix/include/sys/reent.h ../../py/mpthread.h :
+ ../../py/misc.h /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdbool.h :
+ build/genhdr/compressed.data.h ../../py/nlr.h :
+ /opt/amiga/m68k-amigaos/sys-include/assert.h :
+ /opt/amiga/m68k-amigaos/sys-include/setjmp.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/setjmp.h ../../py/obj.h :
+ ../../py/qstr.h build/genhdr/qstrdefs.generated.h ../../py/mpprint.h :
+ ../../py/runtime0.h ../../py/objlist.h ../../py/objexcept.h :
+ ../../py/objtuple.h build/genhdr/root_pointers.h ../../py/pystack.h :
+ ../../py/cstack.h ../../py/mperrno.h :
+ /opt/amiga/m68k-amigaos/libnix/include/errno.h :
+ /opt/amiga/m68k-amigaos/libnix/include/sys/errno.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/errno.h ../../extmod/vfs.h :
+ ../../py/builtin.h ../../extmod/vfs_rom.h :

@@ -5,5 +5,3 @@
 
 uart_loopback_args = (1,)
 uart_loopback_kwargs = {}
-
-spi_standalone_args_list = [(0,)]

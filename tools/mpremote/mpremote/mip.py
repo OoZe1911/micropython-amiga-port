@@ -1,4 +1,4 @@
-# MicroPython package installer
+# Micropython package installer
 # Ported from micropython-lib/micropython/mip/mip.py.
 # MIT license; Copyright (c) 2022 Jim Mussared
 

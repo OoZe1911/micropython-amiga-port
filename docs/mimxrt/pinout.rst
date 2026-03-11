@@ -67,42 +67,40 @@ PWM pin assignment
 Pins are specified in the same way as for the Pin class.  The following tables show
 the assignment of the board Pins to PWM modules:
 
-===========  ==========  ==========  ======  ==========  ===========  ========
-Pin/ MIMXRT  1010        1015        1020    1050/60/64  1170         Metro M7
-===========  ==========  ==========  ======  ==========  ===========  ========
-D0           -           Q1/1        F1/1/B  -           -            -
-D1           -           Q1/0        F1/1/A  -           -            -
-D2           F1/3/B      F1/3/A      -       F1/3/B      -            -
-D3           F1/3/A      F1/0/A      F2/3/B  F4/0/A      F1/2/A (&)   -
-D4           F1/3/A (*)  Q1/2        Q2/1    F2/3/A      F1/0/X (&)   F1/0/B
-D5           F1/0/B (*)  F1/0/B      F2/3/A  F1/3/A      F1/2/B (&)   F1/0/A
-D6           -           F1/2/B      F2/0/A  Q3/2        F1/0/A       -
-D7           -           -           F1/0/A  Q3/3        F3/0/X       -
-D8           F1/0/A      F1/1/B      F1/0/B  F1/1/X      F1/1/X (&)   F1/3/A
-D9           F1/1/B (*)  F1/2/A      F2/0/B  F1/0/X      F1/0/B       F1/3/B
-D10          F1/3/B      -           F2/2/B  F1/0/B (*)  F2/2/B       F1/2/A
-D11          F1/2/A      -           F2/1/A  F1/1/A (*)  -            F1/2/B
-D12          F1/2/B      -           F2/1/B  F1/1/B (*)  -            F1/1/A
-D13          F1/3/A      -           F2/2/A  F1/0/A (*)  F2/2/A       F1/1/B
-D14          F1/0/B      -           -       F2/3/B      -            F1/0/B
-D15          F1/0/A      -           -       F2/3/A      -            F1/0/A
-A0           -           -           F1/2/A  -           F2/0/X       -
-A1           F1/3/X      F1/3/B      F1/2/B  -           F2/1/X       -
-A2           F1/2/X      F1/3/A      F1/3/A  -           F2/2/X       -
-A3           -           F1/2/A      F1/3/B  -           F2/3/X       F1/3/B
-A4           -           -           -       Q3/1        F1/3/X       F1/2/X
-A5           -           -           -       Q3/0        F1/2/X       -
-D31          -           -           -       -           F1/2/B (&)   -
-D32          -           -           -       -           F1/2/A (&)   -
-D33          -           -           -       -           F1/1/B       -
-D34          -           -           -       -           F1/1/A       -
-D35          -           -           -       -           F1/0/B       -
-D36          -           -           -       -           F1/0/A       -
-===========  ==========  ==========  ======  ==========  ===========  ========
+===========  ==========  ==========  ======  ==========  ======  ========
+Pin/ MIMXRT  1010        1015        1020    1050/60/64  1170    Metro M7
+===========  ==========  ==========  ======  ==========  ======  ========
+D0           -           Q1/1        F1/1/B  -           -       -
+D1           -           Q1/0        F1/1/A  -           -       -
+D2           F1/3/B      F1/3/A      -       F1/3/B      -       -
+D3           F1/3/A      F1/0/A      F2/3/B  F4/0/A      F1/2/A  -
+D4           F1/3/A (*)  Q1/2        Q2/1    F2/3/A      Q4/2    F1/0/B
+D5           F1/0/B (*)  F1/0/B      F2/3/A  F1/3/A      F1/2/B  F1/0/A
+D6           -           F1/2/B      F2/0/A  Q3/2        F1/0/A  -
+D7           -           -           F1/0/A  Q3/3        -       -
+D8           F1/0/A      F1/1/B      F1/0/B  F1/1/X      Q4/3    F1/3/A
+D9           F1/1/B (*)  F1/2/A      F2/0/B  F1/0/X      F1/0/B  F1/3/B
+D10          F1/3/B      -           F2/2/B  F1/0/B (*)  F2/2/B  F1/2/A
+D11          F1/2/A      -           F2/1/A  F1/1/A (*)  -       F1/2/B
+D12          F1/2/B      -           F2/1/B  F1/1/B (*)  -       F1/1/A
+D13          F1/3/A      -           F2/2/A  F1/0/A (*)  F2/2/A  F1/1/B
+D14          F1/0/B      -           -       F2/3/B      -       F1/0/B
+D15          F1/0/A      -           -       F2/3/A      -       F1/0/A
+A0           -           -           F1/2/A  -           -       -
+A1           F1/3/X      F1/3/B      F1/2/B  -           -       -
+A2           F1/2/X      F1/3/A      F1/3/A  -           -       -
+A3           -           F1/2/A      F1/3/B  -           -       F1/3/B
+A4           -           -           -       Q3/1        -       F1/2/X
+A5           -           -           -       Q3/0        -       -
+D31          -           -           -       -           F1/2/B  -
+D32          -           -           -       -           F1/2/A  -
+D33          -           -           -       -           F1/1/B  -
+D34          -           -           -       -           F1/1/A  -
+D35          -           -           -       -           F1/0/B  -
+D36          -           -           -       -           F1/0/A  -
+===========  ==========  ==========  ======  ==========  ======  ========
 
 Pins denoted with (*) are by default not wired at the board.
-
-Pins denoted with (&) have alternative PWM options available.
 
 ====   ==========  ====   ==========
 Pin    Teensy 4.0  Pin    Teensy 4.1
@@ -319,10 +317,6 @@ Pin.cpu.GPIO_EMC_B1_29  FLEXPWM3 Channel A (*)
 Pin.cpu.GPIO_EMC_B1_30  FLEXPWM3 Channel B (*)
 Pin.cpu.GPIO_AD_00      FLEXPWM1 Channel A
 Pin.cpu.GPIO_AD_01      FLEXPWM1 Channel B
-Pin.cpu.GPIO_AD_06      FLEXPWM1 Channel X
-Pin.cpu.GPIO_AD_10      FLEXPWM2 Channel X
-Pin.cpu.GPIO_AD_14      FLEXPWM3 Channel X
-Pin.cpu.GPIO_AD_18      FLEXPWM4 Channel X
 Pin.cpu.GPIO_AD_24      FLEXPWM2 Channel A
 Pin.cpu.GPIO_AD_25      FLEXPWM2 Channel B
 ======================  ======================
@@ -419,61 +413,3 @@ Makerdiary RT1011  1   D8     SD1      D7      D4      D1       D2      D3
 
 Symbolic pin names are provided for the MIMXRT_10xx_DEV boards.
 These are provided for the other boards as well.
-
-.. _mimxrt_encoder_counter_pinout:
-
-|
-|
-
-Pin Assignment
---------------
-
-Pins are specified in the same way as for the Pin class. The pins available for an
-assignment to the Encoder or Counter are:
-
-**IMXRT1010_EVK**, **iMX RT1011 Nano Kit**, **Olimex RT1010Py**:
-
-  Not supported.
-
-**IMXRT1015_EVK**:
-
-  J30, pins 1 and 3, with the pin names "ENC1" and "ENC2".
-
-**IMXRT1020_EVK**:
-
-  Pins D0 and D1.
-
-**IMXRT1050_EVK**, **IMXRT1050_EVKB**, **IMXRT1060_EVK**, **IMXRT1064_EBK**:
-
-  Pins D2, D4, D5, D8, D9, D10, D11, D12, D13, D14, D15, A4, A5.
-  Depending on the board configuration, not all pins may be wired.
-  Pins D2, D4 and D5 cannot be used for the match output.
-
-**IMXRT1170_EVK**:
-
-  Pins D0, D1, D2.
-
-  D2 is connected to the 1G PHY chip as well. So levels may be distorted.
-
-**Teensy 4.0**:
-
-  Pins D0, D1, D2, D3, D4, D5, D7, D8, D26, D27, D30, D31, D32, D33.
-  Pin D0 and D5 share the same signal and cannot be used independently.
-  Pins D26, D27, D30 and D31 cannot be used for the match output.
-
-**Teensy 4.1**:
-
-  Pins D0, D1, D2, D3, D4, D5, D7, D8, D26, D27, D30, D31, D32, D33,
-  D37, D42, D43, D44, D45, D46 and D47.
-  Pins D26, D27, D30 and D31 cannot be used for the match output.
-  Some pins are assigned to the same signal and cannot be used independently. These are:
-
-  - Pins D0, D5 and D37,
-  - Pins D2 and D43,
-  - Pins D3 and D42, and
-  - Pins D4 and D47.
-
-**Seeed ARCH MIX**
-
-  Pins J3_14, J3_15, J4_19, J4_20, J5_15, J5_16, J5_17, J5_22, J5_23, J5_24, J5_25 and J5_26.
-  Pins J3_14 and J3_15 cannot be used for the match output.

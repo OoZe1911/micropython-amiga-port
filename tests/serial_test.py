@@ -13,7 +13,7 @@ import serial
 import sys
 import time
 
-from test_utils import test_instance_epilog, convert_device_shortcut_to_real_device
+run_tests_module = __import__("run-tests")
 
 echo_test_script = """
 import sys
@@ -307,7 +307,7 @@ def main():
 
     cmd_parser = argparse.ArgumentParser(
         description="Test performance and reliability of serial port communication.",
-        epilog=test_instance_epilog,
+        epilog=run_tests_module.test_instance_epilog,
         formatter_class=argparse.RawTextHelpFormatter,
     )
     cmd_parser.add_argument(
@@ -321,7 +321,7 @@ def main():
     )
     args = cmd_parser.parse_args()
 
-    dev_repl = convert_device_shortcut_to_real_device(args.test_instance)
+    dev_repl = run_tests_module.convert_device_shortcut_to_real_device(args.test_instance)
 
     test_passed = True
     try:

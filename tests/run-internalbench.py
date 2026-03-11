@@ -8,27 +8,16 @@ import re
 from glob import glob
 from collections import defaultdict
 
-from test_utils import (
-    base_path,
-    pyboard,
-    test_instance_description,
-    test_instance_epilog,
-    test_directory_description,
-    get_test_instance,
-)
+run_tests_module = __import__("run-tests")
+sys.path.append(run_tests_module.base_path("../tools"))
+import pyboard
 
 if os.name == "nt":
     MICROPYTHON = os.getenv(
         "MICROPY_MICROPYTHON", "../ports/windows/build-standard/micropython.exe"
     )
-    CPYTHON3 = os.getenv("MICROPY_CPYTHON3", "python3")
 else:
     MICROPYTHON = os.getenv("MICROPY_MICROPYTHON", "../ports/unix/build-standard/micropython")
-    CPYTHON3 = os.getenv("MICROPY_CPYTHON3", "python3")
-
-MICROPYTHON_CMD = [MICROPYTHON, "-X", "emit=bytecode"]
-CPYTHON3_CMD = [CPYTHON3, "-BS"]
-
 
 injected_bench_code = b"""
 import time
@@ -49,14 +38,14 @@ sys.modules['bench'] = bench_class
 """
 
 
-def execbench(test_instance, filename, iters):
+def execbench(pyb, filename, iters):
     with open(filename, "rb") as f:
         pyfile = f.read()
     code = (injected_bench_code + pyfile).replace(b"20000000", str(iters).encode("utf-8"))
-    return test_instance.exec(code).replace(b"\r\n", b"\n")
+    return pyb.exec(code).replace(b"\r\n", b"\n")
 
 
-def run_tests(test_instance, test_dict, iters):
+def run_tests(pyb, test_dict, iters):
     test_count = 0
     testcase_count = 0
 
@@ -65,17 +54,19 @@ def run_tests(test_instance, test_dict, iters):
         baseline = None
         for test_file in tests:
             # run MicroPython
-            if isinstance(test_instance, list):
+            if pyb is None:
                 # run on PC
                 try:
-                    output_mupy = subprocess.check_output(test_instance + [test_file[0]])
+                    output_mupy = subprocess.check_output(
+                        [MICROPYTHON, "-X", "emit=bytecode", test_file[0]]
+                    )
                 except subprocess.CalledProcessError:
                     output_mupy = b"CRASH"
             else:
                 # run on pyboard
-                test_instance.enter_raw_repl()
+                pyb.enter_raw_repl()
                 try:
-                    output_mupy = execbench(test_instance, test_file[0], iters)
+                    output_mupy = execbench(pyb, test_file[0], iters)
                 except pyboard.PyboardError:
                     output_mupy = b"CRASH"
 
@@ -106,10 +97,10 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description=f"""Run and manage tests for MicroPython.
 
-{test_instance_description}
-{test_directory_description}
+{run_tests_module.test_instance_description}
+{run_tests_module.test_directory_description}
 """,
-        epilog=f"""{test_instance_epilog}- cpython - use CPython to run the benchmarks instead\n""",
+        epilog=run_tests_module.test_instance_epilog,
     )
     cmd_parser.add_argument(
         "-t", "--test-instance", default="unix", help="the MicroPython instance to test"
@@ -132,15 +123,10 @@ def main():
     cmd_parser.add_argument("files", nargs="*", help="input test files")
     args = cmd_parser.parse_args()
 
-    if args.test_instance == "cpython":
-        test_instance = CPYTHON3_CMD
-    else:
-        # Note pyboard support is copied over from run-tests.py, not tests, and likely needs revamping
-        test_instance = get_test_instance(
-            args.test_instance, args.baudrate, args.user, args.password
-        )
-        if test_instance is None:
-            test_instance = MICROPYTHON_CMD
+    # Note pyboard support is copied over from run-tests.py, not tests, and likely needs revamping
+    pyb = run_tests_module.get_test_instance(
+        args.test_instance, args.baudrate, args.user, args.password
+    )
 
     if len(args.files) == 0:
         if args.test_dirs:
@@ -164,7 +150,7 @@ def main():
             continue
         test_dict[m.group(1)].append([t, None])
 
-    if not run_tests(test_instance, test_dict, args.iters):
+    if not run_tests(pyb, test_dict, args.iters):
         sys.exit(1)
 
 

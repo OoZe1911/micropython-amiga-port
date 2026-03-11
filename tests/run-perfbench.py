@@ -10,13 +10,9 @@ import sys
 import argparse
 from glob import glob
 
-from test_utils import (
-    base_path,
-    pyboard,
-    get_test_instance,
-    prepare_script_for_target,
-    create_test_report,
-)
+run_tests_module = __import__("run-tests")
+
+prepare_script_for_target = run_tests_module.prepare_script_for_target
 
 # Paths for host executables
 if os.name == "nt":
@@ -53,7 +49,7 @@ def run_script_on_target(target, script):
         try:
             target.enter_raw_repl()
             output = target.exec_(script)
-        except pyboard.PyboardError as er:
+        except run_tests_module.pyboard.PyboardError as er:
             err = er
     else:
         # Run local executable
@@ -281,7 +277,7 @@ def main():
     cmd_parser.add_argument(
         "-r",
         "--result-dir",
-        default=base_path("results"),
+        default=run_tests_module.base_path("results"),
         help="directory for test results",
     )
     cmd_parser.add_argument(
@@ -302,7 +298,9 @@ def main():
     M = int(args.M[0])
     n_average = int(args.average)
 
-    target = get_test_instance(args.test_instance, args.baudrate, args.user, args.password)
+    target = run_tests_module.get_test_instance(
+        args.test_instance, args.baudrate, args.user, args.password
+    )
     if target is None:
         # Use the unix port of MicroPython.
         target = [MICROPYTHON, "-X", "emit=" + args.emit]
@@ -330,7 +328,7 @@ def main():
 
     os.makedirs(args.result_dir, exist_ok=True)
     test_results = run_benchmarks(args, target, N, M, n_average, tests)
-    res = create_test_report(args, test_results)
+    res = run_tests_module.create_test_report(args, test_results)
 
     if hasattr(target, "exit_raw_repl"):
         target.exit_raw_repl()

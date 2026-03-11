@@ -1,0 +1,5 @@
+chr() arg not in range(256)
+arg is an empty sequence
+ord() expected a character, but string of length %d found
+3-arg pow() not supported
+must use keyword argument for key function

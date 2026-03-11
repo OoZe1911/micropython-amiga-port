@@ -76,7 +76,3 @@ Q(/rom/lib)
 #if MICROPY_ENABLE_PYSTACK
 Q(pystack exhausted)
 #endif
-
-#if MICROPY_PY_TSTRINGS
-Q(string.templatelib)
-#endif

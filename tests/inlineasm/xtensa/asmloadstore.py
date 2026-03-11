@@ -1,9 +1,8 @@
 import array
 
-# On the ESP8266 the generated code gets put into the IRAM segment, which is
-# only word-addressable.  Therefore, to test byte and halfword load/store
-# opcodes some memory must be reserved in the DRAM segment.  This also happens
-# to work on the ESP32 too.
+# On the 8266 the generated code gets put into the IRAM segment, which is only
+# word-addressable.  Therefore, to test byte and halfword load/store opcodes
+# some memory must be reserved in the DRAM segment.
 
 BYTE_DATA = array.array("B", (0x11, 0x22, 0x33, 0x44))
 WORD_DATA = array.array("h", (100, 200, -100, -200))
@@ -30,10 +29,8 @@ print(hex(tl32r()))
 @micropython.asm_xtensa
 def tl32i() -> uint:
     call0(ENTRY)
-    align(4)
     label(ENTRY)
     l32i(a2, a0, 0)
-    nop()
 
 
 print(hex(tl32i()))

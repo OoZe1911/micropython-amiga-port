@@ -9,15 +9,7 @@ import subprocess
 import sys
 import argparse
 
-from test_utils import (
-    base_path,
-    pyboard,
-    TEST_ENTER_RAW_REPL_TIMEOUT,
-    TEST_MAXIMUM_RAW_REPL_FAILURES,
-    test_instance_epilog,
-    get_test_instance,
-    create_test_report,
-)
+run_tests_module = __import__("run-tests")
 
 # Paths for host executables
 CPYTHON3 = os.getenv("MICROPY_CPYTHON3", "python3")
@@ -48,7 +40,6 @@ AVAILABLE_ARCHS = (
     "xtensa",
     "xtensawin",
     "rv32imc",
-    "rv64imc",
 )
 
 ARCH_MAPPINGS = {"armv7em": "armv7m"}
@@ -114,11 +105,11 @@ class TargetPyboard:
 
     def run_script(self, script):
         try:
-            self.pyb.enter_raw_repl(timeout_overall=TEST_ENTER_RAW_REPL_TIMEOUT)
+            self.pyb.enter_raw_repl()
             output = self.pyb.exec_(script)
             output = output.replace(b"\r\n", b"\n")
             return output, None
-        except pyboard.PyboardError as er:
+        except run_tests_module.pyboard.PyboardError as er:
             return b"", er
 
 
@@ -142,7 +133,13 @@ def detect_architecture(target):
 
 
 def run_tests(target_truth, target, args, resolved_arch):
-    raw_repl_failure_count = 0
+    global injected_import_hook_code
+
+    prelude = ""
+    if args.begin:
+        prelude = args.begin.read()
+    injected_import_hook_code = injected_import_hook_code.replace("{import_prelude}", prelude)
+
     test_results = []
     for test_file in args.files:
         # Find supported test
@@ -193,8 +190,6 @@ def run_tests(target_truth, target, args, resolved_arch):
         elif error is not None:
             result = "FAIL"
             extra = " - " + str(error)
-            if str(error).startswith("could not enter raw repl"):
-                raw_repl_failure_count += 1
         else:
             # Check result against truth
             try:
@@ -224,19 +219,13 @@ def run_tests(target_truth, target, args, resolved_arch):
         # Print result
         print("{:4}  {}{}".format(result, test_file, extra))
 
-        if raw_repl_failure_count > TEST_MAXIMUM_RAW_REPL_FAILURES:
-            print("Too many raw REPL failures, aborting test run")
-            break
-
     return test_results
 
 
 def main():
-    global injected_import_hook_code
-
     cmd_parser = argparse.ArgumentParser(
         description="Run dynamic-native-module tests under MicroPython",
-        epilog=test_instance_epilog,
+        epilog=run_tests_module.test_instance_epilog,
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     cmd_parser.add_argument(
@@ -251,28 +240,24 @@ def main():
     cmd_parser.add_argument(
         "-b",
         "--begin",
-        metavar="PROLOGUE",
+        type=argparse.FileType("rt"),
         default=None,
         help="prologue python file to execute before module import",
     )
     cmd_parser.add_argument(
         "-r",
         "--result-dir",
-        default=base_path("results"),
+        default=run_tests_module.base_path("results"),
         help="directory for test results",
     )
     cmd_parser.add_argument("files", nargs="*", help="input test files")
     args = cmd_parser.parse_args()
 
-    prologue = ""
-    if args.begin:
-        with open(args.begin, "rt") as source:
-            prologue = source.read()
-    injected_import_hook_code = injected_import_hook_code.replace("{import_prelude}", prologue)
-
     target_truth = TargetSubprocess([CPYTHON3])
 
-    target = get_test_instance(args.test_instance, args.baudrate, args.user, args.password)
+    target = run_tests_module.get_test_instance(
+        args.test_instance, args.baudrate, args.user, args.password
+    )
     if target is None:
         # Use the unix port of MicroPython.
         target = TargetSubprocess([MICROPYTHON])
@@ -287,7 +272,7 @@ def main():
         target_platform, target_arch, error = detect_architecture(target)
         if error:
             print("Cannot run tests: {}".format(error))
-            sys.exit(2)
+            sys.exit(1)
     target_arch = ARCH_MAPPINGS.get(target_arch, target_arch)
 
     if target_platform:
@@ -296,7 +281,7 @@ def main():
 
     os.makedirs(args.result_dir, exist_ok=True)
     test_results = run_tests(target_truth, target, args, target_arch)
-    res = create_test_report(args, test_results)
+    res = run_tests_module.create_test_report(args, test_results)
 
     target.close()
     target_truth.close()

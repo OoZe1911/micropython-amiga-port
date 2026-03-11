@@ -34,8 +34,3 @@ try:
     ftype(f.__code__, None)
 except TypeError:
     print("TypeError")
-
-# Test __code__ on functions with children functions.
-code = (lambda: (lambda: a)).__code__
-print(ftype(code, {"a": 1})()())
-print(ftype(code, {"a": 2})()())

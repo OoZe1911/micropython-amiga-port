@@ -1,5 +1,3 @@
-# This tests checks the behaviour of the `check_esp_err`/`check_esp_err_` C function.
-
 try:
     from esp32 import Partition as p
     import micropython
@@ -25,7 +23,6 @@ except OSError as e:
 
 # same but with out of memory condition by locking the heap
 exc = "FAILED TO RAISE"
-e = None  # preallocate entry in globals dict
 micropython.heap_lock()
 try:
     fun(part)
@@ -37,7 +34,6 @@ print("exc:", exc)  # exc empty due to no memory
 # same again but having an emergency buffer
 micropython.alloc_emergency_exception_buf(256)
 exc = "FAILED TO RAISE"
-e = None  # preallocate entry in globals dict
 micropython.heap_lock()
 try:
     fun(part)

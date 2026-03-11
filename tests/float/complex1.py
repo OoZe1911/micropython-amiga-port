@@ -20,6 +20,7 @@ print(complex(" -1+2j "))
 print(complex("nanj"))
 print(complex("nan-infj"))
 print(complex(1, 2))
+print(complex(1j, 2j))
 
 # unary ops
 print(bool(1j))
