@@ -1,6 +1,10 @@
 # datetime.py
 
-import time as _t
+_tmod = __import__("time")
+_gmtime = _tmod.gmtime
+_localtime = _tmod.localtime
+_epoch_time = _tmod.time
+del _tmod
 
 
 def _leap(y):
@@ -299,11 +303,11 @@ class date:
 
     @classmethod
     def fromtimestamp(cls, ts):
-        return cls(*_t.localtime(ts)[:3])
+        return cls(*_localtime(ts)[:3])
 
     @classmethod
     def today(cls):
-        return cls(*_t.localtime()[:3])
+        return cls(*_localtime()[:3])
 
     @classmethod
     def fromordinal(cls, n):
@@ -625,18 +629,18 @@ class datetime:
         else:
             us = 0
         if tz is None:
-            dt = cls(*_t.localtime(ts)[:6], microsecond=us, tzinfo=tz)
-            s = (dt - datetime(*_t.localtime(ts - 86400)[:6]))._us // 1_000_000 - 86400
-            if s < 0 and dt == datetime(*_t.localtime(ts + s)[:6]):
+            dt = cls(*_localtime(ts)[:6], microsecond=us, tzinfo=tz)
+            s = (dt - datetime(*_localtime(ts - 86400)[:6]))._us // 1_000_000 - 86400
+            if s < 0 and dt == datetime(*_localtime(ts + s)[:6]):
                 dt._fd = 1
         else:
-            dt = cls(*_t.gmtime(ts)[:6], microsecond=us, tzinfo=tz)
+            dt = cls(*_gmtime(ts)[:6], microsecond=us, tzinfo=tz)
             dt = tz.fromutc(dt)
         return dt
 
     @classmethod
     def now(cls, tz=None):
-        return cls.fromtimestamp(_t.time(), tz)
+        return cls.fromtimestamp(_epoch_time(), tz)
 
     @classmethod
     def fromordinal(cls, n):
@@ -806,7 +810,7 @@ class datetime:
         _tz = self._tz
         if _tz is None:
             ts = int(self._mktime())
-            os = datetime(*_t.localtime(ts)[:6]) - datetime(*_t.gmtime(ts)[:6])
+            os = datetime(*_localtime(ts)[:6]) - datetime(*_gmtime(ts)[:6])
         else:
             os = _tz.utcoffset(self)
         utc = self - os
@@ -815,7 +819,7 @@ class datetime:
 
     def _mktime(self):
         def local(u):
-            return (datetime(*_t.localtime(u)[:6]) - epoch)._us // 1_000_000
+            return (datetime(*_localtime(u)[:6]) - epoch)._us // 1_000_000
 
         epoch = datetime.EPOCH.replace(tzinfo=None)
         t, us = divmod((self - epoch)._us, 1_000_000)
@@ -855,10 +859,10 @@ class datetime:
 
     def timetuple(self):
         if self._tz is None:
-            conv = _t.gmtime
+            conv = _gmtime
             epoch = datetime.EPOCH.replace(tzinfo=None)
         else:
-            conv = _t.localtime
+            conv = _localtime
             epoch = datetime.EPOCH
         return conv(round((self - epoch).total_seconds()))
 
@@ -901,4 +905,4 @@ class datetime:
         return d + t + (self._tz, self._fd)
 
 
-datetime.EPOCH = datetime(*_t.gmtime(0)[:6], tzinfo=timezone.utc)
+datetime.EPOCH = datetime(*_gmtime(0)[:6], tzinfo=timezone.utc)

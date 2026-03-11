@@ -1052,6 +1052,10 @@ Q(time)
 
 Q(time)
 
+Q(time)
+
+Q(time_ns)
+
 Q(to_bytes)
 
 Q(trunc)

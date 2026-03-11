@@ -25,6 +25,10 @@ build/shared/runtime/stdout_helpers.o: \
  /opt/amiga/m68k-amigaos/sys-include/alloca.h \
  /opt/amiga/m68k-amigaos/sys-include/_ansi.h \
  /opt/amiga/m68k-amigaos/libnix/include/sys/reent.h mphalport.h \
+ /opt/amiga/m68k-amigaos/sys-include/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h \
  /opt/amiga/m68k-amigaos/libnix/include/stdlib.h \
  /opt/amiga/m68k-amigaos/libnix/include/stdio.h \
  /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdarg.h \
@@ -63,6 +67,10 @@ build/shared/runtime/stdout_helpers.o: \
  /opt/amiga/m68k-amigaos/sys-include/alloca.h :
  /opt/amiga/m68k-amigaos/sys-include/_ansi.h :
  /opt/amiga/m68k-amigaos/libnix/include/sys/reent.h mphalport.h :
+ /opt/amiga/m68k-amigaos/sys-include/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h :
  /opt/amiga/m68k-amigaos/libnix/include/stdlib.h :
  /opt/amiga/m68k-amigaos/libnix/include/stdio.h :
  /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdarg.h :

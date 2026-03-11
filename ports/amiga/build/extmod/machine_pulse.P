@@ -38,6 +38,10 @@ build/extmod/machine_pulse.o: ../../extmod/machine_pulse.c \
  /opt/amiga/m68k-amigaos/libnix/include/sys/errno.h \
  /opt/amiga/m68k-amigaos/sys-include/sys/errno.h \
  ../../extmod/modmachine.h ../../py/mphal.h mphalport.h \
+ /opt/amiga/m68k-amigaos/sys-include/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h \
  /opt/amiga/m68k-amigaos/libnix/include/stdlib.h \
  /opt/amiga/m68k-amigaos/libnix/include/stdio.h \
  /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdarg.h \
@@ -84,6 +88,10 @@ build/extmod/machine_pulse.o: ../../extmod/machine_pulse.c \
  /opt/amiga/m68k-amigaos/libnix/include/sys/errno.h :
  /opt/amiga/m68k-amigaos/sys-include/sys/errno.h :
  ../../extmod/modmachine.h ../../py/mphal.h mphalport.h :
+ /opt/amiga/m68k-amigaos/sys-include/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h :
  /opt/amiga/m68k-amigaos/libnix/include/stdlib.h :
  /opt/amiga/m68k-amigaos/libnix/include/stdio.h :
  /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdarg.h :

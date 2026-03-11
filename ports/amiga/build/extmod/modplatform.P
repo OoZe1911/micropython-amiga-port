@@ -33,7 +33,11 @@ build/extmod/modplatform.o: ../../extmod/modplatform.c ../../py/runtime.h \
  ../../py/runtime0.h ../../py/objlist.h ../../py/objexcept.h \
  ../../py/objtuple.h build/genhdr/root_pointers.h ../../py/pystack.h \
  ../../py/cstack.h ../../py/objstr.h ../../py/objarray.h ../../py/mphal.h \
- mphalport.h /opt/amiga/m68k-amigaos/libnix/include/stdlib.h \
+ mphalport.h /opt/amiga/m68k-amigaos/sys-include/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h \
+ /opt/amiga/m68k-amigaos/libnix/include/stdlib.h \
  /opt/amiga/m68k-amigaos/libnix/include/stdio.h \
  /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdarg.h \
  /opt/amiga/m68k-amigaos/sys-include/stdlib.h \
@@ -78,7 +82,11 @@ build/extmod/modplatform.o: ../../extmod/modplatform.c ../../py/runtime.h \
  ../../py/runtime0.h ../../py/objlist.h ../../py/objexcept.h :
  ../../py/objtuple.h build/genhdr/root_pointers.h ../../py/pystack.h :
  ../../py/cstack.h ../../py/objstr.h ../../py/objarray.h ../../py/mphal.h :
- mphalport.h /opt/amiga/m68k-amigaos/libnix/include/stdlib.h :
+ mphalport.h /opt/amiga/m68k-amigaos/sys-include/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h :
+ /opt/amiga/m68k-amigaos/libnix/include/stdlib.h :
  /opt/amiga/m68k-amigaos/libnix/include/stdio.h :
  /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdarg.h :
  /opt/amiga/m68k-amigaos/sys-include/stdlib.h :

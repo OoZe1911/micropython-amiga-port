@@ -27,6 +27,10 @@ build/py/mpprint.o: ../../py/mpprint.c \
  /opt/amiga/m68k-amigaos/sys-include/machine/limits.h mpconfigport.h \
  /opt/amiga/m68k-amigaos/sys-include/alloca.h \
  /opt/amiga/m68k-amigaos/libnix/include/sys/reent.h mphalport.h \
+ /opt/amiga/m68k-amigaos/sys-include/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h \
  /opt/amiga/m68k-amigaos/libnix/include/stdlib.h \
  /opt/amiga/m68k-amigaos/sys-include/stdlib.h \
  /opt/amiga/m68k-amigaos/libnix/include/errno.h \
@@ -71,6 +75,10 @@ build/py/mpprint.o: ../../py/mpprint.c \
  /opt/amiga/m68k-amigaos/sys-include/machine/limits.h mpconfigport.h :
  /opt/amiga/m68k-amigaos/sys-include/alloca.h :
  /opt/amiga/m68k-amigaos/libnix/include/sys/reent.h mphalport.h :
+ /opt/amiga/m68k-amigaos/sys-include/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h :
  /opt/amiga/m68k-amigaos/libnix/include/stdlib.h :
  /opt/amiga/m68k-amigaos/sys-include/stdlib.h :
  /opt/amiga/m68k-amigaos/libnix/include/errno.h :

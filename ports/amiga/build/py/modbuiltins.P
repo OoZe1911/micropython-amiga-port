@@ -42,6 +42,10 @@ build/py/modbuiltins.o: ../../py/modbuiltins.c \
  /opt/amiga/m68k-amigaos/libnix/include/sys/errno.h \
  /opt/amiga/m68k-amigaos/sys-include/sys/errno.h \
  /opt/amiga/m68k-amigaos/sys-include/math.h ../../py/mphal.h mphalport.h \
+ /opt/amiga/m68k-amigaos/sys-include/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h \
  /opt/amiga/m68k-amigaos/libnix/include/stdlib.h \
  /opt/amiga/m68k-amigaos/sys-include/stdlib.h \
  /opt/amiga/m68k-amigaos/sys-include/machine/stdlib.h \
@@ -90,6 +94,10 @@ build/py/modbuiltins.o: ../../py/modbuiltins.c \
  /opt/amiga/m68k-amigaos/libnix/include/sys/errno.h :
  /opt/amiga/m68k-amigaos/sys-include/sys/errno.h :
  /opt/amiga/m68k-amigaos/sys-include/math.h ../../py/mphal.h mphalport.h :
+ /opt/amiga/m68k-amigaos/sys-include/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h :
  /opt/amiga/m68k-amigaos/libnix/include/stdlib.h :
  /opt/amiga/m68k-amigaos/sys-include/stdlib.h :
  /opt/amiga/m68k-amigaos/sys-include/machine/stdlib.h :

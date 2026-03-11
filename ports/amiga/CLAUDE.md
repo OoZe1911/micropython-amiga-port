@@ -39,9 +39,9 @@ Flags de compilation :
 |---------|------|
 | `Makefile` | Build cross-compilé, inclusion de py.mk + extmod.mk, build number |
 | `mpconfigport.h` | Configuration des features MicroPython pour AmigaOS |
-| `mphalport.h` | HAL : ticks, delays, interrupt char, `mp_hal_readline` pour `input()` |
-| `main.c` | Point d'entrée, REPL fgets, argv, builtins `quit()`/`exit()`, save/restore curdir |
-| `amiga_mphal.c` | I/O console : `mp_hal_stdin_rx_chr`, `mp_hal_stdout_tx_strn`, `amiga_prompt` |
+| `mphalport.h` | HAL : ticks, delays, time_ns, interrupt char, stdio mode switch |
+| `main.c` | Point d'entrée, pyexec_friendly_repl, argv, builtins `quit()`/`exit()`, save/restore curdir |
+| `amiga_mphal.c` | I/O console : stdin avec CSI translation, stdout, raw/cooked mode, delays via usleep |
 | `modamigaos.c` | Module `os` standalone (listdir, getcwd, chdir, system via dos.library) |
 | `modtime.c` | Implémentation time pour AmigaOS (gmtime/localtime/time via libnix) |
 | `qstrdefsport.h` | Qstrings spécifiques au port (vide pour l'instant) |
@@ -89,7 +89,10 @@ les fonctions nécessaires : `a2b_base64`, `b2a_base64`, `hexlify`, `unhexlify`.
 **datetime.py patchée.** Le `__repr__` de `date` dans micropython-lib affiche
 l'ordinal interne (`datetime.date(0, 0, 724642)`) au lieu de year/month/day.
 La copie locale dans `modules/datetime.py` corrige ce comportement pour afficher
-`datetime.date(1985, 1, 1)` comme CPython.
+`datetime.date(1985, 1, 1)` comme CPython. L'import du module time utilise
+`__import__("time")` pour contourner la collision avec `class time` définie
+dans le même fichier (un `from time import ...` échoue depuis un frozen module
+quand le nom du module apparaît comme symbole local).
 
 **Module os standalone (modamigaos.c).** Le module `os` générique de extmod
 (`MICROPY_PY_OS`) est désactivé. Un module natif `modamigaos.c` le remplace,
@@ -177,9 +180,12 @@ Le module `time` est implémenté via `modtime.c` (inclus par extmod/modtime.c
 via `MICROPY_PY_TIME_INCLUDEFILE`). Il fournit :
 
 - `time.time()` : secondes depuis epoch 1970 via `time()` libnix
+  (`MICROPY_PY_TIME_TIME_TIME_NS=1`)
+- `time.time_ns()` : nanosecondes depuis epoch (résolution seconde, via
+  `mp_hal_time_ns()` = `time() * 1e9`)
 - `time.gmtime([secs])` / `time.localtime([secs])` : conversion en tuple 8 éléments
 - `time.mktime(tuple)` : conversion inverse
-- `time.sleep(secs)` / `time.sleep_ms(ms)` / `time.sleep_us(us)` : stubs (no-op)
+- `time.sleep(secs)` / `time.sleep_ms(ms)` / `time.sleep_us(us)` : `usleep()` libnix
 - `time.ticks_ms()` / `time.ticks_us()` / `time.ticks_cpu()` : stubs (retournent 0)
 
 L'epoch est 1970 (`MICROPY_EPOCH_IS_1970=1`), conforme au `time()` de libnix.
@@ -227,19 +233,22 @@ tests directement depuis le CLI n'a pas été investiguée.
 
 ## Particularités AmigaOS
 
-### Console en mode cooked (line-buffered)
+### Console raw mode et readline
 
-AmigaOS n'a pas de mode raw terminal comme Unix. La console device fonctionne
-en mode cooked : l'utilisateur édite sa ligne, et le programme ne la reçoit
-qu'après appui sur Return.
+Le REPL utilise `shared/readline/readline.c` (`MICROPY_USE_READLINE=1`) pour
+le line editing et l'historique (50 entrées). La console AmigaOS est basculée
+en mode raw via `SetMode(Input(), DOSTRUE)` au lancement du REPL, et restaurée
+en mode cooked via `SetMode(Input(), DOSFALSE)` à la sortie.
 
-Conséquences :
-- `MICROPY_USE_READLINE` est à 0 (pas de readline char-par-char)
-- `shared/readline/readline.c` n'est pas compilé
-- La boucle REPL dans `main.c` (`do_repl()`) utilise `amiga_prompt()` qui lit
-  une ligne complète via `fgets()`
-- Le builtin `input()` passe aussi par `amiga_prompt()` via le macro
-  `mp_hal_readline` défini dans `mphalport.h`
+Le REPL est géré par `pyexec_friendly_repl()` de `shared/runtime/pyexec.c`.
+L'ancien REPL custom `do_repl()` basé sur `fgets()` a été supprimé de `main.c`.
+
+### Touches curseur (CSI translation)
+
+AmigaOS envoie CSI (155) + lettre pour les touches curseur, au lieu de la
+séquence ANSI ESC (27) + '[' (91) + lettre attendue par readline.
+`mp_hal_stdin_rx_chr()` traduit à la volée : quand il reçoit 155, il retourne
+27 (ESC) et mémorise qu'il faut retourner '[' au prochain appel.
 
 ### Retour chariot CR vs LF
 
@@ -336,8 +345,7 @@ avec son code ASCII, avant la conversion CR->LF.
 
 ## Limitations connues
 
-- `time.ticks_ms()` et `time.sleep()` sont des stubs (pas encore d'horloge haute
-  résolution ni de timer.device)
+- `time.ticks_ms()` est un stub (pas encore d'horloge haute résolution)
 - `mp_hal_set_interrupt_char()` est un no-op
 - La ligne d'entrée est limitée à 255 caractères (buffer `amiga_prompt`)
 - `os.chdir()` ne libère pas les anciens locks (leak mineur, nettoyé à la sortie
@@ -348,7 +356,6 @@ avec son code ASCII, avant la conversion CR->LF.
 
 - Écriture de fichiers via `open()` mode "w" (dos.library Open/Write/Close)
 - Horloge via timer.device ou ReadEClock() pour ticks_ms/ticks_us
-- Sleep via timer.device (DoIO/WaitIO)
 - Support Ctrl-C via `SetSignal()` / `CheckSignal()` (SIGBREAKF_CTRL_C)
 - Augmenter le heap via `AllocMem()` au lieu du tableau statique BSS
 - Investiguer le crash qstr pool (possible corruption mémoire)

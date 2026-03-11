@@ -1,13 +1,10 @@
-build/py/emitglue.o: ../../py/emitglue.c \
- /opt/amiga/m68k-amigaos/sys-include/stdint.h \
- /opt/amiga/m68k-amigaos/sys-include/machine/_default_types.h \
- /opt/amiga/m68k-amigaos/sys-include/sys/features.h \
- /opt/amiga/m68k-amigaos/libnix/include/_newlib_version.h \
- /opt/amiga/m68k-amigaos/sys-include/sys/_intsup.h \
- /opt/amiga/m68k-amigaos/sys-include/sys/_stdint.h \
+build/shared/readline/readline.o: ../../shared/readline/readline.c \
  /opt/amiga/m68k-amigaos/libnix/include/stdio.h \
  /opt/amiga/m68k-amigaos/libnix/include/string.h \
  /opt/amiga/m68k-amigaos/sys-include/sys/cdefs.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/_default_types.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/features.h \
+ /opt/amiga/m68k-amigaos/libnix/include/_newlib_version.h \
  /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stddef.h \
  /opt/amiga/m68k-amigaos/sys-include/sys/types.h \
  /opt/amiga/m68k-amigaos/sys-include/_ansi.h \
@@ -17,26 +14,27 @@ build/py/emitglue.o: ../../py/emitglue.c \
  /opt/amiga/m68k-amigaos/sys-include/machine/_types.h \
  /opt/amiga/m68k-amigaos/sys-include/sys/_types.h \
  /opt/amiga/m68k-amigaos/sys-include/sys/lock.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_stdint.h \
  /opt/amiga/m68k-amigaos/sys-include/sys/_pthreadtypes.h \
  /opt/amiga/m68k-amigaos/sys-include/machine/types.h \
  /opt/amiga/m68k-amigaos/libnix/include/strsup.h \
  /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdarg.h \
- /opt/amiga/m68k-amigaos/sys-include/assert.h \
- /opt/amiga/m68k-amigaos/sys-include/_ansi.h ../../py/emitglue.h \
- ../../py/obj.h ../../py/mpconfig.h \
- /opt/amiga/m68k-amigaos/sys-include/limits.h \
+ /opt/amiga/m68k-amigaos/sys-include/stdint.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_intsup.h ../../py/mpstate.h \
+ ../../py/mpconfig.h /opt/amiga/m68k-amigaos/sys-include/limits.h \
  /opt/amiga/m68k-amigaos/sys-include/machine/limits.h mpconfigport.h \
  /opt/amiga/m68k-amigaos/sys-include/alloca.h \
- /opt/amiga/m68k-amigaos/libnix/include/sys/reent.h ../../py/misc.h \
- /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdbool.h \
- build/genhdr/compressed.data.h ../../py/qstr.h \
- build/genhdr/qstrdefs.generated.h ../../py/mpprint.h ../../py/runtime0.h \
- ../../py/bc.h ../../py/runtime.h ../../py/mpstate.h ../../py/mpthread.h \
- ../../py/nlr.h /opt/amiga/m68k-amigaos/sys-include/setjmp.h \
- /opt/amiga/m68k-amigaos/sys-include/machine/setjmp.h ../../py/objlist.h \
- ../../py/objexcept.h ../../py/objtuple.h build/genhdr/root_pointers.h \
- ../../py/pystack.h ../../py/cstack.h ../../py/mphal.h mphalport.h \
- /opt/amiga/m68k-amigaos/sys-include/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/_ansi.h \
+ /opt/amiga/m68k-amigaos/libnix/include/sys/reent.h ../../py/mpthread.h \
+ ../../py/misc.h /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdbool.h \
+ build/genhdr/compressed.data.h ../../py/nlr.h \
+ /opt/amiga/m68k-amigaos/sys-include/assert.h \
+ /opt/amiga/m68k-amigaos/sys-include/setjmp.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/setjmp.h ../../py/obj.h \
+ ../../py/qstr.h build/genhdr/qstrdefs.generated.h ../../py/mpprint.h \
+ ../../py/runtime0.h ../../py/objlist.h ../../py/objexcept.h \
+ ../../py/objtuple.h build/genhdr/root_pointers.h ../../py/repl.h \
+ ../../py/mphal.h mphalport.h /opt/amiga/m68k-amigaos/sys-include/time.h \
  /opt/amiga/m68k-amigaos/sys-include/machine/time.h \
  /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h \
  /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h \
@@ -46,18 +44,14 @@ build/py/emitglue.o: ../../py/emitglue.c \
  /opt/amiga/m68k-amigaos/libnix/include/sys/errno.h \
  /opt/amiga/m68k-amigaos/sys-include/sys/errno.h \
  /opt/amiga/m68k-amigaos/sys-include/machine/stdlib.h \
- ../../extmod/virtpin.h ../../py/objfun.h ../../py/profile.h \
- ../../py/objcode.h
-../../py/emitglue.c :
- /opt/amiga/m68k-amigaos/sys-include/stdint.h :
- /opt/amiga/m68k-amigaos/sys-include/machine/_default_types.h :
- /opt/amiga/m68k-amigaos/sys-include/sys/features.h :
- /opt/amiga/m68k-amigaos/libnix/include/_newlib_version.h :
- /opt/amiga/m68k-amigaos/sys-include/sys/_intsup.h :
- /opt/amiga/m68k-amigaos/sys-include/sys/_stdint.h :
+ ../../extmod/virtpin.h ../../shared/readline/readline.h
+../../shared/readline/readline.c :
  /opt/amiga/m68k-amigaos/libnix/include/stdio.h :
  /opt/amiga/m68k-amigaos/libnix/include/string.h :
  /opt/amiga/m68k-amigaos/sys-include/sys/cdefs.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/_default_types.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/features.h :
+ /opt/amiga/m68k-amigaos/libnix/include/_newlib_version.h :
  /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stddef.h :
  /opt/amiga/m68k-amigaos/sys-include/sys/types.h :
  /opt/amiga/m68k-amigaos/sys-include/_ansi.h :
@@ -67,26 +61,27 @@ build/py/emitglue.o: ../../py/emitglue.c \
  /opt/amiga/m68k-amigaos/sys-include/machine/_types.h :
  /opt/amiga/m68k-amigaos/sys-include/sys/_types.h :
  /opt/amiga/m68k-amigaos/sys-include/sys/lock.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_stdint.h :
  /opt/amiga/m68k-amigaos/sys-include/sys/_pthreadtypes.h :
  /opt/amiga/m68k-amigaos/sys-include/machine/types.h :
  /opt/amiga/m68k-amigaos/libnix/include/strsup.h :
  /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdarg.h :
- /opt/amiga/m68k-amigaos/sys-include/assert.h :
- /opt/amiga/m68k-amigaos/sys-include/_ansi.h ../../py/emitglue.h :
- ../../py/obj.h ../../py/mpconfig.h :
- /opt/amiga/m68k-amigaos/sys-include/limits.h :
+ /opt/amiga/m68k-amigaos/sys-include/stdint.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_intsup.h ../../py/mpstate.h :
+ ../../py/mpconfig.h /opt/amiga/m68k-amigaos/sys-include/limits.h :
  /opt/amiga/m68k-amigaos/sys-include/machine/limits.h mpconfigport.h :
  /opt/amiga/m68k-amigaos/sys-include/alloca.h :
- /opt/amiga/m68k-amigaos/libnix/include/sys/reent.h ../../py/misc.h :
- /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdbool.h :
- build/genhdr/compressed.data.h ../../py/qstr.h :
- build/genhdr/qstrdefs.generated.h ../../py/mpprint.h ../../py/runtime0.h :
- ../../py/bc.h ../../py/runtime.h ../../py/mpstate.h ../../py/mpthread.h :
- ../../py/nlr.h /opt/amiga/m68k-amigaos/sys-include/setjmp.h :
- /opt/amiga/m68k-amigaos/sys-include/machine/setjmp.h ../../py/objlist.h :
- ../../py/objexcept.h ../../py/objtuple.h build/genhdr/root_pointers.h :
- ../../py/pystack.h ../../py/cstack.h ../../py/mphal.h mphalport.h :
- /opt/amiga/m68k-amigaos/sys-include/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/_ansi.h :
+ /opt/amiga/m68k-amigaos/libnix/include/sys/reent.h ../../py/mpthread.h :
+ ../../py/misc.h /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdbool.h :
+ build/genhdr/compressed.data.h ../../py/nlr.h :
+ /opt/amiga/m68k-amigaos/sys-include/assert.h :
+ /opt/amiga/m68k-amigaos/sys-include/setjmp.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/setjmp.h ../../py/obj.h :
+ ../../py/qstr.h build/genhdr/qstrdefs.generated.h ../../py/mpprint.h :
+ ../../py/runtime0.h ../../py/objlist.h ../../py/objexcept.h :
+ ../../py/objtuple.h build/genhdr/root_pointers.h ../../py/repl.h :
+ ../../py/mphal.h mphalport.h /opt/amiga/m68k-amigaos/sys-include/time.h :
  /opt/amiga/m68k-amigaos/sys-include/machine/time.h :
  /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h :
  /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h :
@@ -96,5 +91,4 @@ build/py/emitglue.o: ../../py/emitglue.c \
  /opt/amiga/m68k-amigaos/libnix/include/sys/errno.h :
  /opt/amiga/m68k-amigaos/sys-include/sys/errno.h :
  /opt/amiga/m68k-amigaos/sys-include/machine/stdlib.h :
- ../../extmod/virtpin.h ../../py/objfun.h ../../py/profile.h :
- ../../py/objcode.h :
+ ../../extmod/virtpin.h ../../shared/readline/readline.h :

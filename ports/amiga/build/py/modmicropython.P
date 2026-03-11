@@ -36,7 +36,11 @@ build/py/modmicropython.o: ../../py/modmicropython.c \
  /opt/amiga/m68k-amigaos/sys-include/machine/setjmp.h ../../py/objlist.h \
  ../../py/objexcept.h ../../py/objtuple.h build/genhdr/root_pointers.h \
  ../../py/runtime.h ../../py/pystack.h ../../py/gc.h ../../py/mphal.h \
- mphalport.h /opt/amiga/m68k-amigaos/libnix/include/stdlib.h \
+ mphalport.h /opt/amiga/m68k-amigaos/sys-include/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h \
+ /opt/amiga/m68k-amigaos/libnix/include/stdlib.h \
  /opt/amiga/m68k-amigaos/sys-include/stdlib.h \
  /opt/amiga/m68k-amigaos/libnix/include/errno.h \
  /opt/amiga/m68k-amigaos/libnix/include/sys/errno.h \
@@ -81,7 +85,11 @@ build/py/modmicropython.o: ../../py/modmicropython.c \
  /opt/amiga/m68k-amigaos/sys-include/machine/setjmp.h ../../py/objlist.h :
  ../../py/objexcept.h ../../py/objtuple.h build/genhdr/root_pointers.h :
  ../../py/runtime.h ../../py/pystack.h ../../py/gc.h ../../py/mphal.h :
- mphalport.h /opt/amiga/m68k-amigaos/libnix/include/stdlib.h :
+ mphalport.h /opt/amiga/m68k-amigaos/sys-include/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h :
+ /opt/amiga/m68k-amigaos/libnix/include/stdlib.h :
  /opt/amiga/m68k-amigaos/sys-include/stdlib.h :
  /opt/amiga/m68k-amigaos/libnix/include/errno.h :
  /opt/amiga/m68k-amigaos/libnix/include/sys/errno.h :

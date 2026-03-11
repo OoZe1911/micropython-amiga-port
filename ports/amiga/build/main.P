@@ -42,9 +42,13 @@ build/main.o: main.c /opt/amiga/m68k-amigaos/sys-include/stdint.h \
  /opt/amiga/m68k-amigaos/sys-include/machine/setjmp.h ../../py/objlist.h \
  ../../py/objexcept.h ../../py/objtuple.h build/genhdr/root_pointers.h \
  ../../py/pystack.h ../../py/cstack.h ../../py/repl.h ../../py/gc.h \
- ../../py/mperrno.h ../../py/mphal.h mphalport.h ../../extmod/virtpin.h \
- ../../shared/runtime/pyexec.h build/genhdr/mpversion.h \
- build/genhdr/amigaversion.h \
+ ../../py/mperrno.h ../../py/mphal.h mphalport.h \
+ /opt/amiga/m68k-amigaos/sys-include/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h \
+ ../../extmod/virtpin.h ../../shared/runtime/pyexec.h \
+ build/genhdr/mpversion.h build/genhdr/amigaversion.h \
  /opt/amiga/m68k-amigaos/ndk-include/proto/dos.h \
  /opt/amiga/m68k-amigaos/ndk-include/clib/dos_protos.h \
  /opt/amiga/m68k-amigaos/ndk-include/dos/dosextens.h \
@@ -126,9 +130,13 @@ main.c /opt/amiga/m68k-amigaos/sys-include/stdint.h :
  /opt/amiga/m68k-amigaos/sys-include/machine/setjmp.h ../../py/objlist.h :
  ../../py/objexcept.h ../../py/objtuple.h build/genhdr/root_pointers.h :
  ../../py/pystack.h ../../py/cstack.h ../../py/repl.h ../../py/gc.h :
- ../../py/mperrno.h ../../py/mphal.h mphalport.h ../../extmod/virtpin.h :
- ../../shared/runtime/pyexec.h build/genhdr/mpversion.h :
- build/genhdr/amigaversion.h :
+ ../../py/mperrno.h ../../py/mphal.h mphalport.h :
+ /opt/amiga/m68k-amigaos/sys-include/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h :
+ ../../extmod/virtpin.h ../../shared/runtime/pyexec.h :
+ build/genhdr/mpversion.h build/genhdr/amigaversion.h :
  /opt/amiga/m68k-amigaos/ndk-include/proto/dos.h :
  /opt/amiga/m68k-amigaos/ndk-include/clib/dos_protos.h :
  /opt/amiga/m68k-amigaos/ndk-include/dos/dosextens.h :

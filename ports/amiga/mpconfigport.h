@@ -12,7 +12,7 @@
 #define MICROPY_ENABLE_EXTERNAL_IMPORT  (1)
 #define MICROPY_PY_BUILTINS_INPUT       (1)
 
-// No readline raw mode; use line-buffered (cooked) input from AmigaOS console
+// No readline for now; use line-buffered (cooked) input from AmigaOS console
 #define MICROPY_USE_READLINE            (0)
 
 // Use setjmp-based NLR (no native m68k NLR implementation)
@@ -67,7 +67,7 @@
 #define MICROPY_PY_BUILTINS_BYTES_HEX  (1)
 #define MICROPY_PY_TIME                 (1)
 #define MICROPY_PY_TIME_GMTIME_LOCALTIME_MKTIME (1)
-#define MICROPY_PY_TIME_TIME_TIME_NS    (0)
+#define MICROPY_PY_TIME_TIME_TIME_NS    (1)
 #define MICROPY_PY_TIME_INCLUDEFILE     "ports/amiga/modtime.c"
 #define MICROPY_EPOCH_IS_1970           (1)
 

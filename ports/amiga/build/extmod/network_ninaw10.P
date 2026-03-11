@@ -15,9 +15,8 @@ build/extmod/network_ninaw10.o: ../../extmod/network_ninaw10.c \
  /opt/amiga/m68k-amigaos/sys-include/alloca.h \
  /opt/amiga/m68k-amigaos/sys-include/_ansi.h \
  /opt/amiga/m68k-amigaos/libnix/include/sys/reent.h mphalport.h \
- /opt/amiga/m68k-amigaos/libnix/include/stdlib.h \
- /opt/amiga/m68k-amigaos/libnix/include/stdio.h \
- /opt/amiga/m68k-amigaos/libnix/include/string.h \
+ /opt/amiga/m68k-amigaos/sys-include/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h \
  /opt/amiga/m68k-amigaos/sys-include/sys/types.h \
  /opt/amiga/m68k-amigaos/sys-include/_ansi.h \
  /opt/amiga/m68k-amigaos/sys-include/machine/_types.h \
@@ -25,6 +24,11 @@ build/extmod/network_ninaw10.o: ../../extmod/network_ninaw10.c \
  /opt/amiga/m68k-amigaos/sys-include/sys/lock.h \
  /opt/amiga/m68k-amigaos/sys-include/sys/_pthreadtypes.h \
  /opt/amiga/m68k-amigaos/sys-include/machine/types.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h \
+ /opt/amiga/m68k-amigaos/libnix/include/stdlib.h \
+ /opt/amiga/m68k-amigaos/libnix/include/stdio.h \
+ /opt/amiga/m68k-amigaos/libnix/include/string.h \
  /opt/amiga/m68k-amigaos/libnix/include/strsup.h \
  /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdarg.h \
  /opt/amiga/m68k-amigaos/sys-include/stdlib.h \
@@ -53,9 +57,8 @@ build/extmod/network_ninaw10.o: ../../extmod/network_ninaw10.c \
  /opt/amiga/m68k-amigaos/sys-include/alloca.h :
  /opt/amiga/m68k-amigaos/sys-include/_ansi.h :
  /opt/amiga/m68k-amigaos/libnix/include/sys/reent.h mphalport.h :
- /opt/amiga/m68k-amigaos/libnix/include/stdlib.h :
- /opt/amiga/m68k-amigaos/libnix/include/stdio.h :
- /opt/amiga/m68k-amigaos/libnix/include/string.h :
+ /opt/amiga/m68k-amigaos/sys-include/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h :
  /opt/amiga/m68k-amigaos/sys-include/sys/types.h :
  /opt/amiga/m68k-amigaos/sys-include/_ansi.h :
  /opt/amiga/m68k-amigaos/sys-include/machine/_types.h :
@@ -63,6 +66,11 @@ build/extmod/network_ninaw10.o: ../../extmod/network_ninaw10.c \
  /opt/amiga/m68k-amigaos/sys-include/sys/lock.h :
  /opt/amiga/m68k-amigaos/sys-include/sys/_pthreadtypes.h :
  /opt/amiga/m68k-amigaos/sys-include/machine/types.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h :
+ /opt/amiga/m68k-amigaos/libnix/include/stdlib.h :
+ /opt/amiga/m68k-amigaos/libnix/include/stdio.h :
+ /opt/amiga/m68k-amigaos/libnix/include/string.h :
  /opt/amiga/m68k-amigaos/libnix/include/strsup.h :
  /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdarg.h :
  /opt/amiga/m68k-amigaos/sys-include/stdlib.h :

@@ -44,6 +44,10 @@ build/shared/runtime/pyexec.o: ../../shared/runtime/pyexec.c \
  ../../py/objexcept.h ../../py/objtuple.h build/genhdr/root_pointers.h \
  ../../py/pystack.h ../../py/cstack.h ../../py/repl.h ../../py/gc.h \
  ../../py/frozenmod.h ../../py/builtin.h ../../py/mphal.h mphalport.h \
+ /opt/amiga/m68k-amigaos/sys-include/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h \
  ../../extmod/virtpin.h ../../shared/readline/readline.h \
  ../../shared/runtime/pyexec.h ../../extmod/modplatform.h \
  build/genhdr/mpversion.h
@@ -93,6 +97,10 @@ build/shared/runtime/pyexec.o: ../../shared/runtime/pyexec.c \
  ../../py/objexcept.h ../../py/objtuple.h build/genhdr/root_pointers.h :
  ../../py/pystack.h ../../py/cstack.h ../../py/repl.h ../../py/gc.h :
  ../../py/frozenmod.h ../../py/builtin.h ../../py/mphal.h mphalport.h :
+ /opt/amiga/m68k-amigaos/sys-include/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h :
  ../../extmod/virtpin.h ../../shared/readline/readline.h :
  ../../shared/runtime/pyexec.h ../../extmod/modplatform.h :
  build/genhdr/mpversion.h :

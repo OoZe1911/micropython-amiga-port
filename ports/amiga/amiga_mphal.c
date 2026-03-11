@@ -2,10 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <proto/dos.h>
+#include <dos/dos.h>
+
+// usleep() is provided by libnix but not declared under -std=c99
+extern int usleep(unsigned long);
+
 #include "py/mpconfig.h"
 #include "py/mphal.h"
-
-static int debug_input = -1;
 
 // Read a single character from stdin
 int mp_hal_stdin_rx_chr(void) {
@@ -13,14 +17,7 @@ int mp_hal_stdin_rx_chr(void) {
     if (c == EOF) {
         return 0;
     }
-    // Check MP_DEBUG_INPUT once, then cache the result
-    if (debug_input == -1) {
-        debug_input = (getenv("MP_DEBUG_INPUT") != NULL);
-    }
-    if (debug_input) {
-        fprintf(stderr, "char: %d\n", c);
-    }
-    // AmigaOS sends CR as line ending; convert to LF for the REPL
+    // AmigaOS sends CR as line ending; convert to LF
     if (c == '\r') {
         c = '\n';
     }
@@ -54,4 +51,13 @@ char *amiga_prompt(const char *p) {
         memcpy(line, buf, l + 1);
     }
     return line;
+}
+
+// Delay functions using usleep() from libnix
+void mp_hal_delay_ms(mp_uint_t ms) {
+    usleep(ms * 1000UL);
+}
+
+void mp_hal_delay_us(mp_uint_t us) {
+    usleep(us);
 }

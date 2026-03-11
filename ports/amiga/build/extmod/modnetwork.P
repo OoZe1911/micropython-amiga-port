@@ -35,6 +35,10 @@ build/extmod/modnetwork.o: ../../extmod/modnetwork.c \
  /opt/amiga/m68k-amigaos/sys-include/machine/setjmp.h \
  ../../py/objexcept.h ../../py/objtuple.h build/genhdr/root_pointers.h \
  ../../py/pystack.h ../../py/cstack.h ../../py/mphal.h mphalport.h \
+ /opt/amiga/m68k-amigaos/sys-include/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h \
  /opt/amiga/m68k-amigaos/libnix/include/stdlib.h \
  /opt/amiga/m68k-amigaos/sys-include/stdlib.h \
  /opt/amiga/m68k-amigaos/libnix/include/errno.h \
@@ -79,6 +83,10 @@ build/extmod/modnetwork.o: ../../extmod/modnetwork.c \
  /opt/amiga/m68k-amigaos/sys-include/machine/setjmp.h :
  ../../py/objexcept.h ../../py/objtuple.h build/genhdr/root_pointers.h :
  ../../py/pystack.h ../../py/cstack.h ../../py/mphal.h mphalport.h :
+ /opt/amiga/m68k-amigaos/sys-include/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h :
  /opt/amiga/m68k-amigaos/libnix/include/stdlib.h :
  /opt/amiga/m68k-amigaos/sys-include/stdlib.h :
  /opt/amiga/m68k-amigaos/libnix/include/errno.h :

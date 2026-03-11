@@ -30,7 +30,10 @@ build/extmod/modonewire.o: ../../extmod/modonewire.c \
  /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdbool.h \
  build/genhdr/compressed.data.h ../../py/qstr.h \
  build/genhdr/qstrdefs.generated.h ../../py/mpprint.h ../../py/runtime0.h \
- ../../py/mphal.h mphalport.h \
+ ../../py/mphal.h mphalport.h /opt/amiga/m68k-amigaos/sys-include/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h \
  /opt/amiga/m68k-amigaos/libnix/include/stdlib.h \
  /opt/amiga/m68k-amigaos/sys-include/stdlib.h \
  /opt/amiga/m68k-amigaos/libnix/include/errno.h \
@@ -70,7 +73,10 @@ build/extmod/modonewire.o: ../../extmod/modonewire.c \
  /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdbool.h :
  build/genhdr/compressed.data.h ../../py/qstr.h :
  build/genhdr/qstrdefs.generated.h ../../py/mpprint.h ../../py/runtime0.h :
- ../../py/mphal.h mphalport.h :
+ ../../py/mphal.h mphalport.h /opt/amiga/m68k-amigaos/sys-include/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h :
  /opt/amiga/m68k-amigaos/libnix/include/stdlib.h :
  /opt/amiga/m68k-amigaos/sys-include/stdlib.h :
  /opt/amiga/m68k-amigaos/libnix/include/errno.h :

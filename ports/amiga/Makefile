@@ -30,11 +30,12 @@ SRC_C = \
 	main.c \
 	amiga_mphal.c \
 	modamigaos.c \
+	shared/readline/readline.c \
 	shared/runtime/pyexec.c \
 	shared/runtime/stdout_helpers.c \
 	shared/timeutils/timeutils.c \
 
-SRC_QSTR += shared/runtime/pyexec.c main.c modamigaos.c
+SRC_QSTR += shared/readline/readline.c shared/runtime/pyexec.c main.c modamigaos.c
 
 # Exclude shared/libc sources — libnix already provides libc
 SRC_EXTMOD_C := $(filter-out shared/libc/%.c,$(SRC_EXTMOD_C))

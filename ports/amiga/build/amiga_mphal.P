@@ -26,13 +26,53 @@ build/amiga_mphal.o: amiga_mphal.c \
  /opt/amiga/m68k-amigaos/libnix/include/sys/errno.h \
  /opt/amiga/m68k-amigaos/sys-include/sys/errno.h \
  /opt/amiga/m68k-amigaos/libnix/include/sys/reent.h \
- /opt/amiga/m68k-amigaos/sys-include/machine/stdlib.h ../../py/mpconfig.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/stdlib.h \
+ /opt/amiga/m68k-amigaos/ndk-include/proto/dos.h \
+ /opt/amiga/m68k-amigaos/ndk-include/clib/dos_protos.h \
+ /opt/amiga/m68k-amigaos/ndk-include/dos/dosextens.h \
+ /opt/amiga/m68k-amigaos/ndk-include/exec/tasks.h \
+ /opt/amiga/m68k-amigaos/ndk-include/exec/nodes.h \
+ /opt/amiga/m68k-amigaos/ndk-include/exec/types.h \
  /opt/amiga/m68k-amigaos/sys-include/stdint.h \
  /opt/amiga/m68k-amigaos/sys-include/sys/_intsup.h \
- /opt/amiga/m68k-amigaos/sys-include/limits.h \
+ /opt/amiga/m68k-amigaos/ndk-include/clib/compiler-specific.h \
+ /opt/amiga/m68k-amigaos/ndk-include/exec/lists.h \
+ /opt/amiga/m68k-amigaos/ndk-include/exec/ports.h \
+ /opt/amiga/m68k-amigaos/ndk-include/exec/libraries.h \
+ /opt/amiga/m68k-amigaos/ndk-include/exec/semaphores.h \
+ /opt/amiga/m68k-amigaos/ndk-include/devices/timer.h \
+ /opt/amiga/m68k-amigaos/ndk-include/exec/io.h \
+ /opt/amiga/m68k-amigaos/ndk-include/dos/dos.h \
+ /opt/amiga/m68k-amigaos/ndk-include/dos/record.h \
+ /opt/amiga/m68k-amigaos/ndk-include/dos/rdargs.h \
+ /opt/amiga/m68k-amigaos/ndk-include/dos/dosasl.h \
+ /opt/amiga/m68k-amigaos/ndk-include/dos/var.h \
+ /opt/amiga/m68k-amigaos/ndk-include/dos/notify.h \
+ /opt/amiga/m68k-amigaos/ndk-include/dos/datetime.h \
+ /opt/amiga/m68k-amigaos/ndk-include/dos/exall.h \
+ /opt/amiga/m68k-amigaos/ndk-include/utility/hooks.h \
+ /opt/amiga/m68k-amigaos/ndk-include/utility/tagitem.h \
+ /opt/amiga/m68k-amigaos/ndk-include/inline/dos.h \
+ /opt/amiga/m68k-amigaos/ndk-include/inline/macros.h \
+ /opt/amiga/m68k-amigaos/ndk-include/inline/stubs.h \
+ /opt/amiga/m68k-amigaos/ndk-include/intuition/classes.h \
+ /opt/amiga/m68k-amigaos/ndk-include/intuition/classusr.h \
+ /opt/amiga/m68k-amigaos/ndk-include/graphics/displayinfo.h \
+ /opt/amiga/m68k-amigaos/ndk-include/graphics/gfx.h \
+ /opt/amiga/m68k-amigaos/ndk-include/graphics/monitor.h \
+ /opt/amiga/m68k-amigaos/ndk-include/graphics/gfxnodes.h \
+ /opt/amiga/m68k-amigaos/ndk-include/graphics/view.h \
+ /opt/amiga/m68k-amigaos/ndk-include/graphics/copper.h \
+ /opt/amiga/m68k-amigaos/ndk-include/hardware/custom.h \
+ /opt/amiga/m68k-amigaos/ndk-include/graphics/modeid.h \
+ /opt/amiga/m68k-amigaos/ndk-include/libraries/commodities.h \
+ ../../py/mpconfig.h /opt/amiga/m68k-amigaos/sys-include/limits.h \
  /opt/amiga/m68k-amigaos/sys-include/machine/limits.h mpconfigport.h \
  /opt/amiga/m68k-amigaos/sys-include/alloca.h ../../py/mphal.h \
- mphalport.h ../../py/misc.h \
+ mphalport.h /opt/amiga/m68k-amigaos/sys-include/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h ../../py/misc.h \
  /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdbool.h \
  build/genhdr/compressed.data.h ../../extmod/virtpin.h ../../py/obj.h \
  /opt/amiga/m68k-amigaos/sys-include/assert.h ../../py/qstr.h \
@@ -65,13 +105,53 @@ amiga_mphal.c :
  /opt/amiga/m68k-amigaos/libnix/include/sys/errno.h :
  /opt/amiga/m68k-amigaos/sys-include/sys/errno.h :
  /opt/amiga/m68k-amigaos/libnix/include/sys/reent.h :
- /opt/amiga/m68k-amigaos/sys-include/machine/stdlib.h ../../py/mpconfig.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/stdlib.h :
+ /opt/amiga/m68k-amigaos/ndk-include/proto/dos.h :
+ /opt/amiga/m68k-amigaos/ndk-include/clib/dos_protos.h :
+ /opt/amiga/m68k-amigaos/ndk-include/dos/dosextens.h :
+ /opt/amiga/m68k-amigaos/ndk-include/exec/tasks.h :
+ /opt/amiga/m68k-amigaos/ndk-include/exec/nodes.h :
+ /opt/amiga/m68k-amigaos/ndk-include/exec/types.h :
  /opt/amiga/m68k-amigaos/sys-include/stdint.h :
  /opt/amiga/m68k-amigaos/sys-include/sys/_intsup.h :
- /opt/amiga/m68k-amigaos/sys-include/limits.h :
+ /opt/amiga/m68k-amigaos/ndk-include/clib/compiler-specific.h :
+ /opt/amiga/m68k-amigaos/ndk-include/exec/lists.h :
+ /opt/amiga/m68k-amigaos/ndk-include/exec/ports.h :
+ /opt/amiga/m68k-amigaos/ndk-include/exec/libraries.h :
+ /opt/amiga/m68k-amigaos/ndk-include/exec/semaphores.h :
+ /opt/amiga/m68k-amigaos/ndk-include/devices/timer.h :
+ /opt/amiga/m68k-amigaos/ndk-include/exec/io.h :
+ /opt/amiga/m68k-amigaos/ndk-include/dos/dos.h :
+ /opt/amiga/m68k-amigaos/ndk-include/dos/record.h :
+ /opt/amiga/m68k-amigaos/ndk-include/dos/rdargs.h :
+ /opt/amiga/m68k-amigaos/ndk-include/dos/dosasl.h :
+ /opt/amiga/m68k-amigaos/ndk-include/dos/var.h :
+ /opt/amiga/m68k-amigaos/ndk-include/dos/notify.h :
+ /opt/amiga/m68k-amigaos/ndk-include/dos/datetime.h :
+ /opt/amiga/m68k-amigaos/ndk-include/dos/exall.h :
+ /opt/amiga/m68k-amigaos/ndk-include/utility/hooks.h :
+ /opt/amiga/m68k-amigaos/ndk-include/utility/tagitem.h :
+ /opt/amiga/m68k-amigaos/ndk-include/inline/dos.h :
+ /opt/amiga/m68k-amigaos/ndk-include/inline/macros.h :
+ /opt/amiga/m68k-amigaos/ndk-include/inline/stubs.h :
+ /opt/amiga/m68k-amigaos/ndk-include/intuition/classes.h :
+ /opt/amiga/m68k-amigaos/ndk-include/intuition/classusr.h :
+ /opt/amiga/m68k-amigaos/ndk-include/graphics/displayinfo.h :
+ /opt/amiga/m68k-amigaos/ndk-include/graphics/gfx.h :
+ /opt/amiga/m68k-amigaos/ndk-include/graphics/monitor.h :
+ /opt/amiga/m68k-amigaos/ndk-include/graphics/gfxnodes.h :
+ /opt/amiga/m68k-amigaos/ndk-include/graphics/view.h :
+ /opt/amiga/m68k-amigaos/ndk-include/graphics/copper.h :
+ /opt/amiga/m68k-amigaos/ndk-include/hardware/custom.h :
+ /opt/amiga/m68k-amigaos/ndk-include/graphics/modeid.h :
+ /opt/amiga/m68k-amigaos/ndk-include/libraries/commodities.h :
+ ../../py/mpconfig.h /opt/amiga/m68k-amigaos/sys-include/limits.h :
  /opt/amiga/m68k-amigaos/sys-include/machine/limits.h mpconfigport.h :
  /opt/amiga/m68k-amigaos/sys-include/alloca.h ../../py/mphal.h :
- mphalport.h ../../py/misc.h :
+ mphalport.h /opt/amiga/m68k-amigaos/sys-include/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h ../../py/misc.h :
  /opt/amiga/lib/gcc/m68k-amigaos/6.5.0b/include/stdbool.h :
  build/genhdr/compressed.data.h ../../extmod/virtpin.h ../../py/obj.h :
  /opt/amiga/m68k-amigaos/sys-include/assert.h ../../py/qstr.h :

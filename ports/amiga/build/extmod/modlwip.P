@@ -39,7 +39,11 @@ build/extmod/modlwip.o: ../../extmod/modlwip.c \
  ../../py/mperrno.h /opt/amiga/m68k-amigaos/libnix/include/errno.h \
  /opt/amiga/m68k-amigaos/libnix/include/sys/errno.h \
  /opt/amiga/m68k-amigaos/sys-include/sys/errno.h ../../py/mphal.h \
- mphalport.h /opt/amiga/m68k-amigaos/libnix/include/stdlib.h \
+ mphalport.h /opt/amiga/m68k-amigaos/sys-include/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h \
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h \
+ /opt/amiga/m68k-amigaos/libnix/include/stdlib.h \
  /opt/amiga/m68k-amigaos/sys-include/stdlib.h \
  /opt/amiga/m68k-amigaos/sys-include/machine/stdlib.h \
  ../../extmod/virtpin.h
@@ -84,7 +88,11 @@ build/extmod/modlwip.o: ../../extmod/modlwip.c \
  ../../py/mperrno.h /opt/amiga/m68k-amigaos/libnix/include/errno.h :
  /opt/amiga/m68k-amigaos/libnix/include/sys/errno.h :
  /opt/amiga/m68k-amigaos/sys-include/sys/errno.h ../../py/mphal.h :
- mphalport.h /opt/amiga/m68k-amigaos/libnix/include/stdlib.h :
+ mphalport.h /opt/amiga/m68k-amigaos/sys-include/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/machine/time.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/timespec.h :
+ /opt/amiga/m68k-amigaos/sys-include/sys/_timespec.h :
+ /opt/amiga/m68k-amigaos/libnix/include/stdlib.h :
  /opt/amiga/m68k-amigaos/sys-include/stdlib.h :
  /opt/amiga/m68k-amigaos/sys-include/machine/stdlib.h :
  ../../extmod/virtpin.h :

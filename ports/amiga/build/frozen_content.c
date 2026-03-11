@@ -90,12 +90,15 @@ enum {
     MP_QSTR__date,
     MP_QSTR__dbm,
     MP_QSTR__dim,
+    MP_QSTR__epoch_time,
     MP_QSTR__fd,
     MP_QSTR__fmt,
+    MP_QSTR__gmtime,
     MP_QSTR__hash,
     MP_QSTR__iso2d,
     MP_QSTR__iso2t,
     MP_QSTR__leap,
+    MP_QSTR__localtime,
     MP_QSTR__maketrans,
     MP_QSTR__mktime,
     MP_QSTR__name,
@@ -107,6 +110,7 @@ enum {
     MP_QSTR__t2iso,
     MP_QSTR__td,
     MP_QSTR__time,
+    MP_QSTR__tmod,
     MP_QSTR__translate,
     MP_QSTR__tuple,
     MP_QSTR__tz,
@@ -266,12 +270,15 @@ const qstr_hash_t mp_qstr_frozen_const_hashes[] = {
     30446,
     20625,
     20538,
+    48417,
     8376,
     13989,
+    34981,
     57928,
     50489,
     50473,
     1154,
+    62626,
     16770,
     51817,
     56669,
@@ -283,6 +290,7 @@ const qstr_hash_t mp_qstr_frozen_const_hashes[] = {
     425,
     8042,
     37135,
+    33096,
     5852,
     28962,
     8052,
@@ -442,12 +450,15 @@ const qstr_len_t mp_qstr_frozen_const_lengths[] = {
     5,
     4,
     4,
+    11,
     3,
     4,
+    7,
     5,
     6,
     6,
     5,
+    10,
     10,
     7,
     5,
@@ -458,6 +469,7 @@ const qstr_len_t mp_qstr_frozen_const_lengths[] = {
     2,
     6,
     3,
+    5,
     5,
     10,
     6,
@@ -575,7 +587,7 @@ const qstr_pool_t mp_qstr_frozen_const_pool = {
     MP_QSTRnumber_of, // previous pool size
     true, // is_sorted
     10, // allocated entries
-    173, // used entries
+    177, // used entries
     (qstr_hash_t *)mp_qstr_frozen_const_hashes,
     (qstr_len_t *)mp_qstr_frozen_const_lengths,
     {
@@ -627,12 +639,15 @@ const qstr_pool_t mp_qstr_frozen_const_pool = {
         "_date",
         "_dbm",
         "_dim",
+        "_epoch_time",
         "_fd",
         "_fmt",
+        "_gmtime",
         "_hash",
         "_iso2d",
         "_iso2t",
         "_leap",
+        "_localtime",
         "_maketrans",
         "_mktime",
         "_name",
@@ -644,6 +659,7 @@ const qstr_pool_t mp_qstr_frozen_const_pool = {
         "_t2iso",
         "_td",
         "_time",
+        "_tmod",
         "_translate",
         "_tuple",
         "_tz",
@@ -3275,112 +3291,122 @@ static const mp_frozen_module_t frozen_module_base64 = {
 // - .mpy header: 4d:06:00:1f
 
 // frozen bytecode for file datetime.py, scope datetime__lt_module_gt_
-static const byte fun_data_datetime__lt_module_gt_[337] = {
-    0x50,0x60, // prelude
+static const byte fun_data_datetime__lt_module_gt_[361] = {
+    0x50,0x68, // prelude
     0x01, // names: <module>
-    0x40,0x66,0x64,0x20,0x84,0x07,0x64,0x40,0x84,0x14,0x23,0x66,0x89,0x99,0x31,0x1f,0x23,0x6c,0x89,0x1c,0x8b,0x26,0x6d,0x84,0x0d,0x64,0x60,0x64,0x20,0x89,0x65,0x2c,0x2c,0x6c,0x84,0x0d,0x84,0x43,0x84,0x09,0x89,0x74,0x29,0x31,0x68,0x99,0x24, // code info
-    0x80, // LOAD_CONST_SMALL_INT 0
-    0x51, // LOAD_CONST_NONE
-    0x1b,0x02, // IMPORT_NAME 'time'
-    0x16,0x67, // STORE_NAME '_t'
+    0x40,0x28,0x26,0x26,0x26,0x62,0x64,0x20,0x84,0x07,0x64,0x40,0x84,0x14,0x23,0x66,0x89,0x99,0x31,0x1f,0x23,0x6c,0x89,0x1c,0x8b,0x26,0x6d,0x84,0x0d,0x64,0x60,0x64,0x20,0x89,0x65,0x2c,0x2c,0x6c,0x84,0x0d,0x84,0x43,0x84,0x09,0x89,0x74,0x29,0x31,0x68,0x99,0x24, // code info
+    0x11,0x71, // LOAD_NAME '__import__'
+    0x10,0x02, // LOAD_CONST_STRING 'time'
+    0x34,0x01, // CALL_FUNCTION 1
+    0x16,0x72, // STORE_NAME '_tmod'
+    0x11,0x72, // LOAD_NAME '_tmod'
+    0x13,0x03, // LOAD_ATTR 'gmtime'
+    0x16,0x73, // STORE_NAME '_gmtime'
+    0x11,0x72, // LOAD_NAME '_tmod'
+    0x13,0x04, // LOAD_ATTR 'localtime'
+    0x16,0x74, // STORE_NAME '_localtime'
+    0x11,0x72, // LOAD_NAME '_tmod'
+    0x13,0x02, // LOAD_ATTR 'time'
+    0x16,0x75, // STORE_NAME '_epoch_time'
+    0x19,0x72, // DELETE_NAME '_tmod'
     0x32,0x00, // MAKE_FUNCTION 0
-    0x16,0x13, // STORE_NAME '_leap'
+    0x16,0x14, // STORE_NAME '_leap'
     0x32,0x01, // MAKE_FUNCTION 1
-    0x16,0x14, // STORE_NAME '_dim'
+    0x16,0x15, // STORE_NAME '_dim'
     0x32,0x02, // MAKE_FUNCTION 2
-    0x16,0x15, // STORE_NAME '_dbm'
+    0x16,0x16, // STORE_NAME '_dbm'
     0x32,0x03, // MAKE_FUNCTION 3
-    0x16,0x16, // STORE_NAME '_o2ymd'
+    0x16,0x17, // STORE_NAME '_o2ymd'
     0x81, // LOAD_CONST_SMALL_INT 1
-    0x16,0x71, // STORE_NAME 'MINYEAR'
+    0x16,0x76, // STORE_NAME 'MINYEAR'
     0x22,0x80,0xce,0x0f, // LOAD_CONST_SMALL_INT 9999
-    0x16,0x72, // STORE_NAME 'MAXYEAR'
+    0x16,0x77, // STORE_NAME 'MAXYEAR'
     0x54, // LOAD_BUILD_CLASS
     0x32,0x04, // MAKE_FUNCTION 4
-    0x10,0x03, // LOAD_CONST_STRING 'timedelta'
+    0x10,0x05, // LOAD_CONST_STRING 'timedelta'
     0x34,0x02, // CALL_FUNCTION 2
-    0x16,0x03, // STORE_NAME 'timedelta'
-    0x11,0x03, // LOAD_NAME 'timedelta'
-    0x10,0x04, // LOAD_CONST_STRING 'days'
+    0x16,0x05, // STORE_NAME 'timedelta'
+    0x11,0x05, // LOAD_NAME 'timedelta'
+    0x10,0x06, // LOAD_CONST_STRING 'days'
     0x22,0xfc,0xa3,0x94,0xec,0x01, // LOAD_CONST_SMALL_INT -999999999
     0x34,0x82,0x00, // CALL_FUNCTION 256
-    0x11,0x03, // LOAD_NAME 'timedelta'
-    0x18,0x05, // STORE_ATTR 'min'
-    0x11,0x03, // LOAD_NAME 'timedelta'
-    0x10,0x04, // LOAD_CONST_STRING 'days'
+    0x11,0x05, // LOAD_NAME 'timedelta'
+    0x18,0x07, // STORE_ATTR 'min'
+    0x11,0x05, // LOAD_NAME 'timedelta'
+    0x10,0x06, // LOAD_CONST_STRING 'days'
     0x22,0x83,0xdc,0xeb,0x93,0x7f, // LOAD_CONST_SMALL_INT 999999999
-    0x10,0x06, // LOAD_CONST_STRING 'hours'
+    0x10,0x08, // LOAD_CONST_STRING 'hours'
     0x97, // LOAD_CONST_SMALL_INT 23
-    0x10,0x07, // LOAD_CONST_STRING 'minutes'
+    0x10,0x09, // LOAD_CONST_STRING 'minutes'
     0x22,0x3b, // LOAD_CONST_SMALL_INT 59
-    0x10,0x08, // LOAD_CONST_STRING 'seconds'
+    0x10,0x0a, // LOAD_CONST_STRING 'seconds'
     0x22,0x3b, // LOAD_CONST_SMALL_INT 59
-    0x10,0x09, // LOAD_CONST_STRING 'microseconds'
+    0x10,0x0b, // LOAD_CONST_STRING 'microseconds'
     0x22,0xbd,0x84,0x3f, // LOAD_CONST_SMALL_INT 999999
     0x34,0x8a,0x00, // CALL_FUNCTION 1280
-    0x11,0x03, // LOAD_NAME 'timedelta'
-    0x18,0x0a, // STORE_ATTR 'max'
-    0x11,0x03, // LOAD_NAME 'timedelta'
-    0x10,0x09, // LOAD_CONST_STRING 'microseconds'
+    0x11,0x05, // LOAD_NAME 'timedelta'
+    0x18,0x0c, // STORE_ATTR 'max'
+    0x11,0x05, // LOAD_NAME 'timedelta'
+    0x10,0x0b, // LOAD_CONST_STRING 'microseconds'
     0x81, // LOAD_CONST_SMALL_INT 1
     0x34,0x82,0x00, // CALL_FUNCTION 256
-    0x11,0x03, // LOAD_NAME 'timedelta'
-    0x18,0x0b, // STORE_ATTR 'resolution'
+    0x11,0x05, // LOAD_NAME 'timedelta'
+    0x18,0x0d, // STORE_ATTR 'resolution'
     0x54, // LOAD_BUILD_CLASS
     0x32,0x05, // MAKE_FUNCTION 5
-    0x10,0x0c, // LOAD_CONST_STRING 'tzinfo'
+    0x10,0x0e, // LOAD_CONST_STRING 'tzinfo'
     0x34,0x02, // CALL_FUNCTION 2
-    0x16,0x0c, // STORE_NAME 'tzinfo'
+    0x16,0x0e, // STORE_NAME 'tzinfo'
     0x54, // LOAD_BUILD_CLASS
     0x32,0x06, // MAKE_FUNCTION 6
-    0x10,0x0d, // LOAD_CONST_STRING 'timezone'
-    0x11,0x0c, // LOAD_NAME 'tzinfo'
+    0x10,0x0f, // LOAD_CONST_STRING 'timezone'
+    0x11,0x0e, // LOAD_NAME 'tzinfo'
     0x34,0x03, // CALL_FUNCTION 3
-    0x16,0x0d, // STORE_NAME 'timezone'
-    0x11,0x0d, // LOAD_NAME 'timezone'
-    0x11,0x03, // LOAD_NAME 'timedelta'
+    0x16,0x0f, // STORE_NAME 'timezone'
+    0x11,0x0f, // LOAD_NAME 'timezone'
+    0x11,0x05, // LOAD_NAME 'timedelta'
     0x80, // LOAD_CONST_SMALL_INT 0
     0x34,0x01, // CALL_FUNCTION 1
     0x34,0x01, // CALL_FUNCTION 1
-    0x11,0x0d, // LOAD_NAME 'timezone'
-    0x18,0x0e, // STORE_ATTR 'utc'
+    0x11,0x0f, // LOAD_NAME 'timezone'
+    0x18,0x10, // STORE_ATTR 'utc'
     0x32,0x07, // MAKE_FUNCTION 7
-    0x16,0x17, // STORE_NAME '_date'
+    0x16,0x18, // STORE_NAME '_date'
     0x32,0x08, // MAKE_FUNCTION 8
-    0x16,0x18, // STORE_NAME '_iso2d'
+    0x16,0x19, // STORE_NAME '_iso2d'
     0x32,0x09, // MAKE_FUNCTION 9
-    0x16,0x1a, // STORE_NAME '_d2iso'
+    0x16,0x1b, // STORE_NAME '_d2iso'
     0x54, // LOAD_BUILD_CLASS
     0x32,0x0a, // MAKE_FUNCTION 10
-    0x10,0x0f, // LOAD_CONST_STRING 'date'
+    0x10,0x11, // LOAD_CONST_STRING 'date'
     0x34,0x02, // CALL_FUNCTION 2
-    0x16,0x0f, // STORE_NAME 'date'
-    0x11,0x0f, // LOAD_NAME 'date'
-    0x11,0x71, // LOAD_NAME 'MINYEAR'
+    0x16,0x11, // STORE_NAME 'date'
+    0x11,0x11, // LOAD_NAME 'date'
+    0x11,0x76, // LOAD_NAME 'MINYEAR'
     0x81, // LOAD_CONST_SMALL_INT 1
     0x81, // LOAD_CONST_SMALL_INT 1
     0x34,0x03, // CALL_FUNCTION 3
-    0x11,0x0f, // LOAD_NAME 'date'
-    0x18,0x05, // STORE_ATTR 'min'
-    0x11,0x0f, // LOAD_NAME 'date'
-    0x11,0x72, // LOAD_NAME 'MAXYEAR'
+    0x11,0x11, // LOAD_NAME 'date'
+    0x18,0x07, // STORE_ATTR 'min'
+    0x11,0x11, // LOAD_NAME 'date'
+    0x11,0x77, // LOAD_NAME 'MAXYEAR'
     0x8c, // LOAD_CONST_SMALL_INT 12
     0x9f, // LOAD_CONST_SMALL_INT 31
     0x34,0x03, // CALL_FUNCTION 3
-    0x11,0x0f, // LOAD_NAME 'date'
-    0x18,0x0a, // STORE_ATTR 'max'
-    0x11,0x03, // LOAD_NAME 'timedelta'
-    0x10,0x04, // LOAD_CONST_STRING 'days'
+    0x11,0x11, // LOAD_NAME 'date'
+    0x18,0x0c, // STORE_ATTR 'max'
+    0x11,0x05, // LOAD_NAME 'timedelta'
+    0x10,0x06, // LOAD_CONST_STRING 'days'
     0x81, // LOAD_CONST_SMALL_INT 1
     0x34,0x82,0x00, // CALL_FUNCTION 256
-    0x11,0x0f, // LOAD_NAME 'date'
-    0x18,0x0b, // STORE_ATTR 'resolution'
+    0x11,0x11, // LOAD_NAME 'date'
+    0x18,0x0d, // STORE_ATTR 'resolution'
     0x32,0x0b, // MAKE_FUNCTION 11
-    0x16,0x1b, // STORE_NAME '_time'
+    0x16,0x1c, // STORE_NAME '_time'
     0x32,0x0c, // MAKE_FUNCTION 12
-    0x16,0x1c, // STORE_NAME '_iso2t'
+    0x16,0x1d, // STORE_NAME '_iso2t'
     0x32,0x0d, // MAKE_FUNCTION 13
-    0x16,0x22, // STORE_NAME '_t2iso'
+    0x16,0x23, // STORE_NAME '_t2iso'
     0x54, // LOAD_BUILD_CLASS
     0x32,0x0e, // MAKE_FUNCTION 14
     0x10,0x02, // LOAD_CONST_STRING 'time'
@@ -3390,7 +3416,7 @@ static const byte fun_data_datetime__lt_module_gt_[337] = {
     0x80, // LOAD_CONST_SMALL_INT 0
     0x34,0x01, // CALL_FUNCTION 1
     0x11,0x02, // LOAD_NAME 'time'
-    0x18,0x05, // STORE_ATTR 'min'
+    0x18,0x07, // STORE_ATTR 'min'
     0x11,0x02, // LOAD_NAME 'time'
     0x97, // LOAD_CONST_SMALL_INT 23
     0x22,0x3b, // LOAD_CONST_SMALL_INT 59
@@ -3398,32 +3424,31 @@ static const byte fun_data_datetime__lt_module_gt_[337] = {
     0x22,0xbd,0x84,0x3f, // LOAD_CONST_SMALL_INT 999999
     0x34,0x04, // CALL_FUNCTION 4
     0x11,0x02, // LOAD_NAME 'time'
-    0x18,0x0a, // STORE_ATTR 'max'
-    0x11,0x03, // LOAD_NAME 'timedelta'
-    0x13,0x0b, // LOAD_ATTR 'resolution'
+    0x18,0x0c, // STORE_ATTR 'max'
+    0x11,0x05, // LOAD_NAME 'timedelta'
+    0x13,0x0d, // LOAD_ATTR 'resolution'
     0x11,0x02, // LOAD_NAME 'time'
-    0x18,0x0b, // STORE_ATTR 'resolution'
+    0x18,0x0d, // STORE_ATTR 'resolution'
     0x54, // LOAD_BUILD_CLASS
     0x32,0x0f, // MAKE_FUNCTION 15
-    0x10,0x10, // LOAD_CONST_STRING 'datetime'
+    0x10,0x12, // LOAD_CONST_STRING 'datetime'
     0x34,0x02, // CALL_FUNCTION 2
-    0x16,0x10, // STORE_NAME 'datetime'
-    0x11,0x10, // LOAD_NAME 'datetime'
-    0x11,0x67, // LOAD_NAME '_t'
-    0x14,0x11, // LOAD_METHOD 'gmtime'
+    0x16,0x12, // STORE_NAME 'datetime'
+    0x11,0x12, // LOAD_NAME 'datetime'
+    0x11,0x73, // LOAD_NAME '_gmtime'
     0x80, // LOAD_CONST_SMALL_INT 0
-    0x36,0x01, // CALL_METHOD 1
+    0x34,0x01, // CALL_FUNCTION 1
     0x51, // LOAD_CONST_NONE
     0x86, // LOAD_CONST_SMALL_INT 6
     0x2e,0x02, // BUILD_SLICE 2
     0x55, // LOAD_SUBSCR
-    0x10,0x0c, // LOAD_CONST_STRING 'tzinfo'
-    0x11,0x0d, // LOAD_NAME 'timezone'
-    0x13,0x0e, // LOAD_ATTR 'utc'
+    0x10,0x0e, // LOAD_CONST_STRING 'tzinfo'
+    0x11,0x0f, // LOAD_NAME 'timezone'
+    0x13,0x10, // LOAD_ATTR 'utc'
     0x81, // LOAD_CONST_SMALL_INT 1
     0x35,0x82,0x01, // CALL_FUNCTION_VAR_KW 257
-    0x11,0x10, // LOAD_NAME 'datetime'
-    0x18,0x12, // STORE_ATTR 'EPOCH'
+    0x11,0x12, // LOAD_NAME 'datetime'
+    0x18,0x13, // STORE_ATTR 'EPOCH'
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
 };
@@ -3431,8 +3456,8 @@ static const byte fun_data_datetime__lt_module_gt_[337] = {
 // frozen bytecode for file datetime.py, scope datetime__leap
 static const byte fun_data_datetime__leap[30] = {
     0x11,0x08, // prelude
-    0x13,0x73, // names: _leap, y
-    0x60,0x60, // code info
+    0x14,0x78, // names: _leap, y
+    0x80,0x0a, // code info
     0xb0, // LOAD_FAST 0
     0x84, // LOAD_CONST_SMALL_INT 4
     0xf8, // BINARY_OP 33 __mod__
@@ -3475,7 +3500,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime__leap = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 19,
+        .qstr_block_name_idx = 20,
         .line_info = fun_data_datetime__leap + 4,
         .line_info_top = fun_data_datetime__leap + 6,
         .opcodes = fun_data_datetime__leap + 6,
@@ -3491,13 +3516,13 @@ static const mp_raw_code_truncated_t proto_fun_datetime__leap = {
 // frozen bytecode for file datetime.py, scope datetime__dim
 static const byte fun_data_datetime__dim[28] = {
     0x1a,0x0e, // prelude
-    0x14,0x73,0x74, // names: _dim, y, m
-    0x80,0x0b,0x2c,0x22, // code info
+    0x15,0x78,0x79, // names: _dim, y, m
+    0x80,0x0f,0x2c,0x22, // code info
     0xb1, // LOAD_FAST 1
     0x82, // LOAD_CONST_SMALL_INT 2
     0xd9, // BINARY_OP 2 __eq__
     0x44,0x49, // POP_JUMP_IF_FALSE 9
-    0x12,0x13, // LOAD_GLOBAL '_leap'
+    0x12,0x14, // LOAD_GLOBAL '_leap'
     0xb0, // LOAD_FAST 0
     0x34,0x01, // CALL_FUNCTION 1
     0x44,0x42, // POP_JUMP_IF_FALSE 2
@@ -3531,7 +3556,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime__dim = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 20,
+        .qstr_block_name_idx = 21,
         .line_info = fun_data_datetime__dim + 5,
         .line_info_top = fun_data_datetime__dim + 9,
         .opcodes = fun_data_datetime__dim + 9,
@@ -3547,8 +3572,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime__dim = {
 // frozen bytecode for file datetime.py, scope datetime__dbm
 static const byte fun_data_datetime__dbm[23] = {
     0x22,0x0a, // prelude
-    0x15,0x73,0x74, // names: _dbm, y, m
-    0x80,0x12, // code info
+    0x16,0x78,0x79, // names: _dbm, y, m
+    0x80,0x16, // code info
     0x23,0x01, // LOAD_CONST_OBJ 1
     0xb1, // LOAD_FAST 1
     0x55, // LOAD_SUBSCR
@@ -3556,7 +3581,7 @@ static const byte fun_data_datetime__dbm[23] = {
     0x82, // LOAD_CONST_SMALL_INT 2
     0xd8, // BINARY_OP 1 __gt__
     0x46,0x05, // JUMP_IF_FALSE_OR_POP 5
-    0x12,0x13, // LOAD_GLOBAL '_leap'
+    0x12,0x14, // LOAD_GLOBAL '_leap'
     0xb0, // LOAD_FAST 0
     0x34,0x01, // CALL_FUNCTION 1
     0xf2, // BINARY_OP 27 __add__
@@ -3585,7 +3610,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime__dbm = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 21,
+        .qstr_block_name_idx = 22,
         .line_info = fun_data_datetime__dbm + 5,
         .line_info_top = fun_data_datetime__dbm + 7,
         .opcodes = fun_data_datetime__dbm + 7,
@@ -3601,13 +3626,13 @@ static const mp_raw_code_truncated_t proto_fun_datetime__dbm = {
 // frozen bytecode for file datetime.py, scope datetime__o2ymd
 static const byte fun_data_datetime__o2ymd[159] = {
     0x59,0x26, // prelude
-    0x16,0x75, // names: _o2ymd, n
-    0x80,0x17,0x24,0x2d,0x28,0x2d,0x2c,0x2c,0x2e,0x2a,0x28,0x27,0x27,0x25,0x24,0x29,0x24, // code info
+    0x17,0x7a, // names: _o2ymd, n
+    0x80,0x1b,0x24,0x2d,0x28,0x2d,0x2c,0x2c,0x2e,0x2a,0x28,0x27,0x27,0x25,0x24,0x29,0x24, // code info
     0xb0, // LOAD_FAST 0
     0x81, // LOAD_CONST_SMALL_INT 1
     0xe6, // BINARY_OP 15 __isub__
     0xc0, // STORE_FAST 0
-    0x12,0x76, // LOAD_GLOBAL 'divmod'
+    0x12,0x7b, // LOAD_GLOBAL 'divmod'
     0xb0, // LOAD_FAST 0
     0x22,0x88,0xf5,0x31, // LOAD_CONST_SMALL_INT 146097
     0x34,0x02, // CALL_FUNCTION 2
@@ -3620,21 +3645,21 @@ static const byte fun_data_datetime__o2ymd[159] = {
     0x81, // LOAD_CONST_SMALL_INT 1
     0xf2, // BINARY_OP 27 __add__
     0xc2, // STORE_FAST 2
-    0x12,0x76, // LOAD_GLOBAL 'divmod'
+    0x12,0x7b, // LOAD_GLOBAL 'divmod'
     0xb0, // LOAD_FAST 0
     0x22,0x82,0x9d,0x2c, // LOAD_CONST_SMALL_INT 36524
     0x34,0x02, // CALL_FUNCTION 2
     0x30,0x02, // UNPACK_SEQUENCE 2
     0xc3, // STORE_FAST 3
     0xc0, // STORE_FAST 0
-    0x12,0x76, // LOAD_GLOBAL 'divmod'
+    0x12,0x7b, // LOAD_GLOBAL 'divmod'
     0xb0, // LOAD_FAST 0
     0x22,0x8b,0x35, // LOAD_CONST_SMALL_INT 1461
     0x34,0x02, // CALL_FUNCTION 2
     0x30,0x02, // UNPACK_SEQUENCE 2
     0xc4, // STORE_FAST 4
     0xc0, // STORE_FAST 0
-    0x12,0x76, // LOAD_GLOBAL 'divmod'
+    0x12,0x7b, // LOAD_GLOBAL 'divmod'
     0xb0, // LOAD_FAST 0
     0x22,0x82,0x6d, // LOAD_CONST_SMALL_INT 365
     0x34,0x02, // CALL_FUNCTION 2
@@ -3674,7 +3699,7 @@ static const byte fun_data_datetime__o2ymd[159] = {
     0x85, // LOAD_CONST_SMALL_INT 5
     0xf1, // BINARY_OP 26 __rshift__
     0xc6, // STORE_FAST 6
-    0x12,0x15, // LOAD_GLOBAL '_dbm'
+    0x12,0x16, // LOAD_GLOBAL '_dbm'
     0xb2, // LOAD_FAST 2
     0xb6, // LOAD_FAST 6
     0x34,0x02, // CALL_FUNCTION 2
@@ -3688,7 +3713,7 @@ static const byte fun_data_datetime__o2ymd[159] = {
     0xe6, // BINARY_OP 15 __isub__
     0xc6, // STORE_FAST 6
     0xb7, // LOAD_FAST 7
-    0x12,0x14, // LOAD_GLOBAL '_dim'
+    0x12,0x15, // LOAD_GLOBAL '_dim'
     0xb2, // LOAD_FAST 2
     0xb6, // LOAD_FAST 6
     0x34,0x02, // CALL_FUNCTION 2
@@ -3729,7 +3754,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime__o2ymd = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 22,
+        .qstr_block_name_idx = 23,
         .line_info = fun_data_datetime__o2ymd + 4,
         .line_info_top = fun_data_datetime__o2ymd + 21,
         .opcodes = fun_data_datetime__o2ymd + 21,
@@ -3743,14 +3768,14 @@ static const mp_raw_code_truncated_t proto_fun_datetime__o2ymd = {
 
 // child of datetime__lt_module_gt_
 // frozen bytecode for file datetime.py, scope datetime_timedelta
-static const byte fun_data_datetime_timedelta[195] = {
+static const byte fun_data_datetime_timedelta[196] = {
     0x30,0x52, // prelude
-    0x03, // names: timedelta
-    0x88,0x2e,0x6e,0x60,0x64,0x64,0x68,0x20,0x68,0x20,0x68,0x20,0x84,0x07,0x64,0x64,0x64,0x64,0x64,0x44,0x64,0x60,0x64,0x60,0x64,0x64,0x20,0x64,0x64,0x64,0x64,0x64,0x64,0x64,0x64,0x40,0x64,0x88,0x29,0x64, // code info
-    0x11,0x77, // LOAD_NAME '__name__'
-    0x16,0x78, // STORE_NAME '__module__'
-    0x10,0x03, // LOAD_CONST_STRING 'timedelta'
-    0x16,0x79, // STORE_NAME '__qualname__'
+    0x05, // names: timedelta
+    0x88,0x32,0x6e,0x60,0x64,0x64,0x68,0x20,0x68,0x20,0x68,0x20,0x84,0x07,0x64,0x64,0x64,0x64,0x64,0x45,0x64,0x60,0x64,0x60,0x64,0x64,0x20,0x64,0x64,0x64,0x64,0x64,0x64,0x64,0x64,0x40,0x64,0x88,0x29,0x64, // code info
+    0x11,0x7c, // LOAD_NAME '__name__'
+    0x16,0x7d, // STORE_NAME '__module__'
+    0x10,0x05, // LOAD_CONST_STRING 'timedelta'
+    0x16,0x7e, // STORE_NAME '__qualname__'
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
@@ -3761,72 +3786,72 @@ static const byte fun_data_datetime_timedelta[195] = {
     0x2a,0x07, // BUILD_TUPLE 7
     0x53, // LOAD_NULL
     0x33,0x00, // MAKE_FUNCTION_DEFARGS 0
-    0x16,0x29, // STORE_NAME '__init__'
+    0x16,0x2a, // STORE_NAME '__init__'
     0x32,0x01, // MAKE_FUNCTION 1
-    0x16,0x2b, // STORE_NAME '__repr__'
+    0x16,0x2c, // STORE_NAME '__repr__'
     0x32,0x02, // MAKE_FUNCTION 2
-    0x16,0x2d, // STORE_NAME 'total_seconds'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x16,0x2e, // STORE_NAME 'total_seconds'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x03, // MAKE_FUNCTION 3
     0x34,0x01, // CALL_FUNCTION 1
-    0x16,0x04, // STORE_NAME 'days'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x16,0x06, // STORE_NAME 'days'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x04, // MAKE_FUNCTION 4
     0x34,0x01, // CALL_FUNCTION 1
-    0x16,0x08, // STORE_NAME 'seconds'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x16,0x0a, // STORE_NAME 'seconds'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x05, // MAKE_FUNCTION 5
     0x34,0x01, // CALL_FUNCTION 1
-    0x16,0x09, // STORE_NAME 'microseconds'
+    0x16,0x0b, // STORE_NAME 'microseconds'
     0x32,0x06, // MAKE_FUNCTION 6
-    0x16,0x2f, // STORE_NAME '__add__'
+    0x16,0x30, // STORE_NAME '__add__'
     0x32,0x07, // MAKE_FUNCTION 7
-    0x16,0x30, // STORE_NAME '__sub__'
+    0x16,0x31, // STORE_NAME '__sub__'
     0x32,0x08, // MAKE_FUNCTION 8
-    0x16,0x31, // STORE_NAME '__neg__'
+    0x16,0x32, // STORE_NAME '__neg__'
     0x32,0x09, // MAKE_FUNCTION 9
-    0x16,0x32, // STORE_NAME '__pos__'
+    0x16,0x33, // STORE_NAME '__pos__'
     0x32,0x0a, // MAKE_FUNCTION 10
-    0x16,0x33, // STORE_NAME '__abs__'
+    0x16,0x34, // STORE_NAME '__abs__'
     0x32,0x0b, // MAKE_FUNCTION 11
-    0x16,0x34, // STORE_NAME '__mul__'
-    0x11,0x34, // LOAD_NAME '__mul__'
-    0x16,0x7b, // STORE_NAME '__rmul__'
+    0x16,0x35, // STORE_NAME '__mul__'
+    0x11,0x35, // LOAD_NAME '__mul__'
+    0x16,0x81,0x00, // STORE_NAME '__rmul__'
     0x32,0x0c, // MAKE_FUNCTION 12
-    0x16,0x35, // STORE_NAME '__truediv__'
+    0x16,0x36, // STORE_NAME '__truediv__'
     0x32,0x0d, // MAKE_FUNCTION 13
-    0x16,0x36, // STORE_NAME '__floordiv__'
+    0x16,0x37, // STORE_NAME '__floordiv__'
     0x32,0x0e, // MAKE_FUNCTION 14
-    0x16,0x37, // STORE_NAME '__mod__'
+    0x16,0x38, // STORE_NAME '__mod__'
     0x32,0x0f, // MAKE_FUNCTION 15
-    0x16,0x38, // STORE_NAME '__divmod__'
+    0x16,0x39, // STORE_NAME '__divmod__'
     0x32,0x10, // MAKE_FUNCTION 16
-    0x16,0x39, // STORE_NAME '__eq__'
+    0x16,0x3a, // STORE_NAME '__eq__'
     0x32,0x11, // MAKE_FUNCTION 17
-    0x16,0x3a, // STORE_NAME '__le__'
+    0x16,0x3b, // STORE_NAME '__le__'
     0x32,0x12, // MAKE_FUNCTION 18
-    0x16,0x3b, // STORE_NAME '__lt__'
+    0x16,0x3c, // STORE_NAME '__lt__'
     0x32,0x13, // MAKE_FUNCTION 19
-    0x16,0x3c, // STORE_NAME '__ge__'
+    0x16,0x3d, // STORE_NAME '__ge__'
     0x32,0x14, // MAKE_FUNCTION 20
-    0x16,0x3d, // STORE_NAME '__gt__'
+    0x16,0x3e, // STORE_NAME '__gt__'
     0x32,0x15, // MAKE_FUNCTION 21
-    0x16,0x3e, // STORE_NAME '__bool__'
+    0x16,0x3f, // STORE_NAME '__bool__'
     0x32,0x16, // MAKE_FUNCTION 22
-    0x16,0x3f, // STORE_NAME '__str__'
+    0x16,0x40, // STORE_NAME '__str__'
     0x32,0x17, // MAKE_FUNCTION 23
-    0x16,0x40, // STORE_NAME '__hash__'
+    0x16,0x41, // STORE_NAME '__hash__'
     0x32,0x18, // MAKE_FUNCTION 24
-    0x16,0x25, // STORE_NAME 'isoformat'
+    0x16,0x26, // STORE_NAME 'isoformat'
     0x80, // LOAD_CONST_SMALL_INT 0
     0x2a,0x01, // BUILD_TUPLE 1
     0x53, // LOAD_NULL
     0x33,0x19, // MAKE_FUNCTION_DEFARGS 25
-    0x16,0x23, // STORE_NAME '_fmt'
+    0x16,0x24, // STORE_NAME '_fmt'
     0x32,0x1a, // MAKE_FUNCTION 26
-    0x16,0x49, // STORE_NAME 'tuple'
+    0x16,0x4a, // STORE_NAME 'tuple'
     0x32,0x1b, // MAKE_FUNCTION 27
-    0x16,0x2e, // STORE_NAME '_tuple'
+    0x16,0x2f, // STORE_NAME '_tuple'
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
 };
@@ -3834,8 +3859,8 @@ static const byte fun_data_datetime_timedelta[195] = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta___init__
 static const byte fun_data_datetime_timedelta___init__[63] = {
     0xd8,0x81,0x85,0x01,0x1e, // prelude
-    0x29,0x81,0x08,0x04,0x08,0x09,0x81,0x09,0x07,0x06,0x81,0x0a, // names: __init__, self, days, seconds, microseconds, milliseconds, minutes, hours, weeks
-    0x80,0x31,0x34, // code info
+    0x2a,0x81,0x0d,0x06,0x0a,0x0b,0x81,0x0e,0x09,0x08,0x81,0x0f, // names: __init__, self, days, seconds, microseconds, milliseconds, minutes, hours, weeks
+    0x80,0x35,0x34, // code info
     0xb7, // LOAD_FAST 7
     0x87, // LOAD_CONST_SMALL_INT 7
     0xf4, // BINARY_OP 29 __mul__
@@ -3854,7 +3879,7 @@ static const byte fun_data_datetime_timedelta___init__[63] = {
     0xb2, // LOAD_FAST 2
     0xf2, // BINARY_OP 27 __add__
     0xc8, // STORE_FAST 8
-    0x12,0x81,0x0b, // LOAD_GLOBAL 'round'
+    0x12,0x81,0x10, // LOAD_GLOBAL 'round'
     0xb8, // LOAD_FAST 8
     0x22,0x87,0x68, // LOAD_CONST_SMALL_INT 1000
     0xf4, // BINARY_OP 29 __mul__
@@ -3866,7 +3891,7 @@ static const byte fun_data_datetime_timedelta___init__[63] = {
     0xf2, // BINARY_OP 27 __add__
     0x34,0x01, // CALL_FUNCTION 1
     0xb0, // LOAD_FAST 0
-    0x18,0x2a, // STORE_ATTR '_us'
+    0x18,0x2b, // STORE_ATTR '_us'
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
 };
@@ -3893,7 +3918,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___init__ = {
         .n_pos_args = 8,
         .n_kwonly_args = 0,
         .n_def_pos_args = 7,
-        .qstr_block_name_idx = 41,
+        .qstr_block_name_idx = 42,
         .line_info = fun_data_datetime_timedelta___init__ + 17,
         .line_info_top = fun_data_datetime_timedelta___init__ + 20,
         .opcodes = fun_data_datetime_timedelta___init__ + 20,
@@ -3909,12 +3934,12 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___init__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta___repr__
 static const byte fun_data_datetime_timedelta___repr__[17] = {
     0x19,0x0a, // prelude
-    0x2b,0x81,0x08, // names: __repr__, self
-    0x80,0x35, // code info
+    0x2c,0x81,0x0d, // names: __repr__, self
+    0x80,0x39, // code info
     0x23,0x05, // LOAD_CONST_OBJ 5
-    0x14,0x2c, // LOAD_METHOD 'format'
+    0x14,0x2d, // LOAD_METHOD 'format'
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
 };
@@ -3941,7 +3966,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___repr__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 43,
+        .qstr_block_name_idx = 44,
         .line_info = fun_data_datetime_timedelta___repr__ + 5,
         .line_info_top = fun_data_datetime_timedelta___repr__ + 7,
         .opcodes = fun_data_datetime_timedelta___repr__ + 7,
@@ -3957,10 +3982,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___repr__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta_total_seconds
 static const byte fun_data_datetime_timedelta_total_seconds[16] = {
     0x11,0x0a, // prelude
-    0x2d,0x81,0x08, // names: total_seconds, self
-    0x80,0x38, // code info
+    0x2e,0x81,0x0d, // names: total_seconds, self
+    0x80,0x3c, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0x22,0xbd,0x84,0x40, // LOAD_CONST_SMALL_INT 1000000
     0xf7, // BINARY_OP 32 __truediv__
     0x63, // RETURN_VALUE
@@ -3988,7 +4013,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta_total_seconds 
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 45,
+        .qstr_block_name_idx = 46,
         .line_info = fun_data_datetime_timedelta_total_seconds + 5,
         .line_info_top = fun_data_datetime_timedelta_total_seconds + 7,
         .opcodes = fun_data_datetime_timedelta_total_seconds + 7,
@@ -4004,10 +4029,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta_total_seconds 
 // frozen bytecode for file datetime.py, scope datetime_timedelta_days
 static const byte fun_data_datetime_timedelta_days[14] = {
     0x19,0x0a, // prelude
-    0x04,0x81,0x08, // names: days, self
-    0x80,0x3c, // code info
+    0x06,0x81,0x0d, // names: days, self
+    0x80,0x40, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x2e, // LOAD_METHOD '_tuple'
+    0x14,0x2f, // LOAD_METHOD '_tuple'
     0x81, // LOAD_CONST_SMALL_INT 1
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
@@ -4035,7 +4060,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta_days = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 4,
+        .qstr_block_name_idx = 6,
         .line_info = fun_data_datetime_timedelta_days + 5,
         .line_info_top = fun_data_datetime_timedelta_days + 7,
         .opcodes = fun_data_datetime_timedelta_days + 7,
@@ -4051,10 +4076,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta_days = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta_seconds
 static const byte fun_data_datetime_timedelta_seconds[16] = {
     0x19,0x0a, // prelude
-    0x08,0x81,0x08, // names: seconds, self
-    0x80,0x40, // code info
+    0x0a,0x81,0x0d, // names: seconds, self
+    0x80,0x44, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x2e, // LOAD_METHOD '_tuple'
+    0x14,0x2f, // LOAD_METHOD '_tuple'
     0x83, // LOAD_CONST_SMALL_INT 3
     0x36,0x01, // CALL_METHOD 1
     0x81, // LOAD_CONST_SMALL_INT 1
@@ -4084,7 +4109,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta_seconds = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 8,
+        .qstr_block_name_idx = 10,
         .line_info = fun_data_datetime_timedelta_seconds + 5,
         .line_info_top = fun_data_datetime_timedelta_seconds + 7,
         .opcodes = fun_data_datetime_timedelta_seconds + 7,
@@ -4100,10 +4125,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta_seconds = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta_microseconds
 static const byte fun_data_datetime_timedelta_microseconds[16] = {
     0x19,0x0a, // prelude
-    0x09,0x81,0x08, // names: microseconds, self
-    0x80,0x44, // code info
+    0x0b,0x81,0x0d, // names: microseconds, self
+    0x80,0x48, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x2e, // LOAD_METHOD '_tuple'
+    0x14,0x2f, // LOAD_METHOD '_tuple'
     0x83, // LOAD_CONST_SMALL_INT 3
     0x36,0x01, // CALL_METHOD 1
     0x82, // LOAD_CONST_SMALL_INT 2
@@ -4133,7 +4158,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta_microseconds =
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 9,
+        .qstr_block_name_idx = 11,
         .line_info = fun_data_datetime_timedelta_microseconds + 5,
         .line_info_top = fun_data_datetime_timedelta_microseconds + 7,
         .opcodes = fun_data_datetime_timedelta_microseconds + 7,
@@ -4149,26 +4174,26 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta_microseconds =
 // frozen bytecode for file datetime.py, scope datetime_timedelta___add__
 static const byte fun_data_datetime_timedelta___add__[45] = {
     0x3a,0x14, // prelude
-    0x2f,0x81,0x08,0x81,0x0c, // names: __add__, self, other
-    0x80,0x47,0x2a,0x47,0x24, // code info
-    0x12,0x81,0x0d, // LOAD_GLOBAL 'isinstance'
+    0x30,0x81,0x0d,0x81,0x11, // names: __add__, self, other
+    0x80,0x4b,0x2a,0x47,0x24, // code info
+    0x12,0x81,0x12, // LOAD_GLOBAL 'isinstance'
     0xb1, // LOAD_FAST 1
-    0x12,0x10, // LOAD_GLOBAL 'datetime'
+    0x12,0x12, // LOAD_GLOBAL 'datetime'
     0x34,0x02, // CALL_FUNCTION 2
     0x44,0x47, // POP_JUMP_IF_FALSE 7
     0xb1, // LOAD_FAST 1
-    0x14,0x2f, // LOAD_METHOD '__add__'
+    0x14,0x30, // LOAD_METHOD '__add__'
     0xb0, // LOAD_FAST 0
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
     0xb1, // LOAD_FAST 1
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xc2, // STORE_FAST 2
-    0x12,0x03, // LOAD_GLOBAL 'timedelta'
+    0x12,0x05, // LOAD_GLOBAL 'timedelta'
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xb2, // LOAD_FAST 2
     0xf2, // BINARY_OP 27 __add__
     0x34,0x03, // CALL_FUNCTION 3
@@ -4197,7 +4222,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___add__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 47,
+        .qstr_block_name_idx = 48,
         .line_info = fun_data_datetime_timedelta___add__ + 7,
         .line_info_top = fun_data_datetime_timedelta___add__ + 12,
         .opcodes = fun_data_datetime_timedelta___add__ + 12,
@@ -4213,15 +4238,15 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___add__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta___sub__
 static const byte fun_data_datetime_timedelta___sub__[23] = {
     0x32,0x0e, // prelude
-    0x30,0x81,0x08,0x81,0x0c, // names: __sub__, self, other
-    0x80,0x4e, // code info
-    0x12,0x03, // LOAD_GLOBAL 'timedelta'
+    0x31,0x81,0x0d,0x81,0x11, // names: __sub__, self, other
+    0x80,0x52, // code info
+    0x12,0x05, // LOAD_GLOBAL 'timedelta'
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xb1, // LOAD_FAST 1
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xf3, // BINARY_OP 28 __sub__
     0x34,0x03, // CALL_FUNCTION 3
     0x63, // RETURN_VALUE
@@ -4249,7 +4274,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___sub__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 48,
+        .qstr_block_name_idx = 49,
         .line_info = fun_data_datetime_timedelta___sub__ + 7,
         .line_info_top = fun_data_datetime_timedelta___sub__ + 9,
         .opcodes = fun_data_datetime_timedelta___sub__ + 9,
@@ -4265,13 +4290,13 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___sub__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta___neg__
 static const byte fun_data_datetime_timedelta___neg__[18] = {
     0x21,0x0a, // prelude
-    0x31,0x81,0x08, // names: __neg__, self
-    0x80,0x51, // code info
-    0x12,0x03, // LOAD_GLOBAL 'timedelta'
+    0x32,0x81,0x0d, // names: __neg__, self
+    0x80,0x55, // code info
+    0x12,0x05, // LOAD_GLOBAL 'timedelta'
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xd1, // UNARY_OP 1 __neg__
     0x34,0x03, // CALL_FUNCTION 3
     0x63, // RETURN_VALUE
@@ -4299,7 +4324,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___neg__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 49,
+        .qstr_block_name_idx = 50,
         .line_info = fun_data_datetime_timedelta___neg__ + 5,
         .line_info_top = fun_data_datetime_timedelta___neg__ + 7,
         .opcodes = fun_data_datetime_timedelta___neg__ + 7,
@@ -4315,8 +4340,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___neg__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta___pos__
 static const byte fun_data_datetime_timedelta___pos__[9] = {
     0x09,0x0a, // prelude
-    0x32,0x81,0x08, // names: __pos__, self
-    0x80,0x54, // code info
+    0x33,0x81,0x0d, // names: __pos__, self
+    0x80,0x58, // code info
     0xb0, // LOAD_FAST 0
     0x63, // RETURN_VALUE
 };
@@ -4343,7 +4368,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___pos__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 50,
+        .qstr_block_name_idx = 51,
         .line_info = fun_data_datetime_timedelta___pos__ + 5,
         .line_info_top = fun_data_datetime_timedelta___pos__ + 7,
         .opcodes = fun_data_datetime_timedelta___pos__ + 7,
@@ -4359,10 +4384,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___pos__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta___abs__
 static const byte fun_data_datetime_timedelta___abs__[19] = {
     0x11,0x0a, // prelude
-    0x33,0x81,0x08, // names: __abs__, self
-    0x80,0x57, // code info
+    0x34,0x81,0x0d, // names: __abs__, self
+    0x80,0x5b, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0x80, // LOAD_CONST_SMALL_INT 0
     0xd7, // BINARY_OP 0 __lt__
     0x44,0x43, // POP_JUMP_IF_FALSE 3
@@ -4395,7 +4420,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___abs__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 51,
+        .qstr_block_name_idx = 52,
         .line_info = fun_data_datetime_timedelta___abs__ + 5,
         .line_info_top = fun_data_datetime_timedelta___abs__ + 7,
         .opcodes = fun_data_datetime_timedelta___abs__ + 7,
@@ -4411,15 +4436,15 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___abs__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta___mul__
 static const byte fun_data_datetime_timedelta___mul__[26] = {
     0x3a,0x0e, // prelude
-    0x34,0x81,0x08,0x81,0x0c, // names: __mul__, self, other
-    0x80,0x5a, // code info
-    0x12,0x03, // LOAD_GLOBAL 'timedelta'
+    0x35,0x81,0x0d,0x81,0x11, // names: __mul__, self, other
+    0x80,0x5e, // code info
+    0x12,0x05, // LOAD_GLOBAL 'timedelta'
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
-    0x12,0x81,0x0b, // LOAD_GLOBAL 'round'
+    0x12,0x81,0x10, // LOAD_GLOBAL 'round'
     0xb1, // LOAD_FAST 1
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xf4, // BINARY_OP 29 __mul__
     0x34,0x01, // CALL_FUNCTION 1
     0x34,0x03, // CALL_FUNCTION 3
@@ -4448,7 +4473,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___mul__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 52,
+        .qstr_block_name_idx = 53,
         .line_info = fun_data_datetime_timedelta___mul__ + 7,
         .line_info_top = fun_data_datetime_timedelta___mul__ + 9,
         .opcodes = fun_data_datetime_timedelta___mul__ + 9,
@@ -4464,25 +4489,25 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___mul__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta___truediv__
 static const byte fun_data_datetime_timedelta___truediv__[48] = {
     0x3a,0x12, // prelude
-    0x35,0x81,0x08,0x81,0x0c, // names: __truediv__, self, other
-    0x80,0x5f,0x2a,0x48, // code info
-    0x12,0x81,0x0d, // LOAD_GLOBAL 'isinstance'
+    0x36,0x81,0x0d,0x81,0x11, // names: __truediv__, self, other
+    0x80,0x63,0x2a,0x48, // code info
+    0x12,0x81,0x12, // LOAD_GLOBAL 'isinstance'
     0xb1, // LOAD_FAST 1
-    0x12,0x03, // LOAD_GLOBAL 'timedelta'
+    0x12,0x05, // LOAD_GLOBAL 'timedelta'
     0x34,0x02, // CALL_FUNCTION 2
     0x44,0x48, // POP_JUMP_IF_FALSE 8
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xb1, // LOAD_FAST 1
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xf7, // BINARY_OP 32 __truediv__
     0x63, // RETURN_VALUE
-    0x12,0x03, // LOAD_GLOBAL 'timedelta'
+    0x12,0x05, // LOAD_GLOBAL 'timedelta'
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
-    0x12,0x81,0x0b, // LOAD_GLOBAL 'round'
+    0x12,0x81,0x10, // LOAD_GLOBAL 'round'
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xb1, // LOAD_FAST 1
     0xf7, // BINARY_OP 32 __truediv__
     0x34,0x01, // CALL_FUNCTION 1
@@ -4514,7 +4539,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___truediv__ = 
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 53,
+        .qstr_block_name_idx = 54,
         .line_info = fun_data_datetime_timedelta___truediv__ + 7,
         .line_info_top = fun_data_datetime_timedelta___truediv__ + 11,
         .opcodes = fun_data_datetime_timedelta___truediv__ + 11,
@@ -4528,27 +4553,27 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___truediv__ = 
 
 // child of datetime_timedelta
 // frozen bytecode for file datetime.py, scope datetime_timedelta___floordiv__
-static const byte fun_data_datetime_timedelta___floordiv__[47] = {
+static const byte fun_data_datetime_timedelta___floordiv__[48] = {
     0x3a,0x12, // prelude
-    0x36,0x81,0x08,0x81,0x0c, // names: __floordiv__, self, other
-    0x80,0x65,0x2a,0x48, // code info
-    0x12,0x81,0x0d, // LOAD_GLOBAL 'isinstance'
+    0x37,0x81,0x0d,0x81,0x11, // names: __floordiv__, self, other
+    0x80,0x69,0x2a,0x48, // code info
+    0x12,0x81,0x12, // LOAD_GLOBAL 'isinstance'
     0xb1, // LOAD_FAST 1
-    0x12,0x03, // LOAD_GLOBAL 'timedelta'
+    0x12,0x05, // LOAD_GLOBAL 'timedelta'
     0x34,0x02, // CALL_FUNCTION 2
     0x44,0x48, // POP_JUMP_IF_FALSE 8
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xb1, // LOAD_FAST 1
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xf6, // BINARY_OP 31 __floordiv__
     0x63, // RETURN_VALUE
-    0x12,0x03, // LOAD_GLOBAL 'timedelta'
+    0x12,0x05, // LOAD_GLOBAL 'timedelta'
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
-    0x12,0x7f, // LOAD_GLOBAL 'int'
+    0x12,0x81,0x04, // LOAD_GLOBAL 'int'
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xb1, // LOAD_FAST 1
     0xf6, // BINARY_OP 31 __floordiv__
     0x34,0x01, // CALL_FUNCTION 1
@@ -4566,7 +4591,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___floordiv__ =
     .fun_data = fun_data_datetime_timedelta___floordiv__,
     .children = NULL,
     #if MICROPY_PERSISTENT_CODE_SAVE
-    .fun_data_len = 47,
+    .fun_data_len = 48,
     .n_children = 0,
     #if MICROPY_EMIT_MACHINE_CODE
     .prelude_offset = 0,
@@ -4580,7 +4605,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___floordiv__ =
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 54,
+        .qstr_block_name_idx = 55,
         .line_info = fun_data_datetime_timedelta___floordiv__ + 7,
         .line_info_top = fun_data_datetime_timedelta___floordiv__ + 11,
         .opcodes = fun_data_datetime_timedelta___floordiv__ + 11,
@@ -4596,15 +4621,15 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___floordiv__ =
 // frozen bytecode for file datetime.py, scope datetime_timedelta___mod__
 static const byte fun_data_datetime_timedelta___mod__[23] = {
     0x32,0x0e, // prelude
-    0x37,0x81,0x08,0x81,0x0c, // names: __mod__, self, other
-    0x80,0x6b, // code info
-    0x12,0x03, // LOAD_GLOBAL 'timedelta'
+    0x38,0x81,0x0d,0x81,0x11, // names: __mod__, self, other
+    0x80,0x6f, // code info
+    0x12,0x05, // LOAD_GLOBAL 'timedelta'
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xb1, // LOAD_FAST 1
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xf8, // BINARY_OP 33 __mod__
     0x34,0x03, // CALL_FUNCTION 3
     0x63, // RETURN_VALUE
@@ -4632,7 +4657,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___mod__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 55,
+        .qstr_block_name_idx = 56,
         .line_info = fun_data_datetime_timedelta___mod__ + 7,
         .line_info_top = fun_data_datetime_timedelta___mod__ + 9,
         .opcodes = fun_data_datetime_timedelta___mod__ + 9,
@@ -4648,19 +4673,19 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___mod__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta___divmod__
 static const byte fun_data_datetime_timedelta___divmod__[35] = {
     0x42,0x10, // prelude
-    0x38,0x81,0x08,0x81,0x0c, // names: __divmod__, self, other
-    0x80,0x6e,0x2e, // code info
-    0x12,0x76, // LOAD_GLOBAL 'divmod'
+    0x39,0x81,0x0d,0x81,0x11, // names: __divmod__, self, other
+    0x80,0x72,0x2e, // code info
+    0x12,0x7b, // LOAD_GLOBAL 'divmod'
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xb1, // LOAD_FAST 1
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0x34,0x02, // CALL_FUNCTION 2
     0x30,0x02, // UNPACK_SEQUENCE 2
     0xc2, // STORE_FAST 2
     0xc3, // STORE_FAST 3
     0xb2, // LOAD_FAST 2
-    0x12,0x03, // LOAD_GLOBAL 'timedelta'
+    0x12,0x05, // LOAD_GLOBAL 'timedelta'
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
     0xb3, // LOAD_FAST 3
@@ -4691,7 +4716,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___divmod__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 56,
+        .qstr_block_name_idx = 57,
         .line_info = fun_data_datetime_timedelta___divmod__ + 7,
         .line_info_top = fun_data_datetime_timedelta___divmod__ + 10,
         .opcodes = fun_data_datetime_timedelta___divmod__ + 10,
@@ -4707,12 +4732,12 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___divmod__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta___eq__
 static const byte fun_data_datetime_timedelta___eq__[17] = {
     0x1a,0x0e, // prelude
-    0x39,0x81,0x08,0x81,0x0c, // names: __eq__, self, other
-    0x80,0x72, // code info
+    0x3a,0x81,0x0d,0x81,0x11, // names: __eq__, self, other
+    0x80,0x76, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xb1, // LOAD_FAST 1
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xd9, // BINARY_OP 2 __eq__
     0x63, // RETURN_VALUE
 };
@@ -4739,7 +4764,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___eq__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 57,
+        .qstr_block_name_idx = 58,
         .line_info = fun_data_datetime_timedelta___eq__ + 7,
         .line_info_top = fun_data_datetime_timedelta___eq__ + 9,
         .opcodes = fun_data_datetime_timedelta___eq__ + 9,
@@ -4755,12 +4780,12 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___eq__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta___le__
 static const byte fun_data_datetime_timedelta___le__[17] = {
     0x1a,0x0e, // prelude
-    0x3a,0x81,0x08,0x81,0x0c, // names: __le__, self, other
-    0x80,0x75, // code info
+    0x3b,0x81,0x0d,0x81,0x11, // names: __le__, self, other
+    0x80,0x79, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xb1, // LOAD_FAST 1
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xda, // BINARY_OP 3 __le__
     0x63, // RETURN_VALUE
 };
@@ -4787,7 +4812,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___le__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 58,
+        .qstr_block_name_idx = 59,
         .line_info = fun_data_datetime_timedelta___le__ + 7,
         .line_info_top = fun_data_datetime_timedelta___le__ + 9,
         .opcodes = fun_data_datetime_timedelta___le__ + 9,
@@ -4803,12 +4828,12 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___le__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta___lt__
 static const byte fun_data_datetime_timedelta___lt__[17] = {
     0x1a,0x0e, // prelude
-    0x3b,0x81,0x08,0x81,0x0c, // names: __lt__, self, other
-    0x80,0x78, // code info
+    0x3c,0x81,0x0d,0x81,0x11, // names: __lt__, self, other
+    0x80,0x7c, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xb1, // LOAD_FAST 1
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xd7, // BINARY_OP 0 __lt__
     0x63, // RETURN_VALUE
 };
@@ -4835,7 +4860,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___lt__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 59,
+        .qstr_block_name_idx = 60,
         .line_info = fun_data_datetime_timedelta___lt__ + 7,
         .line_info_top = fun_data_datetime_timedelta___lt__ + 9,
         .opcodes = fun_data_datetime_timedelta___lt__ + 9,
@@ -4851,12 +4876,12 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___lt__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta___ge__
 static const byte fun_data_datetime_timedelta___ge__[17] = {
     0x1a,0x0e, // prelude
-    0x3c,0x81,0x08,0x81,0x0c, // names: __ge__, self, other
-    0x80,0x7b, // code info
+    0x3d,0x81,0x0d,0x81,0x11, // names: __ge__, self, other
+    0x80,0x7f, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xb1, // LOAD_FAST 1
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xdb, // BINARY_OP 4 __ge__
     0x63, // RETURN_VALUE
 };
@@ -4883,7 +4908,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___ge__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 60,
+        .qstr_block_name_idx = 61,
         .line_info = fun_data_datetime_timedelta___ge__ + 7,
         .line_info_top = fun_data_datetime_timedelta___ge__ + 9,
         .opcodes = fun_data_datetime_timedelta___ge__ + 9,
@@ -4899,12 +4924,12 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___ge__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta___gt__
 static const byte fun_data_datetime_timedelta___gt__[17] = {
     0x1a,0x0e, // prelude
-    0x3d,0x81,0x08,0x81,0x0c, // names: __gt__, self, other
-    0x80,0x7e, // code info
+    0x3e,0x81,0x0d,0x81,0x11, // names: __gt__, self, other
+    0x80,0x82, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xb1, // LOAD_FAST 1
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xd8, // BINARY_OP 1 __gt__
     0x63, // RETURN_VALUE
 };
@@ -4931,7 +4956,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___gt__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 61,
+        .qstr_block_name_idx = 62,
         .line_info = fun_data_datetime_timedelta___gt__ + 7,
         .line_info_top = fun_data_datetime_timedelta___gt__ + 9,
         .opcodes = fun_data_datetime_timedelta___gt__ + 9,
@@ -4947,10 +4972,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___gt__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta___bool__
 static const byte fun_data_datetime_timedelta___bool__[13] = {
     0x11,0x0a, // prelude
-    0x3e,0x81,0x08, // names: __bool__, self
-    0x80,0x81, // code info
+    0x3f,0x81,0x0d, // names: __bool__, self
+    0x80,0x85, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0x80, // LOAD_CONST_SMALL_INT 0
     0xdc, // BINARY_OP 5 __ne__
     0x63, // RETURN_VALUE
@@ -4978,7 +5003,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___bool__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 62,
+        .qstr_block_name_idx = 63,
         .line_info = fun_data_datetime_timedelta___bool__ + 5,
         .line_info_top = fun_data_datetime_timedelta___bool__ + 7,
         .opcodes = fun_data_datetime_timedelta___bool__ + 7,
@@ -4994,10 +5019,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___bool__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta___str__
 static const byte fun_data_datetime_timedelta___str__[16] = {
     0x19,0x0a, // prelude
-    0x3f,0x81,0x08, // names: __str__, self
-    0x80,0x84, // code info
+    0x40,0x81,0x0d, // names: __str__, self
+    0x80,0x88, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x23, // LOAD_METHOD '_fmt'
+    0x14,0x24, // LOAD_METHOD '_fmt'
     0x22,0x80,0x40, // LOAD_CONST_SMALL_INT 64
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
@@ -5025,7 +5050,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___str__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 63,
+        .qstr_block_name_idx = 64,
         .line_info = fun_data_datetime_timedelta___str__ + 5,
         .line_info_top = fun_data_datetime_timedelta___str__ + 7,
         .opcodes = fun_data_datetime_timedelta___str__ + 7,
@@ -5041,21 +5066,21 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___str__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta___hash__
 static const byte fun_data_datetime_timedelta___hash__[34] = {
     0x19,0x0e, // prelude
-    0x40,0x81,0x08, // names: __hash__, self
-    0x80,0x87,0x2a,0x2b, // code info
-    0x12,0x81,0x0e, // LOAD_GLOBAL 'hasattr'
+    0x41,0x81,0x0d, // names: __hash__, self
+    0x80,0x8b,0x2a,0x2b, // code info
+    0x12,0x81,0x13, // LOAD_GLOBAL 'hasattr'
     0xb0, // LOAD_FAST 0
-    0x10,0x41, // LOAD_CONST_STRING '_hash'
+    0x10,0x42, // LOAD_CONST_STRING '_hash'
     0x34,0x02, // CALL_FUNCTION 2
     0x43,0x4b, // POP_JUMP_IF_TRUE 11
-    0x12,0x81,0x0f, // LOAD_GLOBAL 'hash'
+    0x12,0x81,0x14, // LOAD_GLOBAL 'hash'
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0x34,0x01, // CALL_FUNCTION 1
     0xb0, // LOAD_FAST 0
-    0x18,0x41, // STORE_ATTR '_hash'
+    0x18,0x42, // STORE_ATTR '_hash'
     0xb0, // LOAD_FAST 0
-    0x13,0x41, // LOAD_ATTR '_hash'
+    0x13,0x42, // LOAD_ATTR '_hash'
     0x63, // RETURN_VALUE
 };
 #if MICROPY_PERSISTENT_CODE_SAVE
@@ -5081,7 +5106,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___hash__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 64,
+        .qstr_block_name_idx = 65,
         .line_info = fun_data_datetime_timedelta___hash__ + 5,
         .line_info_top = fun_data_datetime_timedelta___hash__ + 9,
         .opcodes = fun_data_datetime_timedelta___hash__ + 9,
@@ -5097,10 +5122,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta___hash__ = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta_isoformat
 static const byte fun_data_datetime_timedelta_isoformat[14] = {
     0x19,0x0a, // prelude
-    0x25,0x81,0x08, // names: isoformat, self
-    0x80,0x8c, // code info
+    0x26,0x81,0x0d, // names: isoformat, self
+    0x80,0x90, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x23, // LOAD_METHOD '_fmt'
+    0x14,0x24, // LOAD_METHOD '_fmt'
     0x80, // LOAD_CONST_SMALL_INT 0
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
@@ -5128,7 +5153,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta_isoformat = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 37,
+        .qstr_block_name_idx = 38,
         .line_info = fun_data_datetime_timedelta_isoformat + 5,
         .line_info_top = fun_data_datetime_timedelta_isoformat + 7,
         .opcodes = fun_data_datetime_timedelta_isoformat + 7,
@@ -5144,25 +5169,25 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta_isoformat = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta__fmt
 static const byte fun_data_datetime_timedelta__fmt[300] = {
     0x92,0x11,0x56, // prelude
-    0x23,0x81,0x08,0x81,0x10, // names: _fmt, self, spec
-    0x80,0x8f,0x27,0x22,0x45,0x23,0x23,0x2d,0x2c,0x23,0x27,0x26,0x49,0x28,0x25,0x25,0x24,0x25,0x25,0x25,0x23,0x23,0x23,0x2c,0x2c,0x23,0x25,0x2b,0x29,0x2b,0x29,0x2a,0x28,0x2a,0x28,0x2a,0x28,0x2a, // code info
+    0x24,0x81,0x0d,0x81,0x15, // names: _fmt, self, spec
+    0x80,0x93,0x27,0x22,0x45,0x23,0x23,0x2d,0x2c,0x23,0x27,0x26,0x49,0x28,0x25,0x25,0x24,0x25,0x25,0x25,0x23,0x23,0x23,0x2c,0x2c,0x23,0x25,0x2b,0x29,0x2b,0x29,0x2a,0x28,0x2a,0x28,0x2a,0x28,0x2a, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0x80, // LOAD_CONST_SMALL_INT 0
     0xdb, // BINARY_OP 4 __ge__
     0x44,0x47, // POP_JUMP_IF_FALSE 7
     0xb0, // LOAD_FAST 0
     0xc2, // STORE_FAST 2
-    0x10,0x1d, // LOAD_CONST_STRING ''
+    0x10,0x1e, // LOAD_CONST_STRING ''
     0xc3, // STORE_FAST 3
     0x42,0x46, // JUMP 6
     0xb0, // LOAD_FAST 0
     0xd1, // UNARY_OP 1 __neg__
     0xc2, // STORE_FAST 2
-    0x10,0x19, // LOAD_CONST_STRING '-'
+    0x10,0x1a, // LOAD_CONST_STRING '-'
     0xc3, // STORE_FAST 3
     0xb2, // LOAD_FAST 2
-    0x14,0x2e, // LOAD_METHOD '_tuple'
+    0x14,0x2f, // LOAD_METHOD '_tuple'
     0x85, // LOAD_CONST_SMALL_INT 5
     0x36,0x01, // CALL_METHOD 1
     0x30,0x05, // UNPACK_SEQUENCE 5
@@ -5171,14 +5196,14 @@ static const byte fun_data_datetime_timedelta__fmt[300] = {
     0xc6, // STORE_FAST 6
     0xc7, // STORE_FAST 7
     0xc8, // STORE_FAST 8
-    0x12,0x76, // LOAD_GLOBAL 'divmod'
+    0x12,0x7b, // LOAD_GLOBAL 'divmod'
     0xb8, // LOAD_FAST 8
     0x22,0x87,0x68, // LOAD_CONST_SMALL_INT 1000
     0x34,0x02, // CALL_FUNCTION 2
     0x30,0x02, // UNPACK_SEQUENCE 2
     0xc9, // STORE_FAST 9
     0xc8, // STORE_FAST 8
-    0x10,0x1d, // LOAD_CONST_STRING ''
+    0x10,0x1e, // LOAD_CONST_STRING ''
     0xca, // STORE_FAST 10
     0xb1, // LOAD_FAST 1
     0x22,0x80,0x40, // LOAD_CONST_SMALL_INT 64
@@ -5188,13 +5213,13 @@ static const byte fun_data_datetime_timedelta__fmt[300] = {
     0x22,0xff,0x3f, // LOAD_CONST_SMALL_INT -65
     0xe2, // BINARY_OP 11 __iand__
     0xc1, // STORE_FAST 1
-    0x12,0x81,0x11, // LOAD_GLOBAL 'str'
+    0x12,0x81,0x16, // LOAD_GLOBAL 'str'
     0xb5, // LOAD_FAST 5
     0x34,0x01, // CALL_FUNCTION 1
     0xcb, // STORE_FAST 11
     0x42,0x48, // JUMP 8
-    0x10,0x42, // LOAD_CONST_STRING '{:02d}'
-    0x14,0x2c, // LOAD_METHOD 'format'
+    0x10,0x43, // LOAD_CONST_STRING '{:02d}'
+    0x14,0x2d, // LOAD_METHOD 'format'
     0xb5, // LOAD_FAST 5
     0x36,0x01, // CALL_METHOD 1
     0xcb, // STORE_FAST 11
@@ -5211,7 +5236,7 @@ static const byte fun_data_datetime_timedelta__fmt[300] = {
     0xe0, // BINARY_OP 9 __ior__
     0xc1, // STORE_FAST 1
     0xba, // LOAD_FAST 10
-    0x10,0x43, // LOAD_CONST_STRING 'UTC'
+    0x10,0x44, // LOAD_CONST_STRING 'UTC'
     0xe5, // BINARY_OP 14 __iadd__
     0xca, // STORE_FAST 10
     0xb1, // LOAD_FAST 1
@@ -5224,7 +5249,7 @@ static const byte fun_data_datetime_timedelta__fmt[300] = {
     0xc1, // STORE_FAST 1
     0xb3, // LOAD_FAST 3
     0x43,0x43, // POP_JUMP_IF_TRUE 3
-    0x10,0x20, // LOAD_CONST_STRING '+'
+    0x10,0x21, // LOAD_CONST_STRING '+'
     0xc3, // STORE_FAST 3
     0xb4, // LOAD_FAST 4
     0x44,0x5b, // POP_JUMP_IF_FALSE 27
@@ -5232,20 +5257,20 @@ static const byte fun_data_datetime_timedelta__fmt[300] = {
     0x81, // LOAD_CONST_SMALL_INT 1
     0xd8, // BINARY_OP 1 __gt__
     0x44,0x44, // POP_JUMP_IF_FALSE 4
-    0x10,0x44, // LOAD_CONST_STRING 's'
+    0x10,0x45, // LOAD_CONST_STRING 's'
     0x42,0x42, // JUMP 2
-    0x10,0x1d, // LOAD_CONST_STRING ''
+    0x10,0x1e, // LOAD_CONST_STRING ''
     0xcc, // STORE_FAST 12
     0xba, // LOAD_FAST 10
     0x23,0x06, // LOAD_CONST_OBJ 6
-    0x14,0x2c, // LOAD_METHOD 'format'
+    0x14,0x2d, // LOAD_METHOD 'format'
     0xb3, // LOAD_FAST 3
     0xb4, // LOAD_FAST 4
     0xbc, // LOAD_FAST 12
     0x36,0x03, // CALL_METHOD 3
     0xe5, // BINARY_OP 14 __iadd__
     0xca, // STORE_FAST 10
-    0x10,0x1d, // LOAD_CONST_STRING ''
+    0x10,0x1e, // LOAD_CONST_STRING ''
     0xc3, // STORE_FAST 3
     0xb1, // LOAD_FAST 1
     0x80, // LOAD_CONST_SMALL_INT 0
@@ -5266,8 +5291,8 @@ static const byte fun_data_datetime_timedelta__fmt[300] = {
     0xb5, // LOAD_FAST 5
     0x44,0xd4,0x80, // POP_JUMP_IF_FALSE 84
     0xba, // LOAD_FAST 10
-    0x10,0x45, // LOAD_CONST_STRING '{}{}'
-    0x14,0x2c, // LOAD_METHOD 'format'
+    0x10,0x46, // LOAD_CONST_STRING '{}{}'
+    0x14,0x2d, // LOAD_METHOD 'format'
     0xb3, // LOAD_FAST 3
     0xbb, // LOAD_FAST 11
     0x36,0x02, // CALL_METHOD 2
@@ -5280,8 +5305,8 @@ static const byte fun_data_datetime_timedelta__fmt[300] = {
     0xb6, // LOAD_FAST 6
     0x44,0xc0,0x80, // POP_JUMP_IF_FALSE 64
     0xba, // LOAD_FAST 10
-    0x10,0x46, // LOAD_CONST_STRING ':{:02d}'
-    0x14,0x2c, // LOAD_METHOD 'format'
+    0x10,0x47, // LOAD_CONST_STRING ':{:02d}'
+    0x14,0x2d, // LOAD_METHOD 'format'
     0xb6, // LOAD_FAST 6
     0x36,0x01, // CALL_METHOD 1
     0xe5, // BINARY_OP 14 __iadd__
@@ -5293,8 +5318,8 @@ static const byte fun_data_datetime_timedelta__fmt[300] = {
     0xb7, // LOAD_FAST 7
     0x44,0x6e, // POP_JUMP_IF_FALSE 46
     0xba, // LOAD_FAST 10
-    0x10,0x46, // LOAD_CONST_STRING ':{:02d}'
-    0x14,0x2c, // LOAD_METHOD 'format'
+    0x10,0x47, // LOAD_CONST_STRING ':{:02d}'
+    0x14,0x2d, // LOAD_METHOD 'format'
     0xb7, // LOAD_FAST 7
     0x36,0x01, // CALL_METHOD 1
     0xe5, // BINARY_OP 14 __iadd__
@@ -5306,8 +5331,8 @@ static const byte fun_data_datetime_timedelta__fmt[300] = {
     0xb9, // LOAD_FAST 9
     0x44,0x5c, // POP_JUMP_IF_FALSE 28
     0xba, // LOAD_FAST 10
-    0x10,0x47, // LOAD_CONST_STRING '.{:03d}'
-    0x14,0x2c, // LOAD_METHOD 'format'
+    0x10,0x48, // LOAD_CONST_STRING '.{:03d}'
+    0x14,0x2d, // LOAD_METHOD 'format'
     0xb9, // LOAD_FAST 9
     0x36,0x01, // CALL_METHOD 1
     0xe5, // BINARY_OP 14 __iadd__
@@ -5319,8 +5344,8 @@ static const byte fun_data_datetime_timedelta__fmt[300] = {
     0xb8, // LOAD_FAST 8
     0x44,0x4a, // POP_JUMP_IF_FALSE 10
     0xba, // LOAD_FAST 10
-    0x10,0x48, // LOAD_CONST_STRING '{:03d}'
-    0x14,0x2c, // LOAD_METHOD 'format'
+    0x10,0x49, // LOAD_CONST_STRING '{:03d}'
+    0x14,0x2d, // LOAD_METHOD 'format'
     0xb8, // LOAD_FAST 8
     0x36,0x01, // CALL_METHOD 1
     0xe5, // BINARY_OP 14 __iadd__
@@ -5351,7 +5376,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta__fmt = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 1,
-        .qstr_block_name_idx = 35,
+        .qstr_block_name_idx = 36,
         .line_info = fun_data_datetime_timedelta__fmt + 8,
         .line_info_top = fun_data_datetime_timedelta__fmt + 46,
         .opcodes = fun_data_datetime_timedelta__fmt + 46,
@@ -5367,10 +5392,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta__fmt = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta_tuple
 static const byte fun_data_datetime_timedelta_tuple[14] = {
     0x19,0x0a, // prelude
-    0x49,0x81,0x08, // names: tuple, self
-    0x80,0xb8, // code info
+    0x4a,0x81,0x0d, // names: tuple, self
+    0x80,0xbc, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x2e, // LOAD_METHOD '_tuple'
+    0x14,0x2f, // LOAD_METHOD '_tuple'
     0x85, // LOAD_CONST_SMALL_INT 5
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
@@ -5398,7 +5423,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta_tuple = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 73,
+        .qstr_block_name_idx = 74,
         .line_info = fun_data_datetime_timedelta_tuple + 5,
         .line_info_top = fun_data_datetime_timedelta_tuple + 7,
         .opcodes = fun_data_datetime_timedelta_tuple + 7,
@@ -5414,11 +5439,11 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta_tuple = {
 // frozen bytecode for file datetime.py, scope datetime_timedelta__tuple
 static const byte fun_data_datetime_timedelta__tuple[91] = {
     0x5a,0x1c, // prelude
-    0x2e,0x81,0x08,0x75, // names: _tuple, self, n
-    0x80,0xbb,0x2d,0x25,0x22,0x2d,0x25,0x26,0x2c,0x2b, // code info
-    0x12,0x76, // LOAD_GLOBAL 'divmod'
+    0x2f,0x81,0x0d,0x7a, // names: _tuple, self, n
+    0x80,0xbf,0x2d,0x25,0x22,0x2d,0x25,0x26,0x2c,0x2b, // code info
+    0x12,0x7b, // LOAD_GLOBAL 'divmod'
     0xb0, // LOAD_FAST 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0x23,0x03, // LOAD_CONST_OBJ 3
     0x34,0x02, // CALL_FUNCTION 2
     0x30,0x02, // UNPACK_SEQUENCE 2
@@ -5430,7 +5455,7 @@ static const byte fun_data_datetime_timedelta__tuple[91] = {
     0x44,0x42, // POP_JUMP_IF_FALSE 2
     0xb2, // LOAD_FAST 2
     0x63, // RETURN_VALUE
-    0x12,0x76, // LOAD_GLOBAL 'divmod'
+    0x12,0x7b, // LOAD_GLOBAL 'divmod'
     0xb3, // LOAD_FAST 3
     0x22,0xbd,0x84,0x40, // LOAD_CONST_SMALL_INT 1000000
     0x34,0x02, // CALL_FUNCTION 2
@@ -5446,14 +5471,14 @@ static const byte fun_data_datetime_timedelta__tuple[91] = {
     0xb3, // LOAD_FAST 3
     0x2a,0x03, // BUILD_TUPLE 3
     0x63, // RETURN_VALUE
-    0x12,0x76, // LOAD_GLOBAL 'divmod'
+    0x12,0x7b, // LOAD_GLOBAL 'divmod'
     0xb4, // LOAD_FAST 4
     0x22,0x9c,0x10, // LOAD_CONST_SMALL_INT 3600
     0x34,0x02, // CALL_FUNCTION 2
     0x30,0x02, // UNPACK_SEQUENCE 2
     0xc5, // STORE_FAST 5
     0xc4, // STORE_FAST 4
-    0x12,0x76, // LOAD_GLOBAL 'divmod'
+    0x12,0x7b, // LOAD_GLOBAL 'divmod'
     0xb4, // LOAD_FAST 4
     0x22,0x3c, // LOAD_CONST_SMALL_INT 60
     0x34,0x02, // CALL_FUNCTION 2
@@ -5491,7 +5516,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta__tuple = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 46,
+        .qstr_block_name_idx = 47,
         .line_info = fun_data_datetime_timedelta__tuple + 6,
         .line_info_top = fun_data_datetime_timedelta__tuple + 16,
         .opcodes = fun_data_datetime_timedelta__tuple + 16,
@@ -5542,7 +5567,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta = {
     .fun_data = fun_data_datetime_timedelta,
     .children = (void *)&children_datetime_timedelta,
     #if MICROPY_PERSISTENT_CODE_SAVE
-    .fun_data_len = 195,
+    .fun_data_len = 196,
     .n_children = 28,
     #if MICROPY_EMIT_MACHINE_CODE
     .prelude_offset = 0,
@@ -5556,7 +5581,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta = {
         .n_pos_args = 0,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 3,
+        .qstr_block_name_idx = 5,
         .line_info = fun_data_datetime_timedelta + 3,
         .line_info_top = fun_data_datetime_timedelta + 43,
         .opcodes = fun_data_datetime_timedelta + 43,
@@ -5569,22 +5594,22 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timedelta = {
 // frozen bytecode for file datetime.py, scope datetime_tzinfo
 static const byte fun_data_datetime_tzinfo[40] = {
     0x00,0x10, // prelude
-    0x0c, // names: tzinfo
-    0x88,0xcd,0x64,0x64,0x64,0x84,0x0d, // code info
-    0x11,0x77, // LOAD_NAME '__name__'
-    0x16,0x78, // STORE_NAME '__module__'
-    0x10,0x0c, // LOAD_CONST_STRING 'tzinfo'
-    0x16,0x79, // STORE_NAME '__qualname__'
+    0x0e, // names: tzinfo
+    0x88,0xd1,0x64,0x64,0x64,0x84,0x0d, // code info
+    0x11,0x7c, // LOAD_NAME '__name__'
+    0x16,0x7d, // STORE_NAME '__module__'
+    0x10,0x0e, // LOAD_CONST_STRING 'tzinfo'
+    0x16,0x7e, // STORE_NAME '__qualname__'
     0x32,0x00, // MAKE_FUNCTION 0
-    0x16,0x4a, // STORE_NAME 'tzname'
+    0x16,0x4b, // STORE_NAME 'tzname'
     0x32,0x01, // MAKE_FUNCTION 1
-    0x16,0x4b, // STORE_NAME 'utcoffset'
+    0x16,0x4c, // STORE_NAME 'utcoffset'
     0x32,0x02, // MAKE_FUNCTION 2
-    0x16,0x4c, // STORE_NAME 'dst'
+    0x16,0x4d, // STORE_NAME 'dst'
     0x32,0x03, // MAKE_FUNCTION 3
-    0x16,0x4d, // STORE_NAME 'fromutc'
+    0x16,0x4e, // STORE_NAME 'fromutc'
     0x32,0x04, // MAKE_FUNCTION 4
-    0x16,0x25, // STORE_NAME 'isoformat'
+    0x16,0x26, // STORE_NAME 'isoformat'
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
 };
@@ -5592,9 +5617,9 @@ static const byte fun_data_datetime_tzinfo[40] = {
 // frozen bytecode for file datetime.py, scope datetime_tzinfo_tzname
 static const byte fun_data_datetime_tzinfo_tzname[13] = {
     0x12,0x0e, // prelude
-    0x4a,0x81,0x08,0x81,0x06, // names: tzname, self, dt
-    0x80,0xce, // code info
-    0x12,0x81,0x12, // LOAD_GLOBAL 'NotImplementedError'
+    0x4b,0x81,0x0d,0x81,0x0b, // names: tzname, self, dt
+    0x80,0xd2, // code info
+    0x12,0x81,0x17, // LOAD_GLOBAL 'NotImplementedError'
     0x65, // RAISE_OBJ
 };
 #if MICROPY_PERSISTENT_CODE_SAVE
@@ -5620,7 +5645,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_tzinfo_tzname = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 74,
+        .qstr_block_name_idx = 75,
         .line_info = fun_data_datetime_tzinfo_tzname + 7,
         .line_info_top = fun_data_datetime_tzinfo_tzname + 9,
         .opcodes = fun_data_datetime_tzinfo_tzname + 9,
@@ -5636,9 +5661,9 @@ static const mp_raw_code_truncated_t proto_fun_datetime_tzinfo_tzname = {
 // frozen bytecode for file datetime.py, scope datetime_tzinfo_utcoffset
 static const byte fun_data_datetime_tzinfo_utcoffset[13] = {
     0x12,0x0e, // prelude
-    0x4b,0x81,0x08,0x81,0x06, // names: utcoffset, self, dt
-    0x80,0xd1, // code info
-    0x12,0x81,0x12, // LOAD_GLOBAL 'NotImplementedError'
+    0x4c,0x81,0x0d,0x81,0x0b, // names: utcoffset, self, dt
+    0x80,0xd5, // code info
+    0x12,0x81,0x17, // LOAD_GLOBAL 'NotImplementedError'
     0x65, // RAISE_OBJ
 };
 #if MICROPY_PERSISTENT_CODE_SAVE
@@ -5664,7 +5689,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_tzinfo_utcoffset = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 75,
+        .qstr_block_name_idx = 76,
         .line_info = fun_data_datetime_tzinfo_utcoffset + 7,
         .line_info_top = fun_data_datetime_tzinfo_utcoffset + 9,
         .opcodes = fun_data_datetime_tzinfo_utcoffset + 9,
@@ -5680,9 +5705,9 @@ static const mp_raw_code_truncated_t proto_fun_datetime_tzinfo_utcoffset = {
 // frozen bytecode for file datetime.py, scope datetime_tzinfo_dst
 static const byte fun_data_datetime_tzinfo_dst[13] = {
     0x12,0x0e, // prelude
-    0x4c,0x81,0x08,0x81,0x06, // names: dst, self, dt
-    0x80,0xd4, // code info
-    0x12,0x81,0x12, // LOAD_GLOBAL 'NotImplementedError'
+    0x4d,0x81,0x0d,0x81,0x0b, // names: dst, self, dt
+    0x80,0xd8, // code info
+    0x12,0x81,0x17, // LOAD_GLOBAL 'NotImplementedError'
     0x65, // RAISE_OBJ
 };
 #if MICROPY_PERSISTENT_CODE_SAVE
@@ -5708,7 +5733,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_tzinfo_dst = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 76,
+        .qstr_block_name_idx = 77,
         .line_info = fun_data_datetime_tzinfo_dst + 7,
         .line_info_top = fun_data_datetime_tzinfo_dst + 9,
         .opcodes = fun_data_datetime_tzinfo_dst + 9,
@@ -5722,24 +5747,24 @@ static const mp_raw_code_truncated_t proto_fun_datetime_tzinfo_dst = {
 
 // child of datetime_tzinfo
 // frozen bytecode for file datetime.py, scope datetime_tzinfo_fromutc
-static const byte fun_data_datetime_tzinfo_fromutc[61] = {
+static const byte fun_data_datetime_tzinfo_fromutc[62] = {
     0x32,0x1e, // prelude
-    0x4d,0x81,0x08,0x81,0x06, // names: fromutc, self, dt
-    0x80,0xd7,0x28,0x63,0x26,0x26,0x24,0x23,0x24,0x26, // code info
+    0x4e,0x81,0x0d,0x81,0x0b, // names: fromutc, self, dt
+    0x80,0xdb,0x28,0x64,0x26,0x26,0x24,0x23,0x24,0x26, // code info
     0xb1, // LOAD_FAST 1
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0xb0, // LOAD_FAST 0
     0xde, // BINARY_OP 7 <is>
     0xd3, // UNARY_OP 3 <not>
-    0x44,0x43, // POP_JUMP_IF_FALSE 3
-    0x12,0x7d, // LOAD_GLOBAL 'ValueError'
+    0x44,0x44, // POP_JUMP_IF_FALSE 4
+    0x12,0x81,0x02, // LOAD_GLOBAL 'ValueError'
     0x65, // RAISE_OBJ
     0xb1, // LOAD_FAST 1
-    0x14,0x4b, // LOAD_METHOD 'utcoffset'
+    0x14,0x4c, // LOAD_METHOD 'utcoffset'
     0x36,0x00, // CALL_METHOD 0
     0xc2, // STORE_FAST 2
     0xb1, // LOAD_FAST 1
-    0x14,0x4c, // LOAD_METHOD 'dst'
+    0x14,0x4d, // LOAD_METHOD 'dst'
     0x36,0x00, // CALL_METHOD 0
     0xc3, // STORE_FAST 3
     0xb2, // LOAD_FAST 2
@@ -5753,7 +5778,7 @@ static const byte fun_data_datetime_tzinfo_fromutc[61] = {
     0xe5, // BINARY_OP 14 __iadd__
     0xc1, // STORE_FAST 1
     0xb1, // LOAD_FAST 1
-    0x14,0x4c, // LOAD_METHOD 'dst'
+    0x14,0x4d, // LOAD_METHOD 'dst'
     0x36,0x00, // CALL_METHOD 0
     0xc3, // STORE_FAST 3
     0xb1, // LOAD_FAST 1
@@ -5770,7 +5795,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_tzinfo_fromutc = {
     .fun_data = fun_data_datetime_tzinfo_fromutc,
     .children = NULL,
     #if MICROPY_PERSISTENT_CODE_SAVE
-    .fun_data_len = 61,
+    .fun_data_len = 62,
     .n_children = 0,
     #if MICROPY_EMIT_MACHINE_CODE
     .prelude_offset = 0,
@@ -5784,7 +5809,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_tzinfo_fromutc = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 77,
+        .qstr_block_name_idx = 78,
         .line_info = fun_data_datetime_tzinfo_fromutc + 7,
         .line_info_top = fun_data_datetime_tzinfo_fromutc + 17,
         .opcodes = fun_data_datetime_tzinfo_fromutc + 17,
@@ -5800,13 +5825,13 @@ static const mp_raw_code_truncated_t proto_fun_datetime_tzinfo_fromutc = {
 // frozen bytecode for file datetime.py, scope datetime_tzinfo_isoformat
 static const byte fun_data_datetime_tzinfo_isoformat[21] = {
     0x22,0x0e, // prelude
-    0x25,0x81,0x08,0x81,0x06, // names: isoformat, self, dt
-    0x80,0xe4, // code info
+    0x26,0x81,0x0d,0x81,0x0b, // names: isoformat, self, dt
+    0x80,0xe8, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x4b, // LOAD_METHOD 'utcoffset'
+    0x14,0x4c, // LOAD_METHOD 'utcoffset'
     0xb1, // LOAD_FAST 1
     0x36,0x01, // CALL_METHOD 1
-    0x14,0x23, // LOAD_METHOD '_fmt'
+    0x14,0x24, // LOAD_METHOD '_fmt'
     0x92, // LOAD_CONST_SMALL_INT 18
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
@@ -5834,7 +5859,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_tzinfo_isoformat = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 37,
+        .qstr_block_name_idx = 38,
         .line_info = fun_data_datetime_tzinfo_isoformat + 7,
         .line_info_top = fun_data_datetime_tzinfo_isoformat + 9,
         .opcodes = fun_data_datetime_tzinfo_isoformat + 9,
@@ -5876,7 +5901,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_tzinfo = {
         .n_pos_args = 0,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 12,
+        .qstr_block_name_idx = 14,
         .line_info = fun_data_datetime_tzinfo + 3,
         .line_info_top = fun_data_datetime_tzinfo + 10,
         .opcodes = fun_data_datetime_tzinfo + 10,
@@ -5889,57 +5914,57 @@ static const mp_raw_code_truncated_t proto_fun_datetime_tzinfo = {
 // frozen bytecode for file datetime.py, scope datetime_timezone
 static const byte fun_data_datetime_timezone[67] = {
     0x08,0x1e, // prelude
-    0x0d, // names: timezone
-    0x88,0xe8,0x68,0x60,0x64,0x64,0x40,0x64,0x64,0x40,0x64,0x64,0x64,0x40, // code info
-    0x11,0x77, // LOAD_NAME '__name__'
-    0x16,0x78, // STORE_NAME '__module__'
-    0x10,0x0d, // LOAD_CONST_STRING 'timezone'
-    0x16,0x79, // STORE_NAME '__qualname__'
+    0x0f, // names: timezone
+    0x88,0xec,0x68,0x60,0x64,0x64,0x40,0x64,0x64,0x40,0x64,0x64,0x64,0x40, // code info
+    0x11,0x7c, // LOAD_NAME '__name__'
+    0x16,0x7d, // STORE_NAME '__module__'
+    0x10,0x0f, // LOAD_CONST_STRING 'timezone'
+    0x16,0x7e, // STORE_NAME '__qualname__'
     0x51, // LOAD_CONST_NONE
     0x2a,0x01, // BUILD_TUPLE 1
     0x53, // LOAD_NULL
     0x33,0x00, // MAKE_FUNCTION_DEFARGS 0
-    0x16,0x29, // STORE_NAME '__init__'
+    0x16,0x2a, // STORE_NAME '__init__'
     0x32,0x01, // MAKE_FUNCTION 1
-    0x16,0x2b, // STORE_NAME '__repr__'
+    0x16,0x2c, // STORE_NAME '__repr__'
     0x32,0x02, // MAKE_FUNCTION 2
-    0x16,0x39, // STORE_NAME '__eq__'
+    0x16,0x3a, // STORE_NAME '__eq__'
     0x32,0x03, // MAKE_FUNCTION 3
-    0x16,0x3f, // STORE_NAME '__str__'
+    0x16,0x40, // STORE_NAME '__str__'
     0x32,0x04, // MAKE_FUNCTION 4
-    0x16,0x40, // STORE_NAME '__hash__'
+    0x16,0x41, // STORE_NAME '__hash__'
     0x32,0x05, // MAKE_FUNCTION 5
-    0x16,0x4b, // STORE_NAME 'utcoffset'
+    0x16,0x4c, // STORE_NAME 'utcoffset'
     0x32,0x06, // MAKE_FUNCTION 6
-    0x16,0x4c, // STORE_NAME 'dst'
+    0x16,0x4d, // STORE_NAME 'dst'
     0x32,0x07, // MAKE_FUNCTION 7
-    0x16,0x4a, // STORE_NAME 'tzname'
+    0x16,0x4b, // STORE_NAME 'tzname'
     0x32,0x08, // MAKE_FUNCTION 8
-    0x16,0x4d, // STORE_NAME 'fromutc'
+    0x16,0x4e, // STORE_NAME 'fromutc'
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
 };
 // child of datetime_timezone
 // frozen bytecode for file datetime.py, scope datetime_timezone___init__
-static const byte fun_data_datetime_timezone___init__[41] = {
+static const byte fun_data_datetime_timezone___init__[42] = {
     0xa3,0x01,0x18, // prelude
-    0x29,0x81,0x08,0x81,0x13,0x81,0x14, // names: __init__, self, offset, name
-    0x80,0xe9,0x2d,0x23,0x24, // code info
-    0x12,0x81,0x15, // LOAD_GLOBAL 'abs'
+    0x2a,0x81,0x0d,0x81,0x18,0x81,0x19, // names: __init__, self, offset, name
+    0x80,0xed,0x2d,0x24,0x24, // code info
+    0x12,0x81,0x1a, // LOAD_GLOBAL 'abs'
     0xb1, // LOAD_FAST 1
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0x34,0x01, // CALL_FUNCTION 1
     0x23,0x03, // LOAD_CONST_OBJ 3
     0xd7, // BINARY_OP 0 __lt__
-    0x43,0x43, // POP_JUMP_IF_TRUE 3
-    0x12,0x7d, // LOAD_GLOBAL 'ValueError'
+    0x43,0x44, // POP_JUMP_IF_TRUE 4
+    0x12,0x81,0x02, // LOAD_GLOBAL 'ValueError'
     0x65, // RAISE_OBJ
     0xb1, // LOAD_FAST 1
     0xb0, // LOAD_FAST 0
-    0x18,0x4f, // STORE_ATTR '_offset'
+    0x18,0x50, // STORE_ATTR '_offset'
     0xb2, // LOAD_FAST 2
     0xb0, // LOAD_FAST 0
-    0x18,0x50, // STORE_ATTR '_name'
+    0x18,0x51, // STORE_ATTR '_name'
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
 };
@@ -5952,7 +5977,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone___init__ = {
     .fun_data = fun_data_datetime_timezone___init__,
     .children = NULL,
     #if MICROPY_PERSISTENT_CODE_SAVE
-    .fun_data_len = 41,
+    .fun_data_len = 42,
     .n_children = 0,
     #if MICROPY_EMIT_MACHINE_CODE
     .prelude_offset = 0,
@@ -5966,7 +5991,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone___init__ = {
         .n_pos_args = 3,
         .n_kwonly_args = 0,
         .n_def_pos_args = 1,
-        .qstr_block_name_idx = 41,
+        .qstr_block_name_idx = 42,
         .line_info = fun_data_datetime_timezone___init__ + 10,
         .line_info_top = fun_data_datetime_timezone___init__ + 15,
         .opcodes = fun_data_datetime_timezone___init__ + 15,
@@ -5982,17 +6007,17 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone___init__ = {
 // frozen bytecode for file datetime.py, scope datetime_timezone___repr__
 static const byte fun_data_datetime_timezone___repr__[30] = {
     0x29,0x0a, // prelude
-    0x2b,0x81,0x08, // names: __repr__, self
-    0x80,0xef, // code info
+    0x2c,0x81,0x0d, // names: __repr__, self
+    0x80,0xf3, // code info
     0x23,0x07, // LOAD_CONST_OBJ 7
-    0x14,0x2c, // LOAD_METHOD 'format'
-    0x12,0x81,0x16, // LOAD_GLOBAL 'repr'
+    0x14,0x2d, // LOAD_METHOD 'format'
+    0x12,0x81,0x1b, // LOAD_GLOBAL 'repr'
     0xb0, // LOAD_FAST 0
-    0x13,0x4f, // LOAD_ATTR '_offset'
+    0x13,0x50, // LOAD_ATTR '_offset'
     0x34,0x01, // CALL_FUNCTION 1
-    0x12,0x81,0x16, // LOAD_GLOBAL 'repr'
+    0x12,0x81,0x1b, // LOAD_GLOBAL 'repr'
     0xb0, // LOAD_FAST 0
-    0x13,0x50, // LOAD_ATTR '_name'
+    0x13,0x51, // LOAD_ATTR '_name'
     0x34,0x01, // CALL_FUNCTION 1
     0x36,0x02, // CALL_METHOD 2
     0x63, // RETURN_VALUE
@@ -6020,7 +6045,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone___repr__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 43,
+        .qstr_block_name_idx = 44,
         .line_info = fun_data_datetime_timezone___repr__ + 5,
         .line_info_top = fun_data_datetime_timezone___repr__ + 7,
         .opcodes = fun_data_datetime_timezone___repr__ + 7,
@@ -6036,20 +6061,20 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone___repr__ = {
 // frozen bytecode for file datetime.py, scope datetime_timezone___eq__
 static const byte fun_data_datetime_timezone___eq__[33] = {
     0x22,0x12, // prelude
-    0x39,0x81,0x08,0x81,0x0c, // names: __eq__, self, other
-    0x80,0xf2,0x2a,0x28, // code info
-    0x12,0x81,0x0d, // LOAD_GLOBAL 'isinstance'
+    0x3a,0x81,0x0d,0x81,0x11, // names: __eq__, self, other
+    0x80,0xf6,0x2a,0x28, // code info
+    0x12,0x81,0x12, // LOAD_GLOBAL 'isinstance'
     0xb1, // LOAD_FAST 1
-    0x12,0x0d, // LOAD_GLOBAL 'timezone'
+    0x12,0x0f, // LOAD_GLOBAL 'timezone'
     0x34,0x02, // CALL_FUNCTION 2
     0x44,0x48, // POP_JUMP_IF_FALSE 8
     0xb0, // LOAD_FAST 0
-    0x13,0x4f, // LOAD_ATTR '_offset'
+    0x13,0x50, // LOAD_ATTR '_offset'
     0xb1, // LOAD_FAST 1
-    0x13,0x4f, // LOAD_ATTR '_offset'
+    0x13,0x50, // LOAD_ATTR '_offset'
     0xd9, // BINARY_OP 2 __eq__
     0x63, // RETURN_VALUE
-    0x12,0x81,0x17, // LOAD_GLOBAL 'NotImplemented'
+    0x12,0x81,0x1c, // LOAD_GLOBAL 'NotImplemented'
     0x63, // RETURN_VALUE
 };
 #if MICROPY_PERSISTENT_CODE_SAVE
@@ -6075,7 +6100,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone___eq__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 57,
+        .qstr_block_name_idx = 58,
         .line_info = fun_data_datetime_timezone___eq__ + 7,
         .line_info_top = fun_data_datetime_timezone___eq__ + 11,
         .opcodes = fun_data_datetime_timezone___eq__ + 11,
@@ -6091,10 +6116,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone___eq__ = {
 // frozen bytecode for file datetime.py, scope datetime_timezone___str__
 static const byte fun_data_datetime_timezone___str__[14] = {
     0x19,0x0a, // prelude
-    0x3f,0x81,0x08, // names: __str__, self
-    0x80,0xf7, // code info
+    0x40,0x81,0x0d, // names: __str__, self
+    0x80,0xfb, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x4a, // LOAD_METHOD 'tzname'
+    0x14,0x4b, // LOAD_METHOD 'tzname'
     0x51, // LOAD_CONST_NONE
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
@@ -6122,7 +6147,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone___str__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 63,
+        .qstr_block_name_idx = 64,
         .line_info = fun_data_datetime_timezone___str__ + 5,
         .line_info_top = fun_data_datetime_timezone___str__ + 7,
         .opcodes = fun_data_datetime_timezone___str__ + 7,
@@ -6138,24 +6163,24 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone___str__ = {
 // frozen bytecode for file datetime.py, scope datetime_timezone___hash__
 static const byte fun_data_datetime_timezone___hash__[39] = {
     0x19,0x0e, // prelude
-    0x40,0x81,0x08, // names: __hash__, self
-    0x80,0xfa,0x2a,0x30, // code info
-    0x12,0x81,0x0e, // LOAD_GLOBAL 'hasattr'
+    0x41,0x81,0x0d, // names: __hash__, self
+    0x80,0xfe,0x2a,0x30, // code info
+    0x12,0x81,0x13, // LOAD_GLOBAL 'hasattr'
     0xb0, // LOAD_FAST 0
-    0x10,0x41, // LOAD_CONST_STRING '_hash'
+    0x10,0x42, // LOAD_CONST_STRING '_hash'
     0x34,0x02, // CALL_FUNCTION 2
     0x43,0x50, // POP_JUMP_IF_TRUE 16
-    0x12,0x81,0x0f, // LOAD_GLOBAL 'hash'
+    0x12,0x81,0x14, // LOAD_GLOBAL 'hash'
     0xb0, // LOAD_FAST 0
-    0x13,0x4f, // LOAD_ATTR '_offset'
+    0x13,0x50, // LOAD_ATTR '_offset'
     0xb0, // LOAD_FAST 0
-    0x13,0x50, // LOAD_ATTR '_name'
+    0x13,0x51, // LOAD_ATTR '_name'
     0x2a,0x02, // BUILD_TUPLE 2
     0x34,0x01, // CALL_FUNCTION 1
     0xb0, // LOAD_FAST 0
-    0x18,0x41, // STORE_ATTR '_hash'
+    0x18,0x42, // STORE_ATTR '_hash'
     0xb0, // LOAD_FAST 0
-    0x13,0x41, // LOAD_ATTR '_hash'
+    0x13,0x42, // LOAD_ATTR '_hash'
     0x63, // RETURN_VALUE
 };
 #if MICROPY_PERSISTENT_CODE_SAVE
@@ -6181,7 +6206,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone___hash__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 64,
+        .qstr_block_name_idx = 65,
         .line_info = fun_data_datetime_timezone___hash__ + 5,
         .line_info_top = fun_data_datetime_timezone___hash__ + 9,
         .opcodes = fun_data_datetime_timezone___hash__ + 9,
@@ -6197,10 +6222,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone___hash__ = {
 // frozen bytecode for file datetime.py, scope datetime_timezone_utcoffset
 static const byte fun_data_datetime_timezone_utcoffset[13] = {
     0x12,0x0e, // prelude
-    0x4b,0x81,0x08,0x81,0x06, // names: utcoffset, self, dt
-    0x80,0xff, // code info
+    0x4c,0x81,0x0d,0x81,0x0b, // names: utcoffset, self, dt
+    0x90,0x03, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x4f, // LOAD_ATTR '_offset'
+    0x13,0x50, // LOAD_ATTR '_offset'
     0x63, // RETURN_VALUE
 };
 #if MICROPY_PERSISTENT_CODE_SAVE
@@ -6226,7 +6251,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone_utcoffset = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 75,
+        .qstr_block_name_idx = 76,
         .line_info = fun_data_datetime_timezone_utcoffset + 7,
         .line_info_top = fun_data_datetime_timezone_utcoffset + 9,
         .opcodes = fun_data_datetime_timezone_utcoffset + 9,
@@ -6242,8 +6267,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone_utcoffset = {
 // frozen bytecode for file datetime.py, scope datetime_timezone_dst
 static const byte fun_data_datetime_timezone_dst[11] = {
     0x12,0x0e, // prelude
-    0x4c,0x81,0x08,0x81,0x06, // names: dst, self, dt
-    0x90,0x02, // code info
+    0x4d,0x81,0x0d,0x81,0x0b, // names: dst, self, dt
+    0x90,0x06, // code info
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
 };
@@ -6270,7 +6295,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone_dst = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 76,
+        .qstr_block_name_idx = 77,
         .line_info = fun_data_datetime_timezone_dst + 7,
         .line_info_top = fun_data_datetime_timezone_dst + 9,
         .opcodes = fun_data_datetime_timezone_dst + 9,
@@ -6286,17 +6311,17 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone_dst = {
 // frozen bytecode for file datetime.py, scope datetime_timezone_tzname
 static const byte fun_data_datetime_timezone_tzname[29] = {
     0x22,0x12, // prelude
-    0x4a,0x81,0x08,0x81,0x06, // names: tzname, self, dt
-    0x90,0x05,0x25,0x24, // code info
+    0x4b,0x81,0x0d,0x81,0x0b, // names: tzname, self, dt
+    0x90,0x09,0x25,0x24, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x50, // LOAD_ATTR '_name'
+    0x13,0x51, // LOAD_ATTR '_name'
     0x44,0x44, // POP_JUMP_IF_FALSE 4
     0xb0, // LOAD_FAST 0
-    0x13,0x50, // LOAD_ATTR '_name'
+    0x13,0x51, // LOAD_ATTR '_name'
     0x63, // RETURN_VALUE
     0xb0, // LOAD_FAST 0
-    0x13,0x4f, // LOAD_ATTR '_offset'
-    0x14,0x23, // LOAD_METHOD '_fmt'
+    0x13,0x50, // LOAD_ATTR '_offset'
+    0x14,0x24, // LOAD_METHOD '_fmt'
     0xa2, // LOAD_CONST_SMALL_INT 34
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
@@ -6324,7 +6349,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone_tzname = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 74,
+        .qstr_block_name_idx = 75,
         .line_info = fun_data_datetime_timezone_tzname + 7,
         .line_info_top = fun_data_datetime_timezone_tzname + 11,
         .opcodes = fun_data_datetime_timezone_tzname + 11,
@@ -6340,11 +6365,11 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone_tzname = {
 // frozen bytecode for file datetime.py, scope datetime_timezone_fromutc
 static const byte fun_data_datetime_timezone_fromutc[15] = {
     0x1a,0x0e, // prelude
-    0x4d,0x81,0x08,0x81,0x06, // names: fromutc, self, dt
-    0x90,0x0a, // code info
+    0x4e,0x81,0x0d,0x81,0x0b, // names: fromutc, self, dt
+    0x90,0x0e, // code info
     0xb1, // LOAD_FAST 1
     0xb0, // LOAD_FAST 0
-    0x13,0x4f, // LOAD_ATTR '_offset'
+    0x13,0x50, // LOAD_ATTR '_offset'
     0xf2, // BINARY_OP 27 __add__
     0x63, // RETURN_VALUE
 };
@@ -6371,7 +6396,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone_fromutc = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 77,
+        .qstr_block_name_idx = 78,
         .line_info = fun_data_datetime_timezone_fromutc + 7,
         .line_info_top = fun_data_datetime_timezone_fromutc + 9,
         .opcodes = fun_data_datetime_timezone_fromutc + 9,
@@ -6417,7 +6442,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone = {
         .n_pos_args = 0,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 13,
+        .qstr_block_name_idx = 15,
         .line_info = fun_data_datetime_timezone + 3,
         .line_info_top = fun_data_datetime_timezone + 17,
         .opcodes = fun_data_datetime_timezone + 17,
@@ -6428,17 +6453,17 @@ static const mp_raw_code_truncated_t proto_fun_datetime_timezone = {
 
 // child of datetime__lt_module_gt_
 // frozen bytecode for file datetime.py, scope datetime__date
-static const byte fun_data_datetime__date[141] = {
-    0x43,0x1a, // prelude
-    0x17,0x73,0x74,0x7c, // names: _date, y, m, d
-    0x90,0x11,0x1f,0x56,0x24,0x56,0x2b,0x3d,0x42, // code info
-    0x12,0x71, // LOAD_GLOBAL 'MINYEAR'
+static const byte fun_data_datetime__date[143] = {
+    0x43,0x1c, // prelude
+    0x18,0x78,0x79,0x81,0x01, // names: _date, y, m, d
+    0x90,0x15,0x1f,0x56,0x24,0x56,0x2b,0x3d,0x42, // code info
+    0x12,0x76, // LOAD_GLOBAL 'MINYEAR'
     0xb0, // LOAD_FAST 0
     0x57, // DUP_TOP
     0x5b, // ROT_THREE
     0xda, // BINARY_OP 3 __le__
     0x46,0x05, // JUMP_IF_FALSE_OR_POP 5
-    0x12,0x72, // LOAD_GLOBAL 'MAXYEAR'
+    0x12,0x77, // LOAD_GLOBAL 'MAXYEAR'
     0xda, // BINARY_OP 3 __le__
     0x42,0x42, // JUMP 2
     0x5a, // ROT_TWO
@@ -6462,7 +6487,7 @@ static const byte fun_data_datetime__date[141] = {
     0x5b, // ROT_THREE
     0xda, // BINARY_OP 3 __le__
     0x46,0x09, // JUMP_IF_FALSE_OR_POP 9
-    0x12,0x14, // LOAD_GLOBAL '_dim'
+    0x12,0x15, // LOAD_GLOBAL '_dim'
     0xb0, // LOAD_FAST 0
     0xb1, // LOAD_FAST 1
     0x34,0x02, // CALL_FUNCTION 2
@@ -6492,7 +6517,7 @@ static const byte fun_data_datetime__date[141] = {
     0xf2, // BINARY_OP 27 __add__
     0xc4, // STORE_FAST 4
     0xb4, // LOAD_FAST 4
-    0x12,0x15, // LOAD_GLOBAL '_dbm'
+    0x12,0x16, // LOAD_GLOBAL '_dbm'
     0xb0, // LOAD_FAST 0
     0xb1, // LOAD_FAST 1
     0x34,0x02, // CALL_FUNCTION 2
@@ -6522,7 +6547,7 @@ static const byte fun_data_datetime__date[141] = {
     0x44,0x42, // POP_JUMP_IF_FALSE 2
     0xb2, // LOAD_FAST 2
     0x63, // RETURN_VALUE
-    0x12,0x7d, // LOAD_GLOBAL 'ValueError'
+    0x12,0x81,0x02, // LOAD_GLOBAL 'ValueError'
     0x65, // RAISE_OBJ
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
@@ -6536,7 +6561,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime__date = {
     .fun_data = fun_data_datetime__date,
     .children = NULL,
     #if MICROPY_PERSISTENT_CODE_SAVE
-    .fun_data_len = 141,
+    .fun_data_len = 143,
     .n_children = 0,
     #if MICROPY_EMIT_MACHINE_CODE
     .prelude_offset = 0,
@@ -6550,10 +6575,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime__date = {
         .n_pos_args = 3,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 23,
-        .line_info = fun_data_datetime__date + 6,
-        .line_info_top = fun_data_datetime__date + 15,
-        .opcodes = fun_data_datetime__date + 15,
+        .qstr_block_name_idx = 24,
+        .line_info = fun_data_datetime__date + 7,
+        .line_info_top = fun_data_datetime__date + 16,
+        .opcodes = fun_data_datetime__date + 16,
     },
     #endif
     #endif
@@ -6564,11 +6589,11 @@ static const mp_raw_code_truncated_t proto_fun_datetime__date = {
 
 // child of datetime__lt_module_gt_
 // frozen bytecode for file datetime.py, scope datetime__iso2d
-static const byte fun_data_datetime__iso2d[69] = {
+static const byte fun_data_datetime__iso2d[74] = {
     0x31,0x0c, // prelude
-    0x18,0x44, // names: _iso2d, s
-    0x90,0x1e,0x39,0x23, // code info
-    0x12,0x7e, // LOAD_GLOBAL 'len'
+    0x19,0x45, // names: _iso2d, s
+    0x90,0x22,0x3a,0x24, // code info
+    0x12,0x81,0x03, // LOAD_GLOBAL 'len'
     0xb0, // LOAD_FAST 0
     0x34,0x01, // CALL_FUNCTION 1
     0x8a, // LOAD_CONST_SMALL_INT 10
@@ -6577,32 +6602,32 @@ static const byte fun_data_datetime__iso2d[69] = {
     0xb0, // LOAD_FAST 0
     0x84, // LOAD_CONST_SMALL_INT 4
     0x55, // LOAD_SUBSCR
-    0x10,0x19, // LOAD_CONST_STRING '-'
+    0x10,0x1a, // LOAD_CONST_STRING '-'
     0xdc, // BINARY_OP 5 __ne__
     0x43,0x48, // POP_JUMP_IF_TRUE 8
     0xb0, // LOAD_FAST 0
     0x87, // LOAD_CONST_SMALL_INT 7
     0x55, // LOAD_SUBSCR
-    0x10,0x19, // LOAD_CONST_STRING '-'
+    0x10,0x1a, // LOAD_CONST_STRING '-'
     0xdc, // BINARY_OP 5 __ne__
-    0x44,0x43, // POP_JUMP_IF_FALSE 3
-    0x12,0x7d, // LOAD_GLOBAL 'ValueError'
+    0x44,0x44, // POP_JUMP_IF_FALSE 4
+    0x12,0x81,0x02, // LOAD_GLOBAL 'ValueError'
     0x65, // RAISE_OBJ
-    0x12,0x7f, // LOAD_GLOBAL 'int'
+    0x12,0x81,0x04, // LOAD_GLOBAL 'int'
     0xb0, // LOAD_FAST 0
     0x80, // LOAD_CONST_SMALL_INT 0
     0x84, // LOAD_CONST_SMALL_INT 4
     0x2e,0x02, // BUILD_SLICE 2
     0x55, // LOAD_SUBSCR
     0x34,0x01, // CALL_FUNCTION 1
-    0x12,0x7f, // LOAD_GLOBAL 'int'
+    0x12,0x81,0x04, // LOAD_GLOBAL 'int'
     0xb0, // LOAD_FAST 0
     0x85, // LOAD_CONST_SMALL_INT 5
     0x87, // LOAD_CONST_SMALL_INT 7
     0x2e,0x02, // BUILD_SLICE 2
     0x55, // LOAD_SUBSCR
     0x34,0x01, // CALL_FUNCTION 1
-    0x12,0x7f, // LOAD_GLOBAL 'int'
+    0x12,0x81,0x04, // LOAD_GLOBAL 'int'
     0xb0, // LOAD_FAST 0
     0x88, // LOAD_CONST_SMALL_INT 8
     0x8a, // LOAD_CONST_SMALL_INT 10
@@ -6621,7 +6646,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime__iso2d = {
     .fun_data = fun_data_datetime__iso2d,
     .children = NULL,
     #if MICROPY_PERSISTENT_CODE_SAVE
-    .fun_data_len = 69,
+    .fun_data_len = 74,
     .n_children = 0,
     #if MICROPY_EMIT_MACHINE_CODE
     .prelude_offset = 0,
@@ -6635,7 +6660,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime__iso2d = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 24,
+        .qstr_block_name_idx = 25,
         .line_info = fun_data_datetime__iso2d + 4,
         .line_info_top = fun_data_datetime__iso2d + 8,
         .opcodes = fun_data_datetime__iso2d + 8,
@@ -6651,10 +6676,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime__iso2d = {
 // frozen bytecode for file datetime.py, scope datetime__d2iso
 static const byte fun_data_datetime__d2iso[16] = {
     0x19,0x0a, // prelude
-    0x1a,0x81,0x00, // names: _d2iso, o
-    0x90,0x24, // code info
+    0x1b,0x81,0x05, // names: _d2iso, o
+    0x90,0x28, // code info
     0x23,0x02, // LOAD_CONST_OBJ 2
-    0x12,0x16, // LOAD_GLOBAL '_o2ymd'
+    0x12,0x17, // LOAD_GLOBAL '_o2ymd'
     0xb0, // LOAD_FAST 0
     0x34,0x01, // CALL_FUNCTION 1
     0xf8, // BINARY_OP 33 __mod__
@@ -6683,7 +6708,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime__d2iso = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 26,
+        .qstr_block_name_idx = 27,
         .line_info = fun_data_datetime__d2iso + 5,
         .line_info_top = fun_data_datetime__d2iso + 7,
         .opcodes = fun_data_datetime__d2iso + 7,
@@ -6699,39 +6724,39 @@ static const mp_raw_code_truncated_t proto_fun_datetime__d2iso = {
 // frozen bytecode for file datetime.py, scope datetime_date
 static const byte fun_data_datetime_date[190] = {
     0x10,0x50, // prelude
-    0x0f, // names: date
-    0x98,0x28,0x64,0x69,0x20,0x69,0x20,0x69,0x20,0x69,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x64,0x64,0x40,0x8a,0x0a,0x64,0x64,0x60,0x64,0x60,0x64,0x64,0x64,0x64,0x64,0x64,0x64,0x64,0x20,0x44,0x64,0x40, // code info
-    0x11,0x77, // LOAD_NAME '__name__'
-    0x16,0x78, // STORE_NAME '__module__'
-    0x10,0x0f, // LOAD_CONST_STRING 'date'
-    0x16,0x79, // STORE_NAME '__qualname__'
+    0x11, // names: date
+    0x98,0x2c,0x64,0x69,0x20,0x69,0x20,0x69,0x20,0x69,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x64,0x64,0x40,0x8a,0x0a,0x64,0x64,0x60,0x64,0x60,0x64,0x64,0x64,0x64,0x64,0x64,0x64,0x64,0x20,0x44,0x64,0x40, // code info
+    0x11,0x7c, // LOAD_NAME '__name__'
+    0x16,0x7d, // STORE_NAME '__module__'
+    0x10,0x11, // LOAD_CONST_STRING 'date'
+    0x16,0x7e, // STORE_NAME '__qualname__'
     0x32,0x00, // MAKE_FUNCTION 0
-    0x16,0x29, // STORE_NAME '__init__'
-    0x11,0x81,0x01, // LOAD_NAME 'classmethod'
+    0x16,0x2a, // STORE_NAME '__init__'
+    0x11,0x81,0x06, // LOAD_NAME 'classmethod'
     0x32,0x01, // MAKE_FUNCTION 1
     0x34,0x01, // CALL_FUNCTION 1
-    0x16,0x52, // STORE_NAME 'fromtimestamp'
-    0x11,0x81,0x01, // LOAD_NAME 'classmethod'
+    0x16,0x53, // STORE_NAME 'fromtimestamp'
+    0x11,0x81,0x06, // LOAD_NAME 'classmethod'
     0x32,0x02, // MAKE_FUNCTION 2
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x54, // STORE_NAME 'today'
-    0x11,0x81,0x01, // LOAD_NAME 'classmethod'
+    0x11,0x81,0x06, // LOAD_NAME 'classmethod'
     0x32,0x03, // MAKE_FUNCTION 3
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x55, // STORE_NAME 'fromordinal'
-    0x11,0x81,0x01, // LOAD_NAME 'classmethod'
+    0x11,0x81,0x06, // LOAD_NAME 'classmethod'
     0x32,0x04, // MAKE_FUNCTION 4
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x56, // STORE_NAME 'fromisoformat'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x05, // MAKE_FUNCTION 5
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x57, // STORE_NAME 'year'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x06, // MAKE_FUNCTION 6
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x58, // STORE_NAME 'month'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x07, // MAKE_FUNCTION 7
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x59, // STORE_NAME 'day'
@@ -6747,33 +6772,33 @@ static const byte fun_data_datetime_date[190] = {
     0x33,0x0a, // MAKE_FUNCTION_DEFARGS 10
     0x16,0x5d, // STORE_NAME 'replace'
     0x32,0x0b, // MAKE_FUNCTION 11
-    0x16,0x2f, // STORE_NAME '__add__'
+    0x16,0x30, // STORE_NAME '__add__'
     0x32,0x0c, // MAKE_FUNCTION 12
-    0x16,0x30, // STORE_NAME '__sub__'
+    0x16,0x31, // STORE_NAME '__sub__'
     0x32,0x0d, // MAKE_FUNCTION 13
-    0x16,0x39, // STORE_NAME '__eq__'
+    0x16,0x3a, // STORE_NAME '__eq__'
     0x32,0x0e, // MAKE_FUNCTION 14
-    0x16,0x3a, // STORE_NAME '__le__'
+    0x16,0x3b, // STORE_NAME '__le__'
     0x32,0x0f, // MAKE_FUNCTION 15
-    0x16,0x3b, // STORE_NAME '__lt__'
+    0x16,0x3c, // STORE_NAME '__lt__'
     0x32,0x10, // MAKE_FUNCTION 16
-    0x16,0x3c, // STORE_NAME '__ge__'
+    0x16,0x3d, // STORE_NAME '__ge__'
     0x32,0x11, // MAKE_FUNCTION 17
-    0x16,0x3d, // STORE_NAME '__gt__'
+    0x16,0x3e, // STORE_NAME '__gt__'
     0x32,0x12, // MAKE_FUNCTION 18
     0x16,0x5c, // STORE_NAME 'weekday'
     0x32,0x13, // MAKE_FUNCTION 19
     0x16,0x5e, // STORE_NAME 'isoweekday'
     0x32,0x14, // MAKE_FUNCTION 20
-    0x16,0x25, // STORE_NAME 'isoformat'
+    0x16,0x26, // STORE_NAME 'isoformat'
     0x32,0x15, // MAKE_FUNCTION 21
-    0x16,0x2b, // STORE_NAME '__repr__'
-    0x11,0x25, // LOAD_NAME 'isoformat'
-    0x16,0x3f, // STORE_NAME '__str__'
+    0x16,0x2c, // STORE_NAME '__repr__'
+    0x11,0x26, // LOAD_NAME 'isoformat'
+    0x16,0x40, // STORE_NAME '__str__'
     0x32,0x16, // MAKE_FUNCTION 22
-    0x16,0x40, // STORE_NAME '__hash__'
+    0x16,0x41, // STORE_NAME '__hash__'
     0x32,0x17, // MAKE_FUNCTION 23
-    0x16,0x49, // STORE_NAME 'tuple'
+    0x16,0x4a, // STORE_NAME 'tuple'
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
 };
@@ -6781,15 +6806,15 @@ static const byte fun_data_datetime_date[190] = {
 // frozen bytecode for file datetime.py, scope datetime_date___init__
 static const byte fun_data_datetime_date___init__[23] = {
     0xb8,0x04,0x10, // prelude
-    0x29,0x81,0x08,0x57,0x58,0x59, // names: __init__, self, year, month, day
-    0x90,0x29, // code info
-    0x12,0x17, // LOAD_GLOBAL '_date'
+    0x2a,0x81,0x0d,0x57,0x58,0x59, // names: __init__, self, year, month, day
+    0x90,0x2d, // code info
+    0x12,0x18, // LOAD_GLOBAL '_date'
     0xb1, // LOAD_FAST 1
     0xb2, // LOAD_FAST 2
     0xb3, // LOAD_FAST 3
     0x34,0x03, // CALL_FUNCTION 3
     0xb0, // LOAD_FAST 0
-    0x18,0x51, // STORE_ATTR '_ord'
+    0x18,0x52, // STORE_ATTR '_ord'
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
 };
@@ -6816,7 +6841,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___init__ = {
         .n_pos_args = 4,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 41,
+        .qstr_block_name_idx = 42,
         .line_info = fun_data_datetime_date___init__ + 9,
         .line_info_top = fun_data_datetime_date___init__ + 11,
         .opcodes = fun_data_datetime_date___init__ + 11,
@@ -6830,15 +6855,14 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___init__ = {
 
 // child of datetime_date
 // frozen bytecode for file datetime.py, scope datetime_date_fromtimestamp
-static const byte fun_data_datetime_date_fromtimestamp[26] = {
+static const byte fun_data_datetime_date_fromtimestamp[24] = {
     0x2a,0x0e, // prelude
-    0x52,0x81,0x18,0x81,0x19, // names: fromtimestamp, cls, ts
-    0x90,0x2d, // code info
+    0x53,0x81,0x1d,0x81,0x1e, // names: fromtimestamp, cls, ts
+    0x90,0x31, // code info
     0xb0, // LOAD_FAST 0
-    0x12,0x67, // LOAD_GLOBAL '_t'
-    0x14,0x53, // LOAD_METHOD 'localtime'
+    0x12,0x74, // LOAD_GLOBAL '_localtime'
     0xb1, // LOAD_FAST 1
-    0x36,0x01, // CALL_METHOD 1
+    0x34,0x01, // CALL_FUNCTION 1
     0x51, // LOAD_CONST_NONE
     0x83, // LOAD_CONST_SMALL_INT 3
     0x2e,0x02, // BUILD_SLICE 2
@@ -6856,7 +6880,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_fromtimestamp = {
     .fun_data = fun_data_datetime_date_fromtimestamp,
     .children = NULL,
     #if MICROPY_PERSISTENT_CODE_SAVE
-    .fun_data_len = 26,
+    .fun_data_len = 24,
     .n_children = 0,
     #if MICROPY_EMIT_MACHINE_CODE
     .prelude_offset = 0,
@@ -6870,7 +6894,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_fromtimestamp = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 82,
+        .qstr_block_name_idx = 83,
         .line_info = fun_data_datetime_date_fromtimestamp + 7,
         .line_info_top = fun_data_datetime_date_fromtimestamp + 9,
         .opcodes = fun_data_datetime_date_fromtimestamp + 9,
@@ -6884,14 +6908,13 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_fromtimestamp = {
 
 // child of datetime_date
 // frozen bytecode for file datetime.py, scope datetime_date_today
-static const byte fun_data_datetime_date_today[23] = {
+static const byte fun_data_datetime_date_today[21] = {
     0x21,0x0a, // prelude
-    0x54,0x81,0x18, // names: today, cls
-    0x90,0x31, // code info
+    0x54,0x81,0x1d, // names: today, cls
+    0x90,0x35, // code info
     0xb0, // LOAD_FAST 0
-    0x12,0x67, // LOAD_GLOBAL '_t'
-    0x14,0x53, // LOAD_METHOD 'localtime'
-    0x36,0x00, // CALL_METHOD 0
+    0x12,0x74, // LOAD_GLOBAL '_localtime'
+    0x34,0x00, // CALL_FUNCTION 0
     0x51, // LOAD_CONST_NONE
     0x83, // LOAD_CONST_SMALL_INT 3
     0x2e,0x02, // BUILD_SLICE 2
@@ -6909,7 +6932,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_today = {
     .fun_data = fun_data_datetime_date_today,
     .children = NULL,
     #if MICROPY_PERSISTENT_CODE_SAVE
-    .fun_data_len = 23,
+    .fun_data_len = 21,
     .n_children = 0,
     #if MICROPY_EMIT_MACHINE_CODE
     .prelude_offset = 0,
@@ -6939,8 +6962,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_today = {
 // frozen bytecode for file datetime.py, scope datetime_date_fromordinal
 static const byte fun_data_datetime_date_fromordinal[15] = {
     0x2a,0x0c, // prelude
-    0x55,0x81,0x18,0x75, // names: fromordinal, cls, n
-    0x90,0x35, // code info
+    0x55,0x81,0x1d,0x7a, // names: fromordinal, cls, n
+    0x90,0x39, // code info
     0xb0, // LOAD_FAST 0
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
@@ -6987,10 +7010,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_fromordinal = {
 // frozen bytecode for file datetime.py, scope datetime_date_fromisoformat
 static const byte fun_data_datetime_date_fromisoformat[18] = {
     0x22,0x0c, // prelude
-    0x56,0x81,0x18,0x44, // names: fromisoformat, cls, s
-    0x90,0x39, // code info
+    0x56,0x81,0x1d,0x45, // names: fromisoformat, cls, s
+    0x90,0x3d, // code info
     0xb0, // LOAD_FAST 0
-    0x12,0x18, // LOAD_GLOBAL '_iso2d'
+    0x12,0x19, // LOAD_GLOBAL '_iso2d'
     0xb1, // LOAD_FAST 1
     0x34,0x01, // CALL_FUNCTION 1
     0x81, // LOAD_CONST_SMALL_INT 1
@@ -7036,10 +7059,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_fromisoformat = {
 // frozen bytecode for file datetime.py, scope datetime_date_year
 static const byte fun_data_datetime_date_year[15] = {
     0x11,0x0a, // prelude
-    0x57,0x81,0x08, // names: year, self
-    0x90,0x3d, // code info
+    0x57,0x81,0x0d, // names: year, self
+    0x90,0x41, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x80, // LOAD_CONST_SMALL_INT 0
     0x55, // LOAD_SUBSCR
@@ -7084,10 +7107,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_year = {
 // frozen bytecode for file datetime.py, scope datetime_date_month
 static const byte fun_data_datetime_date_month[15] = {
     0x11,0x0a, // prelude
-    0x58,0x81,0x08, // names: month, self
-    0x90,0x41, // code info
+    0x58,0x81,0x0d, // names: month, self
+    0x90,0x45, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x81, // LOAD_CONST_SMALL_INT 1
     0x55, // LOAD_SUBSCR
@@ -7132,10 +7155,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_month = {
 // frozen bytecode for file datetime.py, scope datetime_date_day
 static const byte fun_data_datetime_date_day[15] = {
     0x11,0x0a, // prelude
-    0x59,0x81,0x08, // names: day, self
-    0x90,0x45, // code info
+    0x59,0x81,0x0d, // names: day, self
+    0x90,0x49, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x82, // LOAD_CONST_SMALL_INT 2
     0x55, // LOAD_SUBSCR
@@ -7180,10 +7203,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_day = {
 // frozen bytecode for file datetime.py, scope datetime_date_toordinal
 static const byte fun_data_datetime_date_toordinal[11] = {
     0x09,0x0a, // prelude
-    0x5a,0x81,0x08, // names: toordinal, self
-    0x90,0x48, // code info
+    0x5a,0x81,0x0d, // names: toordinal, self
+    0x90,0x4c, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0x63, // RETURN_VALUE
 };
 #if MICROPY_PERSISTENT_CODE_SAVE
@@ -7225,16 +7248,16 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_toordinal = {
 // frozen bytecode for file datetime.py, scope datetime_date_timetuple
 static const byte fun_data_datetime_date_timetuple[44] = {
     0x69,0x0e, // prelude
-    0x5b,0x81,0x08, // names: timetuple, self
-    0x90,0x4b,0x2a,0x29, // code info
+    0x5b,0x81,0x0d, // names: timetuple, self
+    0x90,0x4f,0x2a,0x29, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x30,0x03, // UNPACK_SEQUENCE 3
     0xc1, // STORE_FAST 1
     0xc2, // STORE_FAST 2
     0xc3, // STORE_FAST 3
-    0x12,0x15, // LOAD_GLOBAL '_dbm'
+    0x12,0x16, // LOAD_GLOBAL '_dbm'
     0xb1, // LOAD_FAST 1
     0xb2, // LOAD_FAST 2
     0x34,0x02, // CALL_FUNCTION 2
@@ -7294,10 +7317,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_timetuple = {
 // frozen bytecode for file datetime.py, scope datetime_date_replace
 static const byte fun_data_datetime_date_replace[58] = {
     0xd0,0x85,0x01,0x1e, // prelude
-    0x5d,0x81,0x08,0x57,0x58,0x59, // names: replace, self, year, month, day
-    0x90,0x50,0x2a,0x25,0x22,0x25,0x22,0x25,0x22, // code info
+    0x5d,0x81,0x0d,0x57,0x58,0x59, // names: replace, self, year, month, day
+    0x90,0x54,0x2a,0x25,0x22,0x25,0x22,0x25,0x22, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x30,0x03, // UNPACK_SEQUENCE 3
     0xc4, // STORE_FAST 4
@@ -7321,7 +7344,7 @@ static const byte fun_data_datetime_date_replace[58] = {
     0x44,0x42, // POP_JUMP_IF_FALSE 2
     0xb6, // LOAD_FAST 6
     0xc3, // STORE_FAST 3
-    0x12,0x0f, // LOAD_GLOBAL 'date'
+    0x12,0x11, // LOAD_GLOBAL 'date'
     0xb1, // LOAD_FAST 1
     0xb2, // LOAD_FAST 2
     0xb3, // LOAD_FAST 3
@@ -7367,14 +7390,14 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_replace = {
 // frozen bytecode for file datetime.py, scope datetime_date___add__
 static const byte fun_data_datetime_date___add__[23] = {
     0x2a,0x0e, // prelude
-    0x2f,0x81,0x08,0x81,0x0c, // names: __add__, self, other
-    0x90,0x5a, // code info
-    0x12,0x0f, // LOAD_GLOBAL 'date'
+    0x30,0x81,0x0d,0x81,0x11, // names: __add__, self, other
+    0x90,0x5e, // code info
+    0x12,0x11, // LOAD_GLOBAL 'date'
     0x14,0x55, // LOAD_METHOD 'fromordinal'
     0xb0, // LOAD_FAST 0
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0xb1, // LOAD_FAST 1
-    0x13,0x04, // LOAD_ATTR 'days'
+    0x13,0x06, // LOAD_ATTR 'days'
     0xf2, // BINARY_OP 27 __add__
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
@@ -7402,7 +7425,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___add__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 47,
+        .qstr_block_name_idx = 48,
         .line_info = fun_data_datetime_date___add__ + 7,
         .line_info_top = fun_data_datetime_date___add__ + 9,
         .opcodes = fun_data_datetime_date___add__ + 9,
@@ -7418,28 +7441,28 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___add__ = {
 // frozen bytecode for file datetime.py, scope datetime_date___sub__
 static const byte fun_data_datetime_date___sub__[52] = {
     0x2a,0x12, // prelude
-    0x30,0x81,0x08,0x81,0x0c, // names: __sub__, self, other
-    0x90,0x5d,0x2a,0x4f, // code info
-    0x12,0x81,0x0d, // LOAD_GLOBAL 'isinstance'
+    0x31,0x81,0x0d,0x81,0x11, // names: __sub__, self, other
+    0x90,0x61,0x2a,0x4f, // code info
+    0x12,0x81,0x12, // LOAD_GLOBAL 'isinstance'
     0xb1, // LOAD_FAST 1
-    0x12,0x0f, // LOAD_GLOBAL 'date'
+    0x12,0x11, // LOAD_GLOBAL 'date'
     0x34,0x02, // CALL_FUNCTION 2
     0x44,0x4f, // POP_JUMP_IF_FALSE 15
-    0x12,0x03, // LOAD_GLOBAL 'timedelta'
-    0x10,0x04, // LOAD_CONST_STRING 'days'
+    0x12,0x05, // LOAD_GLOBAL 'timedelta'
+    0x10,0x06, // LOAD_CONST_STRING 'days'
     0xb0, // LOAD_FAST 0
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0xb1, // LOAD_FAST 1
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0xf3, // BINARY_OP 28 __sub__
     0x34,0x82,0x00, // CALL_FUNCTION 256
     0x63, // RETURN_VALUE
-    0x12,0x0f, // LOAD_GLOBAL 'date'
+    0x12,0x11, // LOAD_GLOBAL 'date'
     0x14,0x55, // LOAD_METHOD 'fromordinal'
     0xb0, // LOAD_FAST 0
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0xb1, // LOAD_FAST 1
-    0x13,0x04, // LOAD_ATTR 'days'
+    0x13,0x06, // LOAD_ATTR 'days'
     0xf3, // BINARY_OP 28 __sub__
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
@@ -7469,7 +7492,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___sub__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 48,
+        .qstr_block_name_idx = 49,
         .line_info = fun_data_datetime_date___sub__ + 7,
         .line_info_top = fun_data_datetime_date___sub__ + 11,
         .opcodes = fun_data_datetime_date___sub__ + 11,
@@ -7485,17 +7508,17 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___sub__ = {
 // frozen bytecode for file datetime.py, scope datetime_date___eq__
 static const byte fun_data_datetime_date___eq__[33] = {
     0x22,0x12, // prelude
-    0x39,0x81,0x08,0x81,0x0c, // names: __eq__, self, other
-    0x90,0x63,0x2a,0x48, // code info
-    0x12,0x81,0x0d, // LOAD_GLOBAL 'isinstance'
+    0x3a,0x81,0x0d,0x81,0x11, // names: __eq__, self, other
+    0x90,0x67,0x2a,0x48, // code info
+    0x12,0x81,0x12, // LOAD_GLOBAL 'isinstance'
     0xb1, // LOAD_FAST 1
-    0x12,0x0f, // LOAD_GLOBAL 'date'
+    0x12,0x11, // LOAD_GLOBAL 'date'
     0x34,0x02, // CALL_FUNCTION 2
     0x44,0x48, // POP_JUMP_IF_FALSE 8
     0xb0, // LOAD_FAST 0
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0xb1, // LOAD_FAST 1
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0xd9, // BINARY_OP 2 __eq__
     0x63, // RETURN_VALUE
     0x50, // LOAD_CONST_FALSE
@@ -7526,7 +7549,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___eq__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 57,
+        .qstr_block_name_idx = 58,
         .line_info = fun_data_datetime_date___eq__ + 7,
         .line_info_top = fun_data_datetime_date___eq__ + 11,
         .opcodes = fun_data_datetime_date___eq__ + 11,
@@ -7542,12 +7565,12 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___eq__ = {
 // frozen bytecode for file datetime.py, scope datetime_date___le__
 static const byte fun_data_datetime_date___le__[17] = {
     0x1a,0x0e, // prelude
-    0x3a,0x81,0x08,0x81,0x0c, // names: __le__, self, other
-    0x90,0x69, // code info
+    0x3b,0x81,0x0d,0x81,0x11, // names: __le__, self, other
+    0x90,0x6d, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0xb1, // LOAD_FAST 1
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0xda, // BINARY_OP 3 __le__
     0x63, // RETURN_VALUE
 };
@@ -7574,7 +7597,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___le__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 58,
+        .qstr_block_name_idx = 59,
         .line_info = fun_data_datetime_date___le__ + 7,
         .line_info_top = fun_data_datetime_date___le__ + 9,
         .opcodes = fun_data_datetime_date___le__ + 9,
@@ -7590,12 +7613,12 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___le__ = {
 // frozen bytecode for file datetime.py, scope datetime_date___lt__
 static const byte fun_data_datetime_date___lt__[17] = {
     0x1a,0x0e, // prelude
-    0x3b,0x81,0x08,0x81,0x0c, // names: __lt__, self, other
-    0x90,0x6c, // code info
+    0x3c,0x81,0x0d,0x81,0x11, // names: __lt__, self, other
+    0x90,0x70, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0xb1, // LOAD_FAST 1
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0xd7, // BINARY_OP 0 __lt__
     0x63, // RETURN_VALUE
 };
@@ -7622,7 +7645,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___lt__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 59,
+        .qstr_block_name_idx = 60,
         .line_info = fun_data_datetime_date___lt__ + 7,
         .line_info_top = fun_data_datetime_date___lt__ + 9,
         .opcodes = fun_data_datetime_date___lt__ + 9,
@@ -7638,12 +7661,12 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___lt__ = {
 // frozen bytecode for file datetime.py, scope datetime_date___ge__
 static const byte fun_data_datetime_date___ge__[17] = {
     0x1a,0x0e, // prelude
-    0x3c,0x81,0x08,0x81,0x0c, // names: __ge__, self, other
-    0x90,0x6f, // code info
+    0x3d,0x81,0x0d,0x81,0x11, // names: __ge__, self, other
+    0x90,0x73, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0xb1, // LOAD_FAST 1
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0xdb, // BINARY_OP 4 __ge__
     0x63, // RETURN_VALUE
 };
@@ -7670,7 +7693,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___ge__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 60,
+        .qstr_block_name_idx = 61,
         .line_info = fun_data_datetime_date___ge__ + 7,
         .line_info_top = fun_data_datetime_date___ge__ + 9,
         .opcodes = fun_data_datetime_date___ge__ + 9,
@@ -7686,12 +7709,12 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___ge__ = {
 // frozen bytecode for file datetime.py, scope datetime_date___gt__
 static const byte fun_data_datetime_date___gt__[17] = {
     0x1a,0x0e, // prelude
-    0x3d,0x81,0x08,0x81,0x0c, // names: __gt__, self, other
-    0x90,0x72, // code info
+    0x3e,0x81,0x0d,0x81,0x11, // names: __gt__, self, other
+    0x90,0x76, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0xb1, // LOAD_FAST 1
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0xd8, // BINARY_OP 1 __gt__
     0x63, // RETURN_VALUE
 };
@@ -7718,7 +7741,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___gt__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 61,
+        .qstr_block_name_idx = 62,
         .line_info = fun_data_datetime_date___gt__ + 7,
         .line_info_top = fun_data_datetime_date___gt__ + 9,
         .opcodes = fun_data_datetime_date___gt__ + 9,
@@ -7734,10 +7757,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___gt__ = {
 // frozen bytecode for file datetime.py, scope datetime_date_weekday
 static const byte fun_data_datetime_date_weekday[15] = {
     0x11,0x0a, // prelude
-    0x5c,0x81,0x08, // names: weekday, self
-    0x90,0x75, // code info
+    0x5c,0x81,0x0d, // names: weekday, self
+    0x90,0x79, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0x86, // LOAD_CONST_SMALL_INT 6
     0xf2, // BINARY_OP 27 __add__
     0x87, // LOAD_CONST_SMALL_INT 7
@@ -7783,10 +7806,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_weekday = {
 // frozen bytecode for file datetime.py, scope datetime_date_isoweekday
 static const byte fun_data_datetime_date_isoweekday[16] = {
     0x11,0x0a, // prelude
-    0x5e,0x81,0x08, // names: isoweekday, self
-    0x90,0x78, // code info
+    0x5e,0x81,0x0d, // names: isoweekday, self
+    0x90,0x7c, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0x87, // LOAD_CONST_SMALL_INT 7
     0xf8, // BINARY_OP 33 __mod__
     0x45,0x01, // JUMP_IF_TRUE_OR_POP 1
@@ -7832,11 +7855,11 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_isoweekday = {
 // frozen bytecode for file datetime.py, scope datetime_date_isoformat
 static const byte fun_data_datetime_date_isoformat[15] = {
     0x11,0x0a, // prelude
-    0x25,0x81,0x08, // names: isoformat, self
-    0x90,0x7b, // code info
-    0x12,0x1a, // LOAD_GLOBAL '_d2iso'
+    0x26,0x81,0x0d, // names: isoformat, self
+    0x90,0x7f, // code info
+    0x12,0x1b, // LOAD_GLOBAL '_d2iso'
     0xb0, // LOAD_FAST 0
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0x34,0x01, // CALL_FUNCTION 1
     0x63, // RETURN_VALUE
 };
@@ -7863,7 +7886,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_isoformat = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 37,
+        .qstr_block_name_idx = 38,
         .line_info = fun_data_datetime_date_isoformat + 5,
         .line_info_top = fun_data_datetime_date_isoformat + 7,
         .opcodes = fun_data_datetime_date_isoformat + 7,
@@ -7879,17 +7902,17 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_isoformat = {
 // frozen bytecode for file datetime.py, scope datetime_date___repr__
 static const byte fun_data_datetime_date___repr__[28] = {
     0x41,0x0c, // prelude
-    0x2b,0x81,0x08, // names: __repr__, self
-    0x90,0x7e,0x2a, // code info
+    0x2c,0x81,0x0d, // names: __repr__, self
+    0x90,0x82,0x2a, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x30,0x03, // UNPACK_SEQUENCE 3
     0xc1, // STORE_FAST 1
     0xc2, // STORE_FAST 2
     0xc3, // STORE_FAST 3
     0x23,0x08, // LOAD_CONST_OBJ 8
-    0x14,0x2c, // LOAD_METHOD 'format'
+    0x14,0x2d, // LOAD_METHOD 'format'
     0xb1, // LOAD_FAST 1
     0xb2, // LOAD_FAST 2
     0xb3, // LOAD_FAST 3
@@ -7919,7 +7942,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___repr__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 43,
+        .qstr_block_name_idx = 44,
         .line_info = fun_data_datetime_date___repr__ + 5,
         .line_info_top = fun_data_datetime_date___repr__ + 8,
         .opcodes = fun_data_datetime_date___repr__ + 8,
@@ -7935,21 +7958,21 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___repr__ = {
 // frozen bytecode for file datetime.py, scope datetime_date___hash__
 static const byte fun_data_datetime_date___hash__[34] = {
     0x19,0x0e, // prelude
-    0x40,0x81,0x08, // names: __hash__, self
-    0x90,0x84,0x2a,0x2b, // code info
-    0x12,0x81,0x0e, // LOAD_GLOBAL 'hasattr'
+    0x41,0x81,0x0d, // names: __hash__, self
+    0x90,0x88,0x2a,0x2b, // code info
+    0x12,0x81,0x13, // LOAD_GLOBAL 'hasattr'
     0xb0, // LOAD_FAST 0
-    0x10,0x41, // LOAD_CONST_STRING '_hash'
+    0x10,0x42, // LOAD_CONST_STRING '_hash'
     0x34,0x02, // CALL_FUNCTION 2
     0x43,0x4b, // POP_JUMP_IF_TRUE 11
-    0x12,0x81,0x0f, // LOAD_GLOBAL 'hash'
+    0x12,0x81,0x14, // LOAD_GLOBAL 'hash'
     0xb0, // LOAD_FAST 0
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0x34,0x01, // CALL_FUNCTION 1
     0xb0, // LOAD_FAST 0
-    0x18,0x41, // STORE_ATTR '_hash'
+    0x18,0x42, // STORE_ATTR '_hash'
     0xb0, // LOAD_FAST 0
-    0x13,0x41, // LOAD_ATTR '_hash'
+    0x13,0x42, // LOAD_ATTR '_hash'
     0x63, // RETURN_VALUE
 };
 #if MICROPY_PERSISTENT_CODE_SAVE
@@ -7975,7 +7998,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___hash__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 64,
+        .qstr_block_name_idx = 65,
         .line_info = fun_data_datetime_date___hash__ + 5,
         .line_info_top = fun_data_datetime_date___hash__ + 9,
         .opcodes = fun_data_datetime_date___hash__ + 9,
@@ -7991,11 +8014,11 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date___hash__ = {
 // frozen bytecode for file datetime.py, scope datetime_date_tuple
 static const byte fun_data_datetime_date_tuple[15] = {
     0x11,0x0a, // prelude
-    0x49,0x81,0x08, // names: tuple, self
-    0x90,0x89, // code info
-    0x12,0x16, // LOAD_GLOBAL '_o2ymd'
+    0x4a,0x81,0x0d, // names: tuple, self
+    0x90,0x8d, // code info
+    0x12,0x17, // LOAD_GLOBAL '_o2ymd'
     0xb0, // LOAD_FAST 0
-    0x13,0x51, // LOAD_ATTR '_ord'
+    0x13,0x52, // LOAD_ATTR '_ord'
     0x34,0x01, // CALL_FUNCTION 1
     0x63, // RETURN_VALUE
 };
@@ -8022,7 +8045,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date_tuple = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 73,
+        .qstr_block_name_idx = 74,
         .line_info = fun_data_datetime_date_tuple + 5,
         .line_info_top = fun_data_datetime_date_tuple + 7,
         .opcodes = fun_data_datetime_date_tuple + 7,
@@ -8083,7 +8106,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date = {
         .n_pos_args = 0,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 15,
+        .qstr_block_name_idx = 17,
         .line_info = fun_data_datetime_date + 3,
         .line_info_top = fun_data_datetime_date + 42,
         .opcodes = fun_data_datetime_date + 42,
@@ -8094,10 +8117,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_date = {
 
 // child of datetime__lt_module_gt_
 // frozen bytecode for file datetime.py, scope datetime__time
-static const byte fun_data_datetime__time[143] = {
+static const byte fun_data_datetime__time[144] = {
     0xd9,0x04,0x24, // prelude
-    0x1b,0x81,0x02,0x74,0x44,0x81,0x03,0x26, // names: _time, h, m, s, us, fold
-    0x90,0x92,0x20,0x2f,0x30,0x30,0x32,0x2a,0x3f,0x4b, // code info
+    0x1c,0x81,0x07,0x79,0x45,0x81,0x08,0x27, // names: _time, h, m, s, us, fold
+    0x90,0x96,0x20,0x2f,0x30,0x30,0x32,0x2a,0x3f,0x4b, // code info
     0x80, // LOAD_CONST_SMALL_INT 0
     0xb0, // LOAD_FAST 0
     0x57, // DUP_TOP
@@ -8178,7 +8201,7 @@ static const byte fun_data_datetime__time[143] = {
     0x5a, // ROT_TWO
     0x59, // POP_TOP
     0x44,0x4b, // POP_JUMP_IF_FALSE 11
-    0x12,0x03, // LOAD_GLOBAL 'timedelta'
+    0x12,0x05, // LOAD_GLOBAL 'timedelta'
     0x80, // LOAD_CONST_SMALL_INT 0
     0xb2, // LOAD_FAST 2
     0xb3, // LOAD_FAST 3
@@ -8187,7 +8210,7 @@ static const byte fun_data_datetime__time[143] = {
     0xb0, // LOAD_FAST 0
     0x34,0x06, // CALL_FUNCTION 6
     0x63, // RETURN_VALUE
-    0x12,0x7d, // LOAD_GLOBAL 'ValueError'
+    0x12,0x81,0x02, // LOAD_GLOBAL 'ValueError'
     0x65, // RAISE_OBJ
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
@@ -8201,7 +8224,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime__time = {
     .fun_data = fun_data_datetime__time,
     .children = NULL,
     #if MICROPY_PERSISTENT_CODE_SAVE
-    .fun_data_len = 143,
+    .fun_data_len = 144,
     .n_children = 0,
     #if MICROPY_EMIT_MACHINE_CODE
     .prelude_offset = 0,
@@ -8215,7 +8238,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime__time = {
         .n_pos_args = 5,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 27,
+        .qstr_block_name_idx = 28,
         .line_info = fun_data_datetime__time + 11,
         .line_info_top = fun_data_datetime__time + 21,
         .opcodes = fun_data_datetime__time + 21,
@@ -8229,10 +8252,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime__time = {
 
 // child of datetime__lt_module_gt_
 // frozen bytecode for file datetime.py, scope datetime__iso2t
-static const byte fun_data_datetime__iso2t[496] = {
+static const byte fun_data_datetime__iso2t[516] = {
     0xb1,0x10,0x84,0x02, // prelude
-    0x1c,0x44, // names: _iso2t, s
-    0x90,0x9f,0x22,0x22,0x22,0x22,0x23,0x22,0x22,0x22,0x22,0x26,0x22,0x25,0x23,0x24,0x2d,0x2f,0x24,0x27,0x23,0x2d,0x2f,0x24,0x27,0x23,0x2d,0x2f,0x24,0x27,0x23,0x31,0x2d,0x24,0x27,0x23,0x2f,0x26,0x29,0x23,0x24,0x24,0x27,0x23,0x2f,0x2d,0x2f,0x24,0x27,0x23,0x2d,0x2d,0x24,0x27,0x23,0x2d,0x25,0x23,0x23,0x32,0x26,0x23,0x48,0x22, // code info
+    0x1d,0x45, // names: _iso2t, s
+    0x90,0xa3,0x22,0x22,0x22,0x22,0x23,0x22,0x22,0x22,0x22,0x27,0x22,0x25,0x24,0x24,0x2e,0x2f,0x24,0x27,0x24,0x2e,0x2f,0x24,0x27,0x24,0x2e,0x2f,0x24,0x27,0x24,0x32,0x2d,0x24,0x27,0x24,0x30,0x26,0x29,0x24,0x24,0x24,0x27,0x24,0x30,0x2e,0x2f,0x24,0x27,0x24,0x2e,0x2d,0x24,0x27,0x24,0x2e,0x25,0x24,0x23,0x32,0x26,0x23,0x48,0x22, // code info
     0x80, // LOAD_CONST_SMALL_INT 0
     0xc1, // STORE_FAST 1
     0x80, // LOAD_CONST_SMALL_INT 0
@@ -8241,7 +8264,7 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xc3, // STORE_FAST 3
     0x80, // LOAD_CONST_SMALL_INT 0
     0xc4, // STORE_FAST 4
-    0x10,0x1d, // LOAD_CONST_STRING ''
+    0x10,0x1e, // LOAD_CONST_STRING ''
     0xc5, // STORE_FAST 5
     0x80, // LOAD_CONST_SMALL_INT 0
     0xc6, // STORE_FAST 6
@@ -8251,7 +8274,7 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xc8, // STORE_FAST 8
     0x80, // LOAD_CONST_SMALL_INT 0
     0xc9, // STORE_FAST 9
-    0x12,0x7e, // LOAD_GLOBAL 'len'
+    0x12,0x81,0x03, // LOAD_GLOBAL 'len'
     0xb0, // LOAD_FAST 0
     0x34,0x01, // CALL_FUNCTION 1
     0xca, // STORE_FAST 10
@@ -8260,14 +8283,14 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xba, // LOAD_FAST 10
     0x82, // LOAD_CONST_SMALL_INT 2
     0xd7, // BINARY_OP 0 __lt__
-    0x44,0x43, // POP_JUMP_IF_FALSE 3
-    0x12,0x7d, // LOAD_GLOBAL 'ValueError'
+    0x44,0x44, // POP_JUMP_IF_FALSE 4
+    0x12,0x81,0x02, // LOAD_GLOBAL 'ValueError'
     0x65, // RAISE_OBJ
     0xbb, // LOAD_FAST 11
     0x82, // LOAD_CONST_SMALL_INT 2
     0xe5, // BINARY_OP 14 __iadd__
     0xcb, // STORE_FAST 11
-    0x12,0x7f, // LOAD_GLOBAL 'int'
+    0x12,0x81,0x04, // LOAD_GLOBAL 'int'
     0xb0, // LOAD_FAST 0
     0xbb, // LOAD_FAST 11
     0x82, // LOAD_CONST_SMALL_INT 2
@@ -8280,13 +8303,13 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xba, // LOAD_FAST 10
     0xbb, // LOAD_FAST 11
     0xd8, // BINARY_OP 1 __gt__
-    0x44,0xa6,0x81, // POP_JUMP_IF_FALSE 166
+    0x44,0xae,0x81, // POP_JUMP_IF_FALSE 174
     0xb0, // LOAD_FAST 0
     0xbb, // LOAD_FAST 11
     0x55, // LOAD_SUBSCR
-    0x10,0x1e, // LOAD_CONST_STRING ':'
+    0x10,0x1f, // LOAD_CONST_STRING ':'
     0xd9, // BINARY_OP 2 __eq__
-    0x44,0x9d,0x81, // POP_JUMP_IF_FALSE 157
+    0x44,0xa5,0x81, // POP_JUMP_IF_FALSE 165
     0xbb, // LOAD_FAST 11
     0x83, // LOAD_CONST_SMALL_INT 3
     0xe5, // BINARY_OP 14 __iadd__
@@ -8296,10 +8319,10 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xf3, // BINARY_OP 28 __sub__
     0x80, // LOAD_CONST_SMALL_INT 0
     0xd7, // BINARY_OP 0 __lt__
-    0x44,0x43, // POP_JUMP_IF_FALSE 3
-    0x12,0x7d, // LOAD_GLOBAL 'ValueError'
+    0x44,0x44, // POP_JUMP_IF_FALSE 4
+    0x12,0x81,0x02, // LOAD_GLOBAL 'ValueError'
     0x65, // RAISE_OBJ
-    0x12,0x7f, // LOAD_GLOBAL 'int'
+    0x12,0x81,0x04, // LOAD_GLOBAL 'int'
     0xb0, // LOAD_FAST 0
     0xbb, // LOAD_FAST 11
     0x82, // LOAD_CONST_SMALL_INT 2
@@ -8312,13 +8335,13 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xba, // LOAD_FAST 10
     0xbb, // LOAD_FAST 11
     0xd8, // BINARY_OP 1 __gt__
-    0x44,0xfc,0x80, // POP_JUMP_IF_FALSE 124
+    0x44,0x82,0x81, // POP_JUMP_IF_FALSE 130
     0xb0, // LOAD_FAST 0
     0xbb, // LOAD_FAST 11
     0x55, // LOAD_SUBSCR
-    0x10,0x1e, // LOAD_CONST_STRING ':'
+    0x10,0x1f, // LOAD_CONST_STRING ':'
     0xd9, // BINARY_OP 2 __eq__
-    0x44,0xf3,0x80, // POP_JUMP_IF_FALSE 115
+    0x44,0xf9,0x80, // POP_JUMP_IF_FALSE 121
     0xbb, // LOAD_FAST 11
     0x83, // LOAD_CONST_SMALL_INT 3
     0xe5, // BINARY_OP 14 __iadd__
@@ -8328,10 +8351,10 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xf3, // BINARY_OP 28 __sub__
     0x80, // LOAD_CONST_SMALL_INT 0
     0xd7, // BINARY_OP 0 __lt__
-    0x44,0x43, // POP_JUMP_IF_FALSE 3
-    0x12,0x7d, // LOAD_GLOBAL 'ValueError'
+    0x44,0x44, // POP_JUMP_IF_FALSE 4
+    0x12,0x81,0x02, // LOAD_GLOBAL 'ValueError'
     0x65, // RAISE_OBJ
-    0x12,0x7f, // LOAD_GLOBAL 'int'
+    0x12,0x81,0x04, // LOAD_GLOBAL 'int'
     0xb0, // LOAD_FAST 0
     0xbb, // LOAD_FAST 11
     0x82, // LOAD_CONST_SMALL_INT 2
@@ -8344,13 +8367,13 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xba, // LOAD_FAST 10
     0xbb, // LOAD_FAST 11
     0xd8, // BINARY_OP 1 __gt__
-    0x44,0xd2,0x80, // POP_JUMP_IF_FALSE 82
+    0x44,0xd6,0x80, // POP_JUMP_IF_FALSE 86
     0xb0, // LOAD_FAST 0
     0xbb, // LOAD_FAST 11
     0x55, // LOAD_SUBSCR
-    0x10,0x1f, // LOAD_CONST_STRING '.'
+    0x10,0x20, // LOAD_CONST_STRING '.'
     0xd9, // BINARY_OP 2 __eq__
-    0x44,0xc9,0x80, // POP_JUMP_IF_FALSE 73
+    0x44,0xcd,0x80, // POP_JUMP_IF_FALSE 77
     0xbb, // LOAD_FAST 11
     0x84, // LOAD_CONST_SMALL_INT 4
     0xe5, // BINARY_OP 14 __iadd__
@@ -8360,11 +8383,11 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xf3, // BINARY_OP 28 __sub__
     0x80, // LOAD_CONST_SMALL_INT 0
     0xd7, // BINARY_OP 0 __lt__
-    0x44,0x43, // POP_JUMP_IF_FALSE 3
-    0x12,0x7d, // LOAD_GLOBAL 'ValueError'
+    0x44,0x44, // POP_JUMP_IF_FALSE 4
+    0x12,0x81,0x02, // LOAD_GLOBAL 'ValueError'
     0x65, // RAISE_OBJ
     0x22,0x87,0x68, // LOAD_CONST_SMALL_INT 1000
-    0x12,0x7f, // LOAD_GLOBAL 'int'
+    0x12,0x81,0x04, // LOAD_GLOBAL 'int'
     0xb0, // LOAD_FAST 0
     0xbb, // LOAD_FAST 11
     0x83, // LOAD_CONST_SMALL_INT 3
@@ -8378,13 +8401,13 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xba, // LOAD_FAST 10
     0xbb, // LOAD_FAST 11
     0xd8, // BINARY_OP 1 __gt__
-    0x44,0x65, // POP_JUMP_IF_FALSE 37
+    0x44,0x67, // POP_JUMP_IF_FALSE 39
     0xb0, // LOAD_FAST 0
     0xbb, // LOAD_FAST 11
     0x55, // LOAD_SUBSCR
-    0x10,0x20, // LOAD_CONST_STRING '+'
+    0x10,0x21, // LOAD_CONST_STRING '+'
     0xdc, // BINARY_OP 5 __ne__
-    0x44,0x5d, // POP_JUMP_IF_FALSE 29
+    0x44,0x5f, // POP_JUMP_IF_FALSE 31
     0xbb, // LOAD_FAST 11
     0x83, // LOAD_CONST_SMALL_INT 3
     0xe5, // BINARY_OP 14 __iadd__
@@ -8394,11 +8417,11 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xf3, // BINARY_OP 28 __sub__
     0x80, // LOAD_CONST_SMALL_INT 0
     0xd7, // BINARY_OP 0 __lt__
-    0x44,0x43, // POP_JUMP_IF_FALSE 3
-    0x12,0x7d, // LOAD_GLOBAL 'ValueError'
+    0x44,0x44, // POP_JUMP_IF_FALSE 4
+    0x12,0x81,0x02, // LOAD_GLOBAL 'ValueError'
     0x65, // RAISE_OBJ
     0xb4, // LOAD_FAST 4
-    0x12,0x7f, // LOAD_GLOBAL 'int'
+    0x12,0x81,0x04, // LOAD_GLOBAL 'int'
     0xb0, // LOAD_FAST 0
     0xbb, // LOAD_FAST 11
     0x83, // LOAD_CONST_SMALL_INT 3
@@ -8412,15 +8435,15 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xba, // LOAD_FAST 10
     0xbb, // LOAD_FAST 11
     0xd8, // BINARY_OP 1 __gt__
-    0x44,0x8c,0x81, // POP_JUMP_IF_FALSE 140
+    0x44,0x94,0x81, // POP_JUMP_IF_FALSE 148
     0xb0, // LOAD_FAST 0
     0xbb, // LOAD_FAST 11
     0x55, // LOAD_SUBSCR
-    0x10,0x21, // LOAD_CONST_STRING '+-'
+    0x10,0x22, // LOAD_CONST_STRING '+-'
     0xdd, // BINARY_OP 6 <in>
     0xd3, // UNARY_OP 3 <not>
-    0x44,0x43, // POP_JUMP_IF_FALSE 3
-    0x12,0x7d, // LOAD_GLOBAL 'ValueError'
+    0x44,0x44, // POP_JUMP_IF_FALSE 4
+    0x12,0x81,0x02, // LOAD_GLOBAL 'ValueError'
     0x65, // RAISE_OBJ
     0xb0, // LOAD_FAST 0
     0xbb, // LOAD_FAST 11
@@ -8435,10 +8458,10 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xf3, // BINARY_OP 28 __sub__
     0x80, // LOAD_CONST_SMALL_INT 0
     0xd7, // BINARY_OP 0 __lt__
-    0x44,0x43, // POP_JUMP_IF_FALSE 3
-    0x12,0x7d, // LOAD_GLOBAL 'ValueError'
+    0x44,0x44, // POP_JUMP_IF_FALSE 4
+    0x12,0x81,0x02, // LOAD_GLOBAL 'ValueError'
     0x65, // RAISE_OBJ
-    0x12,0x7f, // LOAD_GLOBAL 'int'
+    0x12,0x81,0x04, // LOAD_GLOBAL 'int'
     0xb0, // LOAD_FAST 0
     0xbb, // LOAD_FAST 11
     0x85, // LOAD_CONST_SMALL_INT 5
@@ -8450,7 +8473,7 @@ static const byte fun_data_datetime__iso2t[496] = {
     0x55, // LOAD_SUBSCR
     0x34,0x01, // CALL_FUNCTION 1
     0xc6, // STORE_FAST 6
-    0x12,0x7f, // LOAD_GLOBAL 'int'
+    0x12,0x81,0x04, // LOAD_GLOBAL 'int'
     0xb0, // LOAD_FAST 0
     0xbb, // LOAD_FAST 11
     0x82, // LOAD_CONST_SMALL_INT 2
@@ -8463,13 +8486,13 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xba, // LOAD_FAST 10
     0xbb, // LOAD_FAST 11
     0xd8, // BINARY_OP 1 __gt__
-    0x44,0xcc,0x80, // POP_JUMP_IF_FALSE 76
+    0x44,0xd0,0x80, // POP_JUMP_IF_FALSE 80
     0xb0, // LOAD_FAST 0
     0xbb, // LOAD_FAST 11
     0x55, // LOAD_SUBSCR
-    0x10,0x1e, // LOAD_CONST_STRING ':'
+    0x10,0x1f, // LOAD_CONST_STRING ':'
     0xd9, // BINARY_OP 2 __eq__
-    0x44,0xc3,0x80, // POP_JUMP_IF_FALSE 67
+    0x44,0xc7,0x80, // POP_JUMP_IF_FALSE 71
     0xbb, // LOAD_FAST 11
     0x83, // LOAD_CONST_SMALL_INT 3
     0xe5, // BINARY_OP 14 __iadd__
@@ -8479,10 +8502,10 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xf3, // BINARY_OP 28 __sub__
     0x80, // LOAD_CONST_SMALL_INT 0
     0xd7, // BINARY_OP 0 __lt__
-    0x44,0x43, // POP_JUMP_IF_FALSE 3
-    0x12,0x7d, // LOAD_GLOBAL 'ValueError'
+    0x44,0x44, // POP_JUMP_IF_FALSE 4
+    0x12,0x81,0x02, // LOAD_GLOBAL 'ValueError'
     0x65, // RAISE_OBJ
-    0x12,0x7f, // LOAD_GLOBAL 'int'
+    0x12,0x81,0x04, // LOAD_GLOBAL 'int'
     0xb0, // LOAD_FAST 0
     0xbb, // LOAD_FAST 11
     0x82, // LOAD_CONST_SMALL_INT 2
@@ -8495,13 +8518,13 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xba, // LOAD_FAST 10
     0xbb, // LOAD_FAST 11
     0xd8, // BINARY_OP 1 __gt__
-    0x44,0x63, // POP_JUMP_IF_FALSE 35
+    0x44,0x65, // POP_JUMP_IF_FALSE 37
     0xb0, // LOAD_FAST 0
     0xbb, // LOAD_FAST 11
     0x55, // LOAD_SUBSCR
-    0x10,0x1f, // LOAD_CONST_STRING '.'
+    0x10,0x20, // LOAD_CONST_STRING '.'
     0xd9, // BINARY_OP 2 __eq__
-    0x44,0x5b, // POP_JUMP_IF_FALSE 27
+    0x44,0x5d, // POP_JUMP_IF_FALSE 29
     0xbb, // LOAD_FAST 11
     0x87, // LOAD_CONST_SMALL_INT 7
     0xe5, // BINARY_OP 14 __iadd__
@@ -8511,10 +8534,10 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xf3, // BINARY_OP 28 __sub__
     0x80, // LOAD_CONST_SMALL_INT 0
     0xd7, // BINARY_OP 0 __lt__
-    0x44,0x43, // POP_JUMP_IF_FALSE 3
-    0x12,0x7d, // LOAD_GLOBAL 'ValueError'
+    0x44,0x44, // POP_JUMP_IF_FALSE 4
+    0x12,0x81,0x02, // LOAD_GLOBAL 'ValueError'
     0x65, // RAISE_OBJ
-    0x12,0x7f, // LOAD_GLOBAL 'int'
+    0x12,0x81,0x04, // LOAD_GLOBAL 'int'
     0xb0, // LOAD_FAST 0
     0xbb, // LOAD_FAST 11
     0x86, // LOAD_CONST_SMALL_INT 6
@@ -8527,30 +8550,30 @@ static const byte fun_data_datetime__iso2t[496] = {
     0xba, // LOAD_FAST 10
     0xbb, // LOAD_FAST 11
     0xdc, // BINARY_OP 5 __ne__
-    0x44,0x43, // POP_JUMP_IF_FALSE 3
-    0x12,0x7d, // LOAD_GLOBAL 'ValueError'
+    0x44,0x44, // POP_JUMP_IF_FALSE 4
+    0x12,0x81,0x02, // LOAD_GLOBAL 'ValueError'
     0x65, // RAISE_OBJ
     0xb5, // LOAD_FAST 5
     0x44,0x63, // POP_JUMP_IF_FALSE 35
-    0x12,0x03, // LOAD_GLOBAL 'timedelta'
-    0x10,0x06, // LOAD_CONST_STRING 'hours'
+    0x12,0x05, // LOAD_GLOBAL 'timedelta'
+    0x10,0x08, // LOAD_CONST_STRING 'hours'
     0xb6, // LOAD_FAST 6
-    0x10,0x07, // LOAD_CONST_STRING 'minutes'
+    0x10,0x09, // LOAD_CONST_STRING 'minutes'
     0xb7, // LOAD_FAST 7
-    0x10,0x08, // LOAD_CONST_STRING 'seconds'
+    0x10,0x0a, // LOAD_CONST_STRING 'seconds'
     0xb8, // LOAD_FAST 8
-    0x10,0x09, // LOAD_CONST_STRING 'microseconds'
+    0x10,0x0b, // LOAD_CONST_STRING 'microseconds'
     0xb9, // LOAD_FAST 9
     0x34,0x88,0x00, // CALL_FUNCTION 1024
     0xcc, // STORE_FAST 12
     0xb5, // LOAD_FAST 5
-    0x10,0x19, // LOAD_CONST_STRING '-'
+    0x10,0x1a, // LOAD_CONST_STRING '-'
     0xd9, // BINARY_OP 2 __eq__
     0x44,0x43, // POP_JUMP_IF_FALSE 3
     0xbc, // LOAD_FAST 12
     0xd1, // UNARY_OP 1 __neg__
     0xcc, // STORE_FAST 12
-    0x12,0x0d, // LOAD_GLOBAL 'timezone'
+    0x12,0x0f, // LOAD_GLOBAL 'timezone'
     0xbc, // LOAD_FAST 12
     0x34,0x01, // CALL_FUNCTION 1
     0xcd, // STORE_FAST 13
@@ -8574,7 +8597,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime__iso2t = {
     .fun_data = fun_data_datetime__iso2t,
     .children = NULL,
     #if MICROPY_PERSISTENT_CODE_SAVE
-    .fun_data_len = 496,
+    .fun_data_len = 516,
     .n_children = 0,
     #if MICROPY_EMIT_MACHINE_CODE
     .prelude_offset = 0,
@@ -8588,7 +8611,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime__iso2t = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 28,
+        .qstr_block_name_idx = 29,
         .line_info = fun_data_datetime__iso2t + 6,
         .line_info_top = fun_data_datetime__iso2t + 70,
         .opcodes = fun_data_datetime__iso2t + 70,
@@ -8604,12 +8627,12 @@ static const mp_raw_code_truncated_t proto_fun_datetime__iso2t = {
 // frozen bytecode for file datetime.py, scope datetime__t2iso
 static const byte fun_data_datetime__t2iso[48] = {
     0xc8,0x04,0x1e, // prelude
-    0x22,0x81,0x04,0x81,0x05,0x81,0x06,0x81,0x07, // names: _t2iso, td, timespec, dt, tz
-    0x90,0xe2,0x23,0x4a,0x26,0x29, // code info
+    0x23,0x81,0x09,0x81,0x0a,0x81,0x0b,0x81,0x0c, // names: _t2iso, td, timespec, dt, tz
+    0x90,0xe6,0x23,0x4a,0x26,0x29, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x23, // LOAD_METHOD '_fmt'
+    0x14,0x24, // LOAD_METHOD '_fmt'
     0x23,0x04, // LOAD_CONST_OBJ 4
-    0x14,0x24, // LOAD_METHOD 'index'
+    0x14,0x25, // LOAD_METHOD 'index'
     0xb1, // LOAD_FAST 1
     0x36,0x01, // CALL_METHOD 1
     0x36,0x01, // CALL_METHOD 1
@@ -8621,7 +8644,7 @@ static const byte fun_data_datetime__t2iso[48] = {
     0x44,0x49, // POP_JUMP_IF_FALSE 9
     0xb4, // LOAD_FAST 4
     0xb3, // LOAD_FAST 3
-    0x14,0x25, // LOAD_METHOD 'isoformat'
+    0x14,0x26, // LOAD_METHOD 'isoformat'
     0xb2, // LOAD_FAST 2
     0x36,0x01, // CALL_METHOD 1
     0xe5, // BINARY_OP 14 __iadd__
@@ -8652,7 +8675,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime__t2iso = {
         .n_pos_args = 4,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 34,
+        .qstr_block_name_idx = 35,
         .line_info = fun_data_datetime__t2iso + 12,
         .line_info_top = fun_data_datetime__t2iso + 18,
         .opcodes = fun_data_datetime__t2iso + 18,
@@ -8669,11 +8692,11 @@ static const mp_raw_code_truncated_t proto_fun_datetime__t2iso = {
 static const byte fun_data_datetime_time[208] = {
     0x20,0x50, // prelude
     0x02, // names: time
-    0x98,0xeb,0x71,0x40,0x69,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x71,0x80,0x0f,0x69,0x64,0x40,0x44,0x64,0x64,0x40,0x64,0x64,0x64,0x64,0x84,0x0e,0x64,0x60,0x64,0x64,0x64, // code info
-    0x11,0x77, // LOAD_NAME '__name__'
-    0x16,0x78, // STORE_NAME '__module__'
+    0x98,0xef,0x71,0x40,0x69,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x71,0x80,0x0f,0x69,0x64,0x40,0x44,0x64,0x64,0x40,0x64,0x64,0x64,0x64,0x84,0x0e,0x64,0x60,0x64,0x64,0x64, // code info
+    0x11,0x7c, // LOAD_NAME '__name__'
+    0x16,0x7d, // STORE_NAME '__module__'
     0x10,0x02, // LOAD_CONST_STRING 'time'
-    0x16,0x79, // STORE_NAME '__qualname__'
+    0x16,0x7e, // STORE_NAME '__qualname__'
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
@@ -8682,38 +8705,38 @@ static const byte fun_data_datetime_time[208] = {
     0x2a,0x05, // BUILD_TUPLE 5
     0x2c,0x00, // BUILD_MAP 0
     0x80, // LOAD_CONST_SMALL_INT 0
-    0x10,0x26, // LOAD_CONST_STRING 'fold'
+    0x10,0x27, // LOAD_CONST_STRING 'fold'
     0x62, // STORE_MAP
     0x33,0x00, // MAKE_FUNCTION_DEFARGS 0
-    0x16,0x29, // STORE_NAME '__init__'
-    0x11,0x81,0x01, // LOAD_NAME 'classmethod'
+    0x16,0x2a, // STORE_NAME '__init__'
+    0x11,0x81,0x06, // LOAD_NAME 'classmethod'
     0x32,0x01, // MAKE_FUNCTION 1
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x56, // STORE_NAME 'fromisoformat'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x02, // MAKE_FUNCTION 2
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x61, // STORE_NAME 'hour'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x03, // MAKE_FUNCTION 3
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x62, // STORE_NAME 'minute'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x04, // MAKE_FUNCTION 4
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x63, // STORE_NAME 'second'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x05, // MAKE_FUNCTION 5
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x64, // STORE_NAME 'microsecond'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x06, // MAKE_FUNCTION 6
     0x34,0x01, // CALL_FUNCTION 1
-    0x16,0x0c, // STORE_NAME 'tzinfo'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x16,0x0e, // STORE_NAME 'tzinfo'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x07, // MAKE_FUNCTION 7
     0x34,0x01, // CALL_FUNCTION 1
-    0x16,0x26, // STORE_NAME 'fold'
+    0x16,0x27, // STORE_NAME 'fold'
     0x51, // LOAD_CONST_NONE
     0x51, // LOAD_CONST_NONE
     0x51, // LOAD_CONST_NONE
@@ -8722,43 +8745,43 @@ static const byte fun_data_datetime_time[208] = {
     0x2a,0x05, // BUILD_TUPLE 5
     0x2c,0x00, // BUILD_MAP 0
     0x51, // LOAD_CONST_NONE
-    0x10,0x26, // LOAD_CONST_STRING 'fold'
+    0x10,0x27, // LOAD_CONST_STRING 'fold'
     0x62, // STORE_MAP
     0x33,0x08, // MAKE_FUNCTION_DEFARGS 8
     0x16,0x5d, // STORE_NAME 'replace'
-    0x10,0x27, // LOAD_CONST_STRING 'auto'
+    0x10,0x28, // LOAD_CONST_STRING 'auto'
     0x2a,0x01, // BUILD_TUPLE 1
     0x53, // LOAD_NULL
     0x33,0x09, // MAKE_FUNCTION_DEFARGS 9
-    0x16,0x25, // STORE_NAME 'isoformat'
+    0x16,0x26, // STORE_NAME 'isoformat'
     0x32,0x0a, // MAKE_FUNCTION 10
-    0x16,0x2b, // STORE_NAME '__repr__'
-    0x11,0x25, // LOAD_NAME 'isoformat'
-    0x16,0x3f, // STORE_NAME '__str__'
+    0x16,0x2c, // STORE_NAME '__repr__'
+    0x11,0x26, // LOAD_NAME 'isoformat'
+    0x16,0x40, // STORE_NAME '__str__'
     0x32,0x0b, // MAKE_FUNCTION 11
-    0x16,0x3e, // STORE_NAME '__bool__'
+    0x16,0x3f, // STORE_NAME '__bool__'
     0x32,0x0c, // MAKE_FUNCTION 12
-    0x16,0x39, // STORE_NAME '__eq__'
+    0x16,0x3a, // STORE_NAME '__eq__'
     0x32,0x0d, // MAKE_FUNCTION 13
-    0x16,0x3a, // STORE_NAME '__le__'
+    0x16,0x3b, // STORE_NAME '__le__'
     0x32,0x0e, // MAKE_FUNCTION 14
-    0x16,0x3b, // STORE_NAME '__lt__'
+    0x16,0x3c, // STORE_NAME '__lt__'
     0x32,0x0f, // MAKE_FUNCTION 15
-    0x16,0x3c, // STORE_NAME '__ge__'
+    0x16,0x3d, // STORE_NAME '__ge__'
     0x32,0x10, // MAKE_FUNCTION 16
-    0x16,0x3d, // STORE_NAME '__gt__'
+    0x16,0x3e, // STORE_NAME '__gt__'
     0x32,0x11, // MAKE_FUNCTION 17
     0x16,0x65, // STORE_NAME '_sub'
     0x32,0x12, // MAKE_FUNCTION 18
-    0x16,0x40, // STORE_NAME '__hash__'
+    0x16,0x41, // STORE_NAME '__hash__'
     0x32,0x13, // MAKE_FUNCTION 19
-    0x16,0x4b, // STORE_NAME 'utcoffset'
+    0x16,0x4c, // STORE_NAME 'utcoffset'
     0x32,0x14, // MAKE_FUNCTION 20
-    0x16,0x4c, // STORE_NAME 'dst'
+    0x16,0x4d, // STORE_NAME 'dst'
     0x32,0x15, // MAKE_FUNCTION 21
-    0x16,0x4a, // STORE_NAME 'tzname'
+    0x16,0x4b, // STORE_NAME 'tzname'
     0x32,0x16, // MAKE_FUNCTION 22
-    0x16,0x49, // STORE_NAME 'tuple'
+    0x16,0x4a, // STORE_NAME 'tuple'
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
 };
@@ -8766,9 +8789,9 @@ static const byte fun_data_datetime_time[208] = {
 // frozen bytecode for file datetime.py, scope datetime_time___init__
 static const byte fun_data_datetime_time___init__[41] = {
     0xe2,0x8d,0x80,0x81,0x40,0x1a, // prelude
-    0x29,0x81,0x08,0x61,0x62,0x63,0x64,0x0c,0x26, // names: __init__, self, hour, minute, second, microsecond, tzinfo, fold
-    0x90,0xec,0x2c,0x24, // code info
-    0x12,0x1b, // LOAD_GLOBAL '_time'
+    0x2a,0x81,0x0d,0x61,0x62,0x63,0x64,0x0e,0x27, // names: __init__, self, hour, minute, second, microsecond, tzinfo, fold
+    0x90,0xf0,0x2c,0x24, // code info
+    0x12,0x1c, // LOAD_GLOBAL '_time'
     0xb1, // LOAD_FAST 1
     0xb2, // LOAD_FAST 2
     0xb3, // LOAD_FAST 3
@@ -8779,7 +8802,7 @@ static const byte fun_data_datetime_time___init__[41] = {
     0x18,0x5f, // STORE_ATTR '_td'
     0xb5, // LOAD_FAST 5
     0xb0, // LOAD_FAST 0
-    0x18,0x4e, // STORE_ATTR '_tz'
+    0x18,0x4f, // STORE_ATTR '_tz'
     0xb6, // LOAD_FAST 6
     0xb0, // LOAD_FAST 0
     0x18,0x60, // STORE_ATTR '_fd'
@@ -8809,7 +8832,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___init__ = {
         .n_pos_args = 6,
         .n_kwonly_args = 1,
         .n_def_pos_args = 5,
-        .qstr_block_name_idx = 41,
+        .qstr_block_name_idx = 42,
         .line_info = fun_data_datetime_time___init__ + 15,
         .line_info_top = fun_data_datetime_time___init__ + 19,
         .opcodes = fun_data_datetime_time___init__ + 19,
@@ -8825,10 +8848,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___init__ = {
 // frozen bytecode for file datetime.py, scope datetime_time_fromisoformat
 static const byte fun_data_datetime_time_fromisoformat[18] = {
     0x22,0x0c, // prelude
-    0x56,0x81,0x18,0x44, // names: fromisoformat, cls, s
-    0x90,0xf2, // code info
+    0x56,0x81,0x1d,0x45, // names: fromisoformat, cls, s
+    0x90,0xf6, // code info
     0xb0, // LOAD_FAST 0
-    0x12,0x1c, // LOAD_GLOBAL '_iso2t'
+    0x12,0x1d, // LOAD_GLOBAL '_iso2t'
     0xb1, // LOAD_FAST 1
     0x34,0x01, // CALL_FUNCTION 1
     0x81, // LOAD_CONST_SMALL_INT 1
@@ -8874,10 +8897,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_fromisoformat = {
 // frozen bytecode for file datetime.py, scope datetime_time_hour
 static const byte fun_data_datetime_time_hour[15] = {
     0x11,0x0a, // prelude
-    0x61,0x81,0x08, // names: hour, self
-    0x90,0xf6, // code info
+    0x61,0x81,0x0d, // names: hour, self
+    0x90,0xfa, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x80, // LOAD_CONST_SMALL_INT 0
     0x55, // LOAD_SUBSCR
@@ -8922,10 +8945,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_hour = {
 // frozen bytecode for file datetime.py, scope datetime_time_minute
 static const byte fun_data_datetime_time_minute[15] = {
     0x11,0x0a, // prelude
-    0x62,0x81,0x08, // names: minute, self
-    0x90,0xfa, // code info
+    0x62,0x81,0x0d, // names: minute, self
+    0x90,0xfe, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x81, // LOAD_CONST_SMALL_INT 1
     0x55, // LOAD_SUBSCR
@@ -8970,10 +8993,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_minute = {
 // frozen bytecode for file datetime.py, scope datetime_time_second
 static const byte fun_data_datetime_time_second[15] = {
     0x11,0x0a, // prelude
-    0x63,0x81,0x08, // names: second, self
-    0x90,0xfe, // code info
+    0x63,0x81,0x0d, // names: second, self
+    0xa0,0x02, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x82, // LOAD_CONST_SMALL_INT 2
     0x55, // LOAD_SUBSCR
@@ -9018,10 +9041,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_second = {
 // frozen bytecode for file datetime.py, scope datetime_time_microsecond
 static const byte fun_data_datetime_time_microsecond[15] = {
     0x11,0x0a, // prelude
-    0x64,0x81,0x08, // names: microsecond, self
-    0xa0,0x02, // code info
+    0x64,0x81,0x0d, // names: microsecond, self
+    0xa0,0x06, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x83, // LOAD_CONST_SMALL_INT 3
     0x55, // LOAD_SUBSCR
@@ -9066,10 +9089,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_microsecond = {
 // frozen bytecode for file datetime.py, scope datetime_time_tzinfo
 static const byte fun_data_datetime_time_tzinfo[11] = {
     0x09,0x0a, // prelude
-    0x0c,0x81,0x08, // names: tzinfo, self
-    0xa0,0x06, // code info
+    0x0e,0x81,0x0d, // names: tzinfo, self
+    0xa0,0x0a, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x63, // RETURN_VALUE
 };
 #if MICROPY_PERSISTENT_CODE_SAVE
@@ -9095,7 +9118,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_tzinfo = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 12,
+        .qstr_block_name_idx = 14,
         .line_info = fun_data_datetime_time_tzinfo + 5,
         .line_info_top = fun_data_datetime_time_tzinfo + 7,
         .opcodes = fun_data_datetime_time_tzinfo + 7,
@@ -9111,8 +9134,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_tzinfo = {
 // frozen bytecode for file datetime.py, scope datetime_time_fold
 static const byte fun_data_datetime_time_fold[11] = {
     0x09,0x0a, // prelude
-    0x26,0x81,0x08, // names: fold, self
-    0xa0,0x0a, // code info
+    0x27,0x81,0x0d, // names: fold, self
+    0xa0,0x0e, // code info
     0xb0, // LOAD_FAST 0
     0x13,0x60, // LOAD_ATTR '_fd'
     0x63, // RETURN_VALUE
@@ -9140,7 +9163,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_fold = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 38,
+        .qstr_block_name_idx = 39,
         .line_info = fun_data_datetime_time_fold + 5,
         .line_info_top = fun_data_datetime_time_fold + 7,
         .opcodes = fun_data_datetime_time_fold + 7,
@@ -9156,10 +9179,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_fold = {
 // frozen bytecode for file datetime.py, scope datetime_time_replace
 static const byte fun_data_datetime_time_replace[99] = {
     0xa2,0x9d,0x80,0x81,0x40,0x30, // prelude
-    0x5d,0x81,0x08,0x61,0x62,0x63,0x64,0x0c,0x26, // names: replace, self, hour, minute, second, microsecond, tzinfo, fold
-    0xa0,0x0f,0x2d,0x25,0x22,0x25,0x22,0x25,0x22,0x25,0x22,0x25,0x22,0x25,0x22, // code info
+    0x5d,0x81,0x0d,0x61,0x62,0x63,0x64,0x0e,0x27, // names: replace, self, hour, minute, second, microsecond, tzinfo, fold
+    0xa0,0x13,0x2d,0x25,0x22,0x25,0x22,0x25,0x22,0x25,0x22,0x25,0x22,0x25,0x22, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x30,0x06, // UNPACK_SEQUENCE 6
     0xc7, // STORE_FAST 7
@@ -9210,7 +9233,7 @@ static const byte fun_data_datetime_time_replace[99] = {
     0xb3, // LOAD_FAST 3
     0xb4, // LOAD_FAST 4
     0xb5, // LOAD_FAST 5
-    0x10,0x26, // LOAD_CONST_STRING 'fold'
+    0x10,0x27, // LOAD_CONST_STRING 'fold'
     0xb6, // LOAD_FAST 6
     0x34,0x82,0x05, // CALL_FUNCTION 261
     0x63, // RETURN_VALUE
@@ -9254,15 +9277,15 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_replace = {
 // frozen bytecode for file datetime.py, scope datetime_time_isoformat
 static const byte fun_data_datetime_time_isoformat[23] = {
     0xb2,0x01,0x0e, // prelude
-    0x25,0x81,0x08,0x81,0x05, // names: isoformat, self, timespec
-    0xa0,0x1f, // code info
-    0x12,0x22, // LOAD_GLOBAL '_t2iso'
+    0x26,0x81,0x0d,0x81,0x0a, // names: isoformat, self, timespec
+    0xa0,0x23, // code info
+    0x12,0x23, // LOAD_GLOBAL '_t2iso'
     0xb0, // LOAD_FAST 0
     0x13,0x5f, // LOAD_ATTR '_td'
     0xb1, // LOAD_FAST 1
     0x51, // LOAD_CONST_NONE
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x34,0x04, // CALL_FUNCTION 4
     0x63, // RETURN_VALUE
 };
@@ -9289,7 +9312,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_isoformat = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 1,
-        .qstr_block_name_idx = 37,
+        .qstr_block_name_idx = 38,
         .line_info = fun_data_datetime_time_isoformat + 8,
         .line_info_top = fun_data_datetime_time_isoformat + 10,
         .opcodes = fun_data_datetime_time_isoformat + 10,
@@ -9305,16 +9328,16 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_isoformat = {
 // frozen bytecode for file datetime.py, scope datetime_time___repr__
 static const byte fun_data_datetime_time___repr__[31] = {
     0x29,0x0c, // prelude
-    0x2b,0x81,0x08, // names: __repr__, self
-    0xa0,0x22,0x24, // code info
+    0x2c,0x81,0x0d, // names: __repr__, self
+    0xa0,0x26,0x24, // code info
     0x23,0x09, // LOAD_CONST_OBJ 9
-    0x14,0x2c, // LOAD_METHOD 'format'
+    0x14,0x2d, // LOAD_METHOD 'format'
     0xb0, // LOAD_FAST 0
     0x13,0x5f, // LOAD_ATTR '_td'
-    0x13,0x2a, // LOAD_ATTR '_us'
-    0x12,0x81,0x16, // LOAD_GLOBAL 'repr'
+    0x13,0x2b, // LOAD_ATTR '_us'
+    0x12,0x81,0x1b, // LOAD_GLOBAL 'repr'
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x34,0x01, // CALL_FUNCTION 1
     0xb0, // LOAD_FAST 0
     0x13,0x60, // LOAD_ATTR '_fd'
@@ -9344,7 +9367,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___repr__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 43,
+        .qstr_block_name_idx = 44,
         .line_info = fun_data_datetime_time___repr__ + 5,
         .line_info_top = fun_data_datetime_time___repr__ + 8,
         .opcodes = fun_data_datetime_time___repr__ + 8,
@@ -9360,8 +9383,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___repr__ = {
 // frozen bytecode for file datetime.py, scope datetime_time___bool__
 static const byte fun_data_datetime_time___bool__[9] = {
     0x09,0x0a, // prelude
-    0x3e,0x81,0x08, // names: __bool__, self
-    0xa0,0x29, // code info
+    0x3f,0x81,0x0d, // names: __bool__, self
+    0xa0,0x2d, // code info
     0x52, // LOAD_CONST_TRUE
     0x63, // RETURN_VALUE
 };
@@ -9388,7 +9411,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___bool__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 62,
+        .qstr_block_name_idx = 63,
         .line_info = fun_data_datetime_time___bool__ + 5,
         .line_info_top = fun_data_datetime_time___bool__ + 7,
         .opcodes = fun_data_datetime_time___bool__ + 7,
@@ -9404,14 +9427,14 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___bool__ = {
 // frozen bytecode for file datetime.py, scope datetime_time___eq__
 static const byte fun_data_datetime_time___eq__[35] = {
     0x22,0x12, // prelude
-    0x39,0x81,0x08,0x81,0x0c, // names: __eq__, self, other
-    0xa0,0x2c,0x2d,0x22, // code info
+    0x3a,0x81,0x0d,0x81,0x11, // names: __eq__, self, other
+    0xa0,0x30,0x2d,0x22, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x51, // LOAD_CONST_NONE
     0xd9, // BINARY_OP 2 __eq__
     0xb1, // LOAD_FAST 1
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x51, // LOAD_CONST_NONE
     0xd9, // BINARY_OP 2 __eq__
     0xee, // BINARY_OP 23 __xor__
@@ -9449,7 +9472,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___eq__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 57,
+        .qstr_block_name_idx = 58,
         .line_info = fun_data_datetime_time___eq__ + 7,
         .line_info_top = fun_data_datetime_time___eq__ + 11,
         .opcodes = fun_data_datetime_time___eq__ + 11,
@@ -9465,8 +9488,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___eq__ = {
 // frozen bytecode for file datetime.py, scope datetime_time___le__
 static const byte fun_data_datetime_time___le__[18] = {
     0x22,0x0e, // prelude
-    0x3a,0x81,0x08,0x81,0x0c, // names: __le__, self, other
-    0xa0,0x31, // code info
+    0x3b,0x81,0x0d,0x81,0x11, // names: __le__, self, other
+    0xa0,0x35, // code info
     0xb0, // LOAD_FAST 0
     0x14,0x65, // LOAD_METHOD '_sub'
     0xb1, // LOAD_FAST 1
@@ -9498,7 +9521,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___le__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 58,
+        .qstr_block_name_idx = 59,
         .line_info = fun_data_datetime_time___le__ + 7,
         .line_info_top = fun_data_datetime_time___le__ + 9,
         .opcodes = fun_data_datetime_time___le__ + 9,
@@ -9514,8 +9537,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___le__ = {
 // frozen bytecode for file datetime.py, scope datetime_time___lt__
 static const byte fun_data_datetime_time___lt__[18] = {
     0x22,0x0e, // prelude
-    0x3b,0x81,0x08,0x81,0x0c, // names: __lt__, self, other
-    0xa0,0x34, // code info
+    0x3c,0x81,0x0d,0x81,0x11, // names: __lt__, self, other
+    0xa0,0x38, // code info
     0xb0, // LOAD_FAST 0
     0x14,0x65, // LOAD_METHOD '_sub'
     0xb1, // LOAD_FAST 1
@@ -9547,7 +9570,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___lt__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 59,
+        .qstr_block_name_idx = 60,
         .line_info = fun_data_datetime_time___lt__ + 7,
         .line_info_top = fun_data_datetime_time___lt__ + 9,
         .opcodes = fun_data_datetime_time___lt__ + 9,
@@ -9563,8 +9586,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___lt__ = {
 // frozen bytecode for file datetime.py, scope datetime_time___ge__
 static const byte fun_data_datetime_time___ge__[18] = {
     0x22,0x0e, // prelude
-    0x3c,0x81,0x08,0x81,0x0c, // names: __ge__, self, other
-    0xa0,0x37, // code info
+    0x3d,0x81,0x0d,0x81,0x11, // names: __ge__, self, other
+    0xa0,0x3b, // code info
     0xb0, // LOAD_FAST 0
     0x14,0x65, // LOAD_METHOD '_sub'
     0xb1, // LOAD_FAST 1
@@ -9596,7 +9619,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___ge__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 60,
+        .qstr_block_name_idx = 61,
         .line_info = fun_data_datetime_time___ge__ + 7,
         .line_info_top = fun_data_datetime_time___ge__ + 9,
         .opcodes = fun_data_datetime_time___ge__ + 9,
@@ -9612,8 +9635,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___ge__ = {
 // frozen bytecode for file datetime.py, scope datetime_time___gt__
 static const byte fun_data_datetime_time___gt__[18] = {
     0x22,0x0e, // prelude
-    0x3d,0x81,0x08,0x81,0x0c, // names: __gt__, self, other
-    0xa0,0x3a, // code info
+    0x3e,0x81,0x0d,0x81,0x11, // names: __gt__, self, other
+    0xa0,0x3e, // code info
     0xb0, // LOAD_FAST 0
     0x14,0x65, // LOAD_METHOD '_sub'
     0xb1, // LOAD_FAST 1
@@ -9645,7 +9668,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___gt__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 61,
+        .qstr_block_name_idx = 62,
         .line_info = fun_data_datetime_time___gt__ + 7,
         .line_info_top = fun_data_datetime_time___gt__ + 9,
         .opcodes = fun_data_datetime_time___gt__ + 9,
@@ -9661,29 +9684,29 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___gt__ = {
 // frozen bytecode for file datetime.py, scope datetime_time__sub
 static const byte fun_data_datetime_time__sub[90] = {
     0x4a,0x24, // prelude
-    0x65,0x81,0x08,0x81,0x0c, // names: _sub, self, other
-    0xa0,0x3d,0x24,0x2b,0x24,0x26,0x26,0x26,0x28,0x28,0x25,0x24,0x24, // code info
+    0x65,0x81,0x0d,0x81,0x11, // names: _sub, self, other
+    0xa0,0x41,0x24,0x2b,0x24,0x26,0x26,0x26,0x28,0x28,0x25,0x24,0x24, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0xc2, // STORE_FAST 2
     0xb2, // LOAD_FAST 2
     0x51, // LOAD_CONST_NONE
     0xde, // BINARY_OP 7 <is>
     0xb1, // LOAD_FAST 1
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x51, // LOAD_CONST_NONE
     0xde, // BINARY_OP 7 <is>
     0xee, // BINARY_OP 23 __xor__
     0x44,0x44, // POP_JUMP_IF_FALSE 4
-    0x12,0x81,0x1a, // LOAD_GLOBAL 'TypeError'
+    0x12,0x81,0x1f, // LOAD_GLOBAL 'TypeError'
     0x65, // RAISE_OBJ
     0xb0, // LOAD_FAST 0
     0x13,0x5f, // LOAD_ATTR '_td'
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xc3, // STORE_FAST 3
     0xb1, // LOAD_FAST 1
     0x13,0x5f, // LOAD_ATTR '_td'
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xc4, // STORE_FAST 4
     0xb2, // LOAD_FAST 2
     0x51, // LOAD_CONST_NONE
@@ -9691,14 +9714,14 @@ static const byte fun_data_datetime_time__sub[90] = {
     0xd3, // UNARY_OP 3 <not>
     0x44,0x5d, // POP_JUMP_IF_FALSE 29
     0xb0, // LOAD_FAST 0
-    0x14,0x4b, // LOAD_METHOD 'utcoffset'
+    0x14,0x4c, // LOAD_METHOD 'utcoffset'
     0x36,0x00, // CALL_METHOD 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xc5, // STORE_FAST 5
     0xb1, // LOAD_FAST 1
-    0x14,0x4b, // LOAD_METHOD 'utcoffset'
+    0x14,0x4c, // LOAD_METHOD 'utcoffset'
     0x36,0x00, // CALL_METHOD 0
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xc6, // STORE_FAST 6
     0xb5, // LOAD_FAST 5
     0xb6, // LOAD_FAST 6
@@ -9756,24 +9779,24 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time__sub = {
 // frozen bytecode for file datetime.py, scope datetime_time___hash__
 static const byte fun_data_datetime_time___hash__[39] = {
     0x19,0x0e, // prelude
-    0x40,0x81,0x08, // names: __hash__, self
-    0xa0,0x4b,0x4a,0x30, // code info
-    0x12,0x81,0x0e, // LOAD_GLOBAL 'hasattr'
+    0x41,0x81,0x0d, // names: __hash__, self
+    0xa0,0x4f,0x4a,0x30, // code info
+    0x12,0x81,0x13, // LOAD_GLOBAL 'hasattr'
     0xb0, // LOAD_FAST 0
-    0x10,0x41, // LOAD_CONST_STRING '_hash'
+    0x10,0x42, // LOAD_CONST_STRING '_hash'
     0x34,0x02, // CALL_FUNCTION 2
     0x43,0x50, // POP_JUMP_IF_TRUE 16
-    0x12,0x81,0x0f, // LOAD_GLOBAL 'hash'
+    0x12,0x81,0x14, // LOAD_GLOBAL 'hash'
     0xb0, // LOAD_FAST 0
     0x13,0x5f, // LOAD_ATTR '_td'
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x2a,0x02, // BUILD_TUPLE 2
     0x34,0x01, // CALL_FUNCTION 1
     0xb0, // LOAD_FAST 0
-    0x18,0x41, // STORE_ATTR '_hash'
+    0x18,0x42, // STORE_ATTR '_hash'
     0xb0, // LOAD_FAST 0
-    0x13,0x41, // LOAD_ATTR '_hash'
+    0x13,0x42, // LOAD_ATTR '_hash'
     0x63, // RETURN_VALUE
 };
 #if MICROPY_PERSISTENT_CODE_SAVE
@@ -9799,7 +9822,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___hash__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 64,
+        .qstr_block_name_idx = 65,
         .line_info = fun_data_datetime_time___hash__ + 5,
         .line_info_top = fun_data_datetime_time___hash__ + 9,
         .opcodes = fun_data_datetime_time___hash__ + 9,
@@ -9815,18 +9838,18 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time___hash__ = {
 // frozen bytecode for file datetime.py, scope datetime_time_utcoffset
 static const byte fun_data_datetime_time_utcoffset[25] = {
     0x19,0x0a, // prelude
-    0x4b,0x81,0x08, // names: utcoffset, self
-    0xa0,0x51, // code info
+    0x4c,0x81,0x0d, // names: utcoffset, self
+    0xa0,0x55, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x51, // LOAD_CONST_NONE
     0xde, // BINARY_OP 7 <is>
     0x44,0x42, // POP_JUMP_IF_FALSE 2
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
-    0x14,0x4b, // LOAD_METHOD 'utcoffset'
+    0x13,0x4f, // LOAD_ATTR '_tz'
+    0x14,0x4c, // LOAD_METHOD 'utcoffset'
     0x51, // LOAD_CONST_NONE
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
@@ -9854,7 +9877,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_utcoffset = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 75,
+        .qstr_block_name_idx = 76,
         .line_info = fun_data_datetime_time_utcoffset + 5,
         .line_info_top = fun_data_datetime_time_utcoffset + 7,
         .opcodes = fun_data_datetime_time_utcoffset + 7,
@@ -9870,18 +9893,18 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_utcoffset = {
 // frozen bytecode for file datetime.py, scope datetime_time_dst
 static const byte fun_data_datetime_time_dst[25] = {
     0x19,0x0a, // prelude
-    0x4c,0x81,0x08, // names: dst, self
-    0xa0,0x54, // code info
+    0x4d,0x81,0x0d, // names: dst, self
+    0xa0,0x58, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x51, // LOAD_CONST_NONE
     0xde, // BINARY_OP 7 <is>
     0x44,0x42, // POP_JUMP_IF_FALSE 2
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
-    0x14,0x4c, // LOAD_METHOD 'dst'
+    0x13,0x4f, // LOAD_ATTR '_tz'
+    0x14,0x4d, // LOAD_METHOD 'dst'
     0x51, // LOAD_CONST_NONE
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
@@ -9909,7 +9932,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_dst = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 76,
+        .qstr_block_name_idx = 77,
         .line_info = fun_data_datetime_time_dst + 5,
         .line_info_top = fun_data_datetime_time_dst + 7,
         .opcodes = fun_data_datetime_time_dst + 7,
@@ -9925,18 +9948,18 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_dst = {
 // frozen bytecode for file datetime.py, scope datetime_time_tzname
 static const byte fun_data_datetime_time_tzname[25] = {
     0x19,0x0a, // prelude
-    0x4a,0x81,0x08, // names: tzname, self
-    0xa0,0x57, // code info
+    0x4b,0x81,0x0d, // names: tzname, self
+    0xa0,0x5b, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x51, // LOAD_CONST_NONE
     0xde, // BINARY_OP 7 <is>
     0x44,0x42, // POP_JUMP_IF_FALSE 2
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
-    0x14,0x4a, // LOAD_METHOD 'tzname'
+    0x13,0x4f, // LOAD_ATTR '_tz'
+    0x14,0x4b, // LOAD_METHOD 'tzname'
     0x51, // LOAD_CONST_NONE
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
@@ -9964,7 +9987,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_tzname = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 74,
+        .qstr_block_name_idx = 75,
         .line_info = fun_data_datetime_time_tzname + 5,
         .line_info_top = fun_data_datetime_time_tzname + 7,
         .opcodes = fun_data_datetime_time_tzname + 7,
@@ -9980,11 +10003,11 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_tzname = {
 // frozen bytecode for file datetime.py, scope datetime_time_tuple
 static const byte fun_data_datetime_time_tuple[35] = {
     0x59,0x0c, // prelude
-    0x49,0x81,0x08, // names: tuple, self
-    0xa0,0x5a,0x2e, // code info
+    0x4a,0x81,0x0d, // names: tuple, self
+    0xa0,0x5e,0x2e, // code info
     0xb0, // LOAD_FAST 0
     0x13,0x5f, // LOAD_ATTR '_td'
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x30,0x05, // UNPACK_SEQUENCE 5
     0xc1, // STORE_FAST 1
@@ -9997,7 +10020,7 @@ static const byte fun_data_datetime_time_tuple[35] = {
     0xb4, // LOAD_FAST 4
     0xb5, // LOAD_FAST 5
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0xb0, // LOAD_FAST 0
     0x13,0x60, // LOAD_ATTR '_fd'
     0x2a,0x06, // BUILD_TUPLE 6
@@ -10026,7 +10049,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time_tuple = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 73,
+        .qstr_block_name_idx = 74,
         .line_info = fun_data_datetime_time_tuple + 5,
         .line_info_top = fun_data_datetime_time_tuple + 8,
         .opcodes = fun_data_datetime_time_tuple + 8,
@@ -10099,12 +10122,12 @@ static const mp_raw_code_truncated_t proto_fun_datetime_time = {
 // frozen bytecode for file datetime.py, scope datetime_datetime
 static const byte fun_data_datetime_datetime[372] = {
     0x38,0x94,0x02, // prelude
-    0x10, // names: datetime
-    0xa8,0x64,0x71,0x60,0x40,0x8d,0x10,0x6d,0x20,0x69,0x20,0x89,0x08,0x6d,0x60,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x64,0x60,0x84,0x09,0x84,0x12,0x64,0x40,0x64,0x64,0x64,0x64,0x84,0x0f,0x64,0x64,0x64,0x74,0x80,0x1f,0x88,0x0d,0x84,0x1f,0x64,0x64,0x64,0x84,0x09,0x64,0x64,0x60,0x64,0x64,0x6b,0x84,0x07,0x64,0x64,0x40, // code info
-    0x11,0x77, // LOAD_NAME '__name__'
-    0x16,0x78, // STORE_NAME '__module__'
-    0x10,0x10, // LOAD_CONST_STRING 'datetime'
-    0x16,0x79, // STORE_NAME '__qualname__'
+    0x12, // names: datetime
+    0xa8,0x68,0x71,0x60,0x40,0x8d,0x10,0x6d,0x20,0x69,0x20,0x89,0x08,0x6d,0x60,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x68,0x20,0x64,0x60,0x84,0x09,0x84,0x12,0x64,0x40,0x64,0x64,0x64,0x64,0x84,0x0f,0x64,0x64,0x64,0x74,0x80,0x1f,0x88,0x0d,0x84,0x1f,0x64,0x64,0x64,0x84,0x09,0x64,0x64,0x60,0x64,0x64,0x6b,0x84,0x07,0x64,0x64,0x40, // code info
+    0x11,0x7c, // LOAD_NAME '__name__'
+    0x16,0x7d, // STORE_NAME '__module__'
+    0x10,0x12, // LOAD_CONST_STRING 'datetime'
+    0x16,0x7e, // STORE_NAME '__qualname__'
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
@@ -10113,95 +10136,95 @@ static const byte fun_data_datetime_datetime[372] = {
     0x2a,0x05, // BUILD_TUPLE 5
     0x2c,0x00, // BUILD_MAP 0
     0x80, // LOAD_CONST_SMALL_INT 0
-    0x10,0x26, // LOAD_CONST_STRING 'fold'
+    0x10,0x27, // LOAD_CONST_STRING 'fold'
     0x62, // STORE_MAP
     0x33,0x00, // MAKE_FUNCTION_DEFARGS 0
-    0x16,0x29, // STORE_NAME '__init__'
-    0x11,0x81,0x01, // LOAD_NAME 'classmethod'
+    0x16,0x2a, // STORE_NAME '__init__'
+    0x11,0x81,0x06, // LOAD_NAME 'classmethod'
     0x51, // LOAD_CONST_NONE
     0x2a,0x01, // BUILD_TUPLE 1
     0x53, // LOAD_NULL
     0x33,0x01, // MAKE_FUNCTION_DEFARGS 1
     0x34,0x01, // CALL_FUNCTION 1
-    0x16,0x52, // STORE_NAME 'fromtimestamp'
-    0x11,0x81,0x01, // LOAD_NAME 'classmethod'
+    0x16,0x53, // STORE_NAME 'fromtimestamp'
+    0x11,0x81,0x06, // LOAD_NAME 'classmethod'
     0x51, // LOAD_CONST_NONE
     0x2a,0x01, // BUILD_TUPLE 1
     0x53, // LOAD_NULL
     0x33,0x02, // MAKE_FUNCTION_DEFARGS 2
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x68, // STORE_NAME 'now'
-    0x11,0x81,0x01, // LOAD_NAME 'classmethod'
+    0x11,0x81,0x06, // LOAD_NAME 'classmethod'
     0x32,0x03, // MAKE_FUNCTION 3
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x55, // STORE_NAME 'fromordinal'
-    0x11,0x81,0x01, // LOAD_NAME 'classmethod'
+    0x11,0x81,0x06, // LOAD_NAME 'classmethod'
     0x32,0x04, // MAKE_FUNCTION 4
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x56, // STORE_NAME 'fromisoformat'
-    0x11,0x81,0x01, // LOAD_NAME 'classmethod'
+    0x11,0x81,0x06, // LOAD_NAME 'classmethod'
     0x51, // LOAD_CONST_NONE
     0x2a,0x01, // BUILD_TUPLE 1
     0x53, // LOAD_NULL
     0x33,0x05, // MAKE_FUNCTION_DEFARGS 5
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x69, // STORE_NAME 'combine'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x06, // MAKE_FUNCTION 6
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x57, // STORE_NAME 'year'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x07, // MAKE_FUNCTION 7
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x58, // STORE_NAME 'month'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x08, // MAKE_FUNCTION 8
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x59, // STORE_NAME 'day'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x09, // MAKE_FUNCTION 9
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x61, // STORE_NAME 'hour'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x0a, // MAKE_FUNCTION 10
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x62, // STORE_NAME 'minute'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x0b, // MAKE_FUNCTION 11
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x63, // STORE_NAME 'second'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x0c, // MAKE_FUNCTION 12
     0x34,0x01, // CALL_FUNCTION 1
     0x16,0x64, // STORE_NAME 'microsecond'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x0d, // MAKE_FUNCTION 13
     0x34,0x01, // CALL_FUNCTION 1
-    0x16,0x0c, // STORE_NAME 'tzinfo'
-    0x11,0x7a, // LOAD_NAME 'property'
+    0x16,0x0e, // STORE_NAME 'tzinfo'
+    0x11,0x7f, // LOAD_NAME 'property'
     0x32,0x0e, // MAKE_FUNCTION 14
     0x34,0x01, // CALL_FUNCTION 1
-    0x16,0x26, // STORE_NAME 'fold'
+    0x16,0x27, // STORE_NAME 'fold'
     0x32,0x0f, // MAKE_FUNCTION 15
-    0x16,0x2f, // STORE_NAME '__add__'
+    0x16,0x30, // STORE_NAME '__add__'
     0x32,0x10, // MAKE_FUNCTION 16
-    0x16,0x30, // STORE_NAME '__sub__'
+    0x16,0x31, // STORE_NAME '__sub__'
     0x32,0x11, // MAKE_FUNCTION 17
     0x16,0x65, // STORE_NAME '_sub'
     0x32,0x12, // MAKE_FUNCTION 18
-    0x16,0x39, // STORE_NAME '__eq__'
+    0x16,0x3a, // STORE_NAME '__eq__'
     0x32,0x13, // MAKE_FUNCTION 19
-    0x16,0x3a, // STORE_NAME '__le__'
+    0x16,0x3b, // STORE_NAME '__le__'
     0x32,0x14, // MAKE_FUNCTION 20
-    0x16,0x3b, // STORE_NAME '__lt__'
+    0x16,0x3c, // STORE_NAME '__lt__'
     0x32,0x15, // MAKE_FUNCTION 21
-    0x16,0x3c, // STORE_NAME '__ge__'
+    0x16,0x3d, // STORE_NAME '__ge__'
     0x32,0x16, // MAKE_FUNCTION 22
-    0x16,0x3d, // STORE_NAME '__gt__'
+    0x16,0x3e, // STORE_NAME '__gt__'
     0x32,0x17, // MAKE_FUNCTION 23
     0x16,0x6a, // STORE_NAME '_cmp'
     0x32,0x18, // MAKE_FUNCTION 24
-    0x16,0x0f, // STORE_NAME 'date'
+    0x16,0x11, // STORE_NAME 'date'
     0x32,0x19, // MAKE_FUNCTION 25
     0x16,0x02, // STORE_NAME 'time'
     0x32,0x1a, // MAKE_FUNCTION 26
@@ -10217,7 +10240,7 @@ static const byte fun_data_datetime_datetime[372] = {
     0x2a,0x08, // BUILD_TUPLE 8
     0x2c,0x00, // BUILD_MAP 0
     0x51, // LOAD_CONST_NONE
-    0x10,0x26, // LOAD_CONST_STRING 'fold'
+    0x10,0x27, // LOAD_CONST_STRING 'fold'
     0x62, // STORE_MAP
     0x33,0x1b, // MAKE_FUNCTION_DEFARGS 27
     0x16,0x5d, // STORE_NAME 'replace'
@@ -10229,11 +10252,11 @@ static const byte fun_data_datetime_datetime[372] = {
     0x32,0x1d, // MAKE_FUNCTION 29
     0x16,0x6d, // STORE_NAME '_mktime'
     0x32,0x1e, // MAKE_FUNCTION 30
-    0x16,0x4b, // STORE_NAME 'utcoffset'
+    0x16,0x4c, // STORE_NAME 'utcoffset'
     0x32,0x1f, // MAKE_FUNCTION 31
-    0x16,0x4c, // STORE_NAME 'dst'
+    0x16,0x4d, // STORE_NAME 'dst'
     0x32,0x20, // MAKE_FUNCTION 32
-    0x16,0x4a, // STORE_NAME 'tzname'
+    0x16,0x4b, // STORE_NAME 'tzname'
     0x32,0x21, // MAKE_FUNCTION 33
     0x16,0x5b, // STORE_NAME 'timetuple'
     0x32,0x22, // MAKE_FUNCTION 34
@@ -10244,20 +10267,20 @@ static const byte fun_data_datetime_datetime[372] = {
     0x16,0x5c, // STORE_NAME 'weekday'
     0x32,0x25, // MAKE_FUNCTION 37
     0x16,0x5e, // STORE_NAME 'isoweekday'
-    0x10,0x28, // LOAD_CONST_STRING 'T'
-    0x10,0x27, // LOAD_CONST_STRING 'auto'
+    0x10,0x29, // LOAD_CONST_STRING 'T'
+    0x10,0x28, // LOAD_CONST_STRING 'auto'
     0x2a,0x02, // BUILD_TUPLE 2
     0x53, // LOAD_NULL
     0x33,0x26, // MAKE_FUNCTION_DEFARGS 38
-    0x16,0x25, // STORE_NAME 'isoformat'
+    0x16,0x26, // STORE_NAME 'isoformat'
     0x32,0x27, // MAKE_FUNCTION 39
-    0x16,0x2b, // STORE_NAME '__repr__'
+    0x16,0x2c, // STORE_NAME '__repr__'
     0x32,0x28, // MAKE_FUNCTION 40
-    0x16,0x3f, // STORE_NAME '__str__'
+    0x16,0x40, // STORE_NAME '__str__'
     0x32,0x29, // MAKE_FUNCTION 41
-    0x16,0x40, // STORE_NAME '__hash__'
+    0x16,0x41, // STORE_NAME '__hash__'
     0x32,0x2a, // MAKE_FUNCTION 42
-    0x16,0x49, // STORE_NAME 'tuple'
+    0x16,0x4a, // STORE_NAME 'tuple'
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
 };
@@ -10265,16 +10288,16 @@ static const byte fun_data_datetime_datetime[372] = {
 // frozen bytecode for file datetime.py, scope datetime_datetime___init__
 static const byte fun_data_datetime_datetime___init__[55] = {
     0xf9,0x89,0x84,0x81,0x40,0x22, // prelude
-    0x29,0x81,0x08,0x57,0x58,0x59,0x61,0x62,0x63,0x64,0x0c,0x26, // names: __init__, self, year, month, day, hour, minute, second, microsecond, tzinfo, fold
-    0xa0,0x67,0x2a,0x2c,0x24, // code info
-    0x12,0x17, // LOAD_GLOBAL '_date'
+    0x2a,0x81,0x0d,0x57,0x58,0x59,0x61,0x62,0x63,0x64,0x0e,0x27, // names: __init__, self, year, month, day, hour, minute, second, microsecond, tzinfo, fold
+    0xa0,0x6b,0x2a,0x2c,0x24, // code info
+    0x12,0x18, // LOAD_GLOBAL '_date'
     0xb1, // LOAD_FAST 1
     0xb2, // LOAD_FAST 2
     0xb3, // LOAD_FAST 3
     0x34,0x03, // CALL_FUNCTION 3
     0xb0, // LOAD_FAST 0
     0x18,0x66, // STORE_ATTR '_d'
-    0x12,0x1b, // LOAD_GLOBAL '_time'
+    0x12,0x1c, // LOAD_GLOBAL '_time'
     0xb4, // LOAD_FAST 4
     0xb5, // LOAD_FAST 5
     0xb6, // LOAD_FAST 6
@@ -10285,7 +10308,7 @@ static const byte fun_data_datetime_datetime___init__[55] = {
     0x18,0x67, // STORE_ATTR '_t'
     0xb8, // LOAD_FAST 8
     0xb0, // LOAD_FAST 0
-    0x18,0x4e, // STORE_ATTR '_tz'
+    0x18,0x4f, // STORE_ATTR '_tz'
     0xb9, // LOAD_FAST 9
     0xb0, // LOAD_FAST 0
     0x18,0x60, // STORE_ATTR '_fd'
@@ -10315,7 +10338,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___init__ = {
         .n_pos_args = 9,
         .n_kwonly_args = 1,
         .n_def_pos_args = 5,
-        .qstr_block_name_idx = 41,
+        .qstr_block_name_idx = 42,
         .line_info = fun_data_datetime_datetime___init__ + 18,
         .line_info_top = fun_data_datetime_datetime___init__ + 23,
         .opcodes = fun_data_datetime_datetime___init__ + 23,
@@ -10329,17 +10352,17 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___init__ = {
 
 // child of datetime_datetime
 // frozen bytecode for file datetime.py, scope datetime_datetime_fromtimestamp
-static const byte fun_data_datetime_datetime_fromtimestamp[195] = {
+static const byte fun_data_datetime_datetime_fromtimestamp[187] = {
     0xe3,0x01,0x28, // prelude
-    0x52,0x81,0x18,0x81,0x19,0x81,0x07, // names: fromtimestamp, cls, ts, tz
-    0xa0,0x6e,0x2b,0x59,0x22,0x26,0x38,0x1f,0x26,0x3c,0x46,0x38,0x27, // code info
-    0x12,0x81,0x0d, // LOAD_GLOBAL 'isinstance'
+    0x53,0x81,0x1d,0x81,0x1e,0x81,0x0c, // names: fromtimestamp, cls, ts, tz
+    0xa0,0x72,0x2b,0x59,0x22,0x26,0x36,0x1f,0x24,0x3a,0x46,0x36,0x27, // code info
+    0x12,0x81,0x12, // LOAD_GLOBAL 'isinstance'
     0xb1, // LOAD_FAST 1
-    0x12,0x81,0x1b, // LOAD_GLOBAL 'float'
+    0x12,0x81,0x20, // LOAD_GLOBAL 'float'
     0x34,0x02, // CALL_FUNCTION 2
     0x44,0x59, // POP_JUMP_IF_FALSE 25
-    0x12,0x76, // LOAD_GLOBAL 'divmod'
-    0x12,0x81,0x0b, // LOAD_GLOBAL 'round'
+    0x12,0x7b, // LOAD_GLOBAL 'divmod'
+    0x12,0x81,0x10, // LOAD_GLOBAL 'round'
     0xb1, // LOAD_FAST 1
     0x22,0xbd,0x84,0x40, // LOAD_CONST_SMALL_INT 1000000
     0xf4, // BINARY_OP 29 __mul__
@@ -10355,31 +10378,29 @@ static const byte fun_data_datetime_datetime_fromtimestamp[195] = {
     0xb2, // LOAD_FAST 2
     0x51, // LOAD_CONST_NONE
     0xde, // BINARY_OP 7 <is>
-    0x44,0xdf,0x80, // POP_JUMP_IF_FALSE 95
+    0x44,0xd9,0x80, // POP_JUMP_IF_FALSE 89
     0xb0, // LOAD_FAST 0
-    0x12,0x67, // LOAD_GLOBAL '_t'
-    0x14,0x53, // LOAD_METHOD 'localtime'
+    0x12,0x74, // LOAD_GLOBAL '_localtime'
     0xb1, // LOAD_FAST 1
-    0x36,0x01, // CALL_METHOD 1
+    0x34,0x01, // CALL_FUNCTION 1
     0x51, // LOAD_CONST_NONE
     0x86, // LOAD_CONST_SMALL_INT 6
     0x2e,0x02, // BUILD_SLICE 2
     0x55, // LOAD_SUBSCR
     0x10,0x64, // LOAD_CONST_STRING 'microsecond'
     0xb3, // LOAD_FAST 3
-    0x10,0x0c, // LOAD_CONST_STRING 'tzinfo'
+    0x10,0x0e, // LOAD_CONST_STRING 'tzinfo'
     0xb2, // LOAD_FAST 2
     0x81, // LOAD_CONST_SMALL_INT 1
     0x35,0x84,0x01, // CALL_FUNCTION_VAR_KW 513
     0xc4, // STORE_FAST 4
     0xb4, // LOAD_FAST 4
-    0x12,0x10, // LOAD_GLOBAL 'datetime'
-    0x12,0x67, // LOAD_GLOBAL '_t'
-    0x14,0x53, // LOAD_METHOD 'localtime'
+    0x12,0x12, // LOAD_GLOBAL 'datetime'
+    0x12,0x74, // LOAD_GLOBAL '_localtime'
     0xb1, // LOAD_FAST 1
     0x22,0x85,0xa3,0x00, // LOAD_CONST_SMALL_INT 86400
     0xf3, // BINARY_OP 28 __sub__
-    0x36,0x01, // CALL_METHOD 1
+    0x34,0x01, // CALL_FUNCTION 1
     0x51, // LOAD_CONST_NONE
     0x86, // LOAD_CONST_SMALL_INT 6
     0x2e,0x02, // BUILD_SLICE 2
@@ -10387,7 +10408,7 @@ static const byte fun_data_datetime_datetime_fromtimestamp[195] = {
     0x81, // LOAD_CONST_SMALL_INT 1
     0x35,0x01, // CALL_FUNCTION_VAR_KW 1
     0xf3, // BINARY_OP 28 __sub__
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0x22,0xbd,0x84,0x40, // LOAD_CONST_SMALL_INT 1000000
     0xf6, // BINARY_OP 31 __floordiv__
     0x22,0x85,0xa3,0x00, // LOAD_CONST_SMALL_INT 86400
@@ -10396,15 +10417,14 @@ static const byte fun_data_datetime_datetime_fromtimestamp[195] = {
     0xb5, // LOAD_FAST 5
     0x80, // LOAD_CONST_SMALL_INT 0
     0xd7, // BINARY_OP 0 __lt__
-    0x44,0x5b, // POP_JUMP_IF_FALSE 27
+    0x44,0x59, // POP_JUMP_IF_FALSE 25
     0xb4, // LOAD_FAST 4
-    0x12,0x10, // LOAD_GLOBAL 'datetime'
-    0x12,0x67, // LOAD_GLOBAL '_t'
-    0x14,0x53, // LOAD_METHOD 'localtime'
+    0x12,0x12, // LOAD_GLOBAL 'datetime'
+    0x12,0x74, // LOAD_GLOBAL '_localtime'
     0xb1, // LOAD_FAST 1
     0xb5, // LOAD_FAST 5
     0xf2, // BINARY_OP 27 __add__
-    0x36,0x01, // CALL_METHOD 1
+    0x34,0x01, // CALL_FUNCTION 1
     0x51, // LOAD_CONST_NONE
     0x86, // LOAD_CONST_SMALL_INT 6
     0x2e,0x02, // BUILD_SLICE 2
@@ -10416,25 +10436,24 @@ static const byte fun_data_datetime_datetime_fromtimestamp[195] = {
     0x81, // LOAD_CONST_SMALL_INT 1
     0xb4, // LOAD_FAST 4
     0x18,0x60, // STORE_ATTR '_fd'
-    0x42,0x5f, // JUMP 31
+    0x42,0x5d, // JUMP 29
     0xb0, // LOAD_FAST 0
-    0x12,0x67, // LOAD_GLOBAL '_t'
-    0x14,0x11, // LOAD_METHOD 'gmtime'
+    0x12,0x73, // LOAD_GLOBAL '_gmtime'
     0xb1, // LOAD_FAST 1
-    0x36,0x01, // CALL_METHOD 1
+    0x34,0x01, // CALL_FUNCTION 1
     0x51, // LOAD_CONST_NONE
     0x86, // LOAD_CONST_SMALL_INT 6
     0x2e,0x02, // BUILD_SLICE 2
     0x55, // LOAD_SUBSCR
     0x10,0x64, // LOAD_CONST_STRING 'microsecond'
     0xb3, // LOAD_FAST 3
-    0x10,0x0c, // LOAD_CONST_STRING 'tzinfo'
+    0x10,0x0e, // LOAD_CONST_STRING 'tzinfo'
     0xb2, // LOAD_FAST 2
     0x81, // LOAD_CONST_SMALL_INT 1
     0x35,0x84,0x01, // CALL_FUNCTION_VAR_KW 513
     0xc4, // STORE_FAST 4
     0xb2, // LOAD_FAST 2
-    0x14,0x4d, // LOAD_METHOD 'fromutc'
+    0x14,0x4e, // LOAD_METHOD 'fromutc'
     0xb4, // LOAD_FAST 4
     0x36,0x01, // CALL_METHOD 1
     0xc4, // STORE_FAST 4
@@ -10450,7 +10469,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_fromtimestamp =
     .fun_data = fun_data_datetime_datetime_fromtimestamp,
     .children = NULL,
     #if MICROPY_PERSISTENT_CODE_SAVE
-    .fun_data_len = 195,
+    .fun_data_len = 187,
     .n_children = 0,
     #if MICROPY_EMIT_MACHINE_CODE
     .prelude_offset = 0,
@@ -10464,7 +10483,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_fromtimestamp =
         .n_pos_args = 3,
         .n_kwonly_args = 0,
         .n_def_pos_args = 1,
-        .qstr_block_name_idx = 82,
+        .qstr_block_name_idx = 83,
         .line_info = fun_data_datetime_datetime_fromtimestamp + 10,
         .line_info_top = fun_data_datetime_datetime_fromtimestamp + 23,
         .opcodes = fun_data_datetime_datetime_fromtimestamp + 23,
@@ -10478,15 +10497,14 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_fromtimestamp =
 
 // child of datetime_datetime
 // frozen bytecode for file datetime.py, scope datetime_datetime_now
-static const byte fun_data_datetime_datetime_now[23] = {
+static const byte fun_data_datetime_datetime_now[21] = {
     0xaa,0x01,0x0e, // prelude
-    0x68,0x81,0x18,0x81,0x07, // names: now, cls, tz
-    0xa0,0x7e, // code info
+    0x68,0x81,0x1d,0x81,0x0c, // names: now, cls, tz
+    0xa0,0x82, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x52, // LOAD_METHOD 'fromtimestamp'
-    0x12,0x67, // LOAD_GLOBAL '_t'
-    0x14,0x02, // LOAD_METHOD 'time'
-    0x36,0x00, // CALL_METHOD 0
+    0x14,0x53, // LOAD_METHOD 'fromtimestamp'
+    0x12,0x75, // LOAD_GLOBAL '_epoch_time'
+    0x34,0x00, // CALL_FUNCTION 0
     0xb1, // LOAD_FAST 1
     0x36,0x02, // CALL_METHOD 2
     0x63, // RETURN_VALUE
@@ -10500,7 +10518,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_now = {
     .fun_data = fun_data_datetime_datetime_now,
     .children = NULL,
     #if MICROPY_PERSISTENT_CODE_SAVE
-    .fun_data_len = 23,
+    .fun_data_len = 21,
     .n_children = 0,
     #if MICROPY_EMIT_MACHINE_CODE
     .prelude_offset = 0,
@@ -10530,8 +10548,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_now = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_fromordinal
 static const byte fun_data_datetime_datetime_fromordinal[15] = {
     0x2a,0x0c, // prelude
-    0x55,0x81,0x18,0x75, // names: fromordinal, cls, n
-    0xa0,0x82, // code info
+    0x55,0x81,0x1d,0x7a, // names: fromordinal, cls, n
+    0xa0,0x86, // code info
     0xb0, // LOAD_FAST 0
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
@@ -10576,15 +10594,15 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_fromordinal = {
 
 // child of datetime_datetime
 // frozen bytecode for file datetime.py, scope datetime_datetime_fromisoformat
-static const byte fun_data_datetime_datetime_fromisoformat[52] = {
+static const byte fun_data_datetime_datetime_fromisoformat[53] = {
     0x3a,0x14, // prelude
-    0x56,0x81,0x18,0x44, // names: fromisoformat, cls, s
-    0xa0,0x86,0x26,0x29,0x26,0x2b, // code info
-    0x12,0x18, // LOAD_GLOBAL '_iso2d'
+    0x56,0x81,0x1d,0x45, // names: fromisoformat, cls, s
+    0xa0,0x8a,0x26,0x2a,0x26,0x2b, // code info
+    0x12,0x19, // LOAD_GLOBAL '_iso2d'
     0xb1, // LOAD_FAST 1
     0x34,0x01, // CALL_FUNCTION 1
     0xc2, // STORE_FAST 2
-    0x12,0x7e, // LOAD_GLOBAL 'len'
+    0x12,0x81,0x03, // LOAD_GLOBAL 'len'
     0xb1, // LOAD_FAST 1
     0x34,0x01, // CALL_FUNCTION 1
     0x8c, // LOAD_CONST_SMALL_INT 12
@@ -10595,7 +10613,7 @@ static const byte fun_data_datetime_datetime_fromisoformat[52] = {
     0x81, // LOAD_CONST_SMALL_INT 1
     0x35,0x01, // CALL_FUNCTION_VAR_KW 1
     0x63, // RETURN_VALUE
-    0x12,0x1c, // LOAD_GLOBAL '_iso2t'
+    0x12,0x1d, // LOAD_GLOBAL '_iso2t'
     0xb1, // LOAD_FAST 1
     0x8b, // LOAD_CONST_SMALL_INT 11
     0x51, // LOAD_CONST_NONE
@@ -10620,7 +10638,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_fromisoformat =
     .fun_data = fun_data_datetime_datetime_fromisoformat,
     .children = NULL,
     #if MICROPY_PERSISTENT_CODE_SAVE
-    .fun_data_len = 52,
+    .fun_data_len = 53,
     .n_children = 0,
     #if MICROPY_EMIT_MACHINE_CODE
     .prelude_offset = 0,
@@ -10650,8 +10668,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_fromisoformat =
 // frozen bytecode for file datetime.py, scope datetime_datetime_combine
 static const byte fun_data_datetime_datetime_combine[43] = {
     0xf0,0x05,0x12, // prelude
-    0x69,0x81,0x18,0x0f,0x02,0x0c, // names: combine, cls, date, time, tzinfo
-    0xa0,0x8e,0x23, // code info
+    0x69,0x81,0x1d,0x11,0x02,0x0e, // names: combine, cls, date, time, tzinfo
+    0xa0,0x92,0x23, // code info
     0xb0, // LOAD_FAST 0
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
@@ -10663,12 +10681,12 @@ static const byte fun_data_datetime_datetime_combine[43] = {
     0x80, // LOAD_CONST_SMALL_INT 0
     0xb2, // LOAD_FAST 2
     0x13,0x5f, // LOAD_ATTR '_td'
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xb3, // LOAD_FAST 3
     0x45,0x03, // JUMP_IF_TRUE_OR_POP 3
     0xb2, // LOAD_FAST 2
-    0x13,0x4e, // LOAD_ATTR '_tz'
-    0x10,0x26, // LOAD_CONST_STRING 'fold'
+    0x13,0x4f, // LOAD_ATTR '_tz'
+    0x10,0x27, // LOAD_CONST_STRING 'fold'
     0xb2, // LOAD_FAST 2
     0x13,0x60, // LOAD_ATTR '_fd'
     0x34,0x82,0x08, // CALL_FUNCTION 264
@@ -10713,9 +10731,9 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_combine = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_year
 static const byte fun_data_datetime_datetime_year[17] = {
     0x11,0x0a, // prelude
-    0x57,0x81,0x08, // names: year, self
-    0xa0,0x94, // code info
-    0x12,0x16, // LOAD_GLOBAL '_o2ymd'
+    0x57,0x81,0x0d, // names: year, self
+    0xa0,0x98, // code info
+    0x12,0x17, // LOAD_GLOBAL '_o2ymd'
     0xb0, // LOAD_FAST 0
     0x13,0x66, // LOAD_ATTR '_d'
     0x34,0x01, // CALL_FUNCTION 1
@@ -10762,9 +10780,9 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_year = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_month
 static const byte fun_data_datetime_datetime_month[17] = {
     0x11,0x0a, // prelude
-    0x58,0x81,0x08, // names: month, self
-    0xa0,0x98, // code info
-    0x12,0x16, // LOAD_GLOBAL '_o2ymd'
+    0x58,0x81,0x0d, // names: month, self
+    0xa0,0x9c, // code info
+    0x12,0x17, // LOAD_GLOBAL '_o2ymd'
     0xb0, // LOAD_FAST 0
     0x13,0x66, // LOAD_ATTR '_d'
     0x34,0x01, // CALL_FUNCTION 1
@@ -10811,9 +10829,9 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_month = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_day
 static const byte fun_data_datetime_datetime_day[17] = {
     0x11,0x0a, // prelude
-    0x59,0x81,0x08, // names: day, self
-    0xa0,0x9c, // code info
-    0x12,0x16, // LOAD_GLOBAL '_o2ymd'
+    0x59,0x81,0x0d, // names: day, self
+    0xa0,0xa0, // code info
+    0x12,0x17, // LOAD_GLOBAL '_o2ymd'
     0xb0, // LOAD_FAST 0
     0x13,0x66, // LOAD_ATTR '_d'
     0x34,0x01, // CALL_FUNCTION 1
@@ -10860,11 +10878,11 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_day = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_hour
 static const byte fun_data_datetime_datetime_hour[17] = {
     0x11,0x0a, // prelude
-    0x61,0x81,0x08, // names: hour, self
-    0xa0,0xa0, // code info
+    0x61,0x81,0x0d, // names: hour, self
+    0xa0,0xa4, // code info
     0xb0, // LOAD_FAST 0
     0x13,0x67, // LOAD_ATTR '_t'
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x81, // LOAD_CONST_SMALL_INT 1
     0x55, // LOAD_SUBSCR
@@ -10909,11 +10927,11 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_hour = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_minute
 static const byte fun_data_datetime_datetime_minute[17] = {
     0x11,0x0a, // prelude
-    0x62,0x81,0x08, // names: minute, self
-    0xa0,0xa4, // code info
+    0x62,0x81,0x0d, // names: minute, self
+    0xa0,0xa8, // code info
     0xb0, // LOAD_FAST 0
     0x13,0x67, // LOAD_ATTR '_t'
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x82, // LOAD_CONST_SMALL_INT 2
     0x55, // LOAD_SUBSCR
@@ -10958,11 +10976,11 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_minute = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_second
 static const byte fun_data_datetime_datetime_second[17] = {
     0x11,0x0a, // prelude
-    0x63,0x81,0x08, // names: second, self
-    0xa0,0xa8, // code info
+    0x63,0x81,0x0d, // names: second, self
+    0xa0,0xac, // code info
     0xb0, // LOAD_FAST 0
     0x13,0x67, // LOAD_ATTR '_t'
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x83, // LOAD_CONST_SMALL_INT 3
     0x55, // LOAD_SUBSCR
@@ -11007,11 +11025,11 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_second = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_microsecond
 static const byte fun_data_datetime_datetime_microsecond[17] = {
     0x11,0x0a, // prelude
-    0x64,0x81,0x08, // names: microsecond, self
-    0xa0,0xac, // code info
+    0x64,0x81,0x0d, // names: microsecond, self
+    0xa0,0xb0, // code info
     0xb0, // LOAD_FAST 0
     0x13,0x67, // LOAD_ATTR '_t'
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x84, // LOAD_CONST_SMALL_INT 4
     0x55, // LOAD_SUBSCR
@@ -11056,10 +11074,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_microsecond = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_tzinfo
 static const byte fun_data_datetime_datetime_tzinfo[11] = {
     0x09,0x0a, // prelude
-    0x0c,0x81,0x08, // names: tzinfo, self
-    0xa0,0xb0, // code info
+    0x0e,0x81,0x0d, // names: tzinfo, self
+    0xa0,0xb4, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x63, // RETURN_VALUE
 };
 #if MICROPY_PERSISTENT_CODE_SAVE
@@ -11085,7 +11103,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_tzinfo = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 12,
+        .qstr_block_name_idx = 14,
         .line_info = fun_data_datetime_datetime_tzinfo + 5,
         .line_info_top = fun_data_datetime_datetime_tzinfo + 7,
         .opcodes = fun_data_datetime_datetime_tzinfo + 7,
@@ -11101,8 +11119,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_tzinfo = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_fold
 static const byte fun_data_datetime_datetime_fold[11] = {
     0x09,0x0a, // prelude
-    0x26,0x81,0x08, // names: fold, self
-    0xa0,0xb4, // code info
+    0x27,0x81,0x0d, // names: fold, self
+    0xa0,0xb8, // code info
     0xb0, // LOAD_FAST 0
     0x13,0x60, // LOAD_ATTR '_fd'
     0x63, // RETURN_VALUE
@@ -11130,7 +11148,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_fold = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 38,
+        .qstr_block_name_idx = 39,
         .line_info = fun_data_datetime_datetime_fold + 5,
         .line_info_top = fun_data_datetime_datetime_fold + 7,
         .opcodes = fun_data_datetime_datetime_fold + 7,
@@ -11146,16 +11164,16 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_fold = {
 // frozen bytecode for file datetime.py, scope datetime_datetime___add__
 static const byte fun_data_datetime_datetime___add__[54] = {
     0x62,0x14, // prelude
-    0x2f,0x81,0x08,0x81,0x0c, // names: __add__, self, other
-    0xa0,0xb7,0x2a,0x2b,0x26, // code info
+    0x30,0x81,0x0d,0x81,0x11, // names: __add__, self, other
+    0xa0,0xbb,0x2a,0x2b,0x26, // code info
     0xb0, // LOAD_FAST 0
     0x13,0x67, // LOAD_ATTR '_t'
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xb1, // LOAD_FAST 1
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xf2, // BINARY_OP 27 __add__
     0xc2, // STORE_FAST 2
-    0x12,0x76, // LOAD_GLOBAL 'divmod'
+    0x12,0x7b, // LOAD_GLOBAL 'divmod'
     0xb2, // LOAD_FAST 2
     0x23,0x03, // LOAD_CONST_OBJ 3
     0x34,0x02, // CALL_FUNCTION 2
@@ -11167,7 +11185,7 @@ static const byte fun_data_datetime_datetime___add__[54] = {
     0x13,0x66, // LOAD_ATTR '_d'
     0xe5, // BINARY_OP 14 __iadd__
     0xc3, // STORE_FAST 3
-    0x12,0x10, // LOAD_GLOBAL 'datetime'
+    0x12,0x12, // LOAD_GLOBAL 'datetime'
     0x80, // LOAD_CONST_SMALL_INT 0
     0x80, // LOAD_CONST_SMALL_INT 0
     0xb3, // LOAD_FAST 3
@@ -11176,7 +11194,7 @@ static const byte fun_data_datetime_datetime___add__[54] = {
     0x80, // LOAD_CONST_SMALL_INT 0
     0xb2, // LOAD_FAST 2
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x34,0x08, // CALL_FUNCTION 8
     0x63, // RETURN_VALUE
 };
@@ -11203,7 +11221,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___add__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 47,
+        .qstr_block_name_idx = 48,
         .line_info = fun_data_datetime_datetime___add__ + 7,
         .line_info_top = fun_data_datetime_datetime___add__ + 12,
         .opcodes = fun_data_datetime_datetime___add__ + 12,
@@ -11219,22 +11237,22 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___add__ = {
 // frozen bytecode for file datetime.py, scope datetime_datetime___sub__
 static const byte fun_data_datetime_datetime___sub__[66] = {
     0x3a,0x18, // prelude
-    0x30,0x81,0x08,0x81,0x0c, // names: __sub__, self, other
-    0xa0,0xbd,0x2a,0x28,0x2a,0x2a,0x48, // code info
-    0x12,0x81,0x0d, // LOAD_GLOBAL 'isinstance'
+    0x31,0x81,0x0d,0x81,0x11, // names: __sub__, self, other
+    0xa0,0xc1,0x2a,0x28,0x2a,0x2a,0x48, // code info
+    0x12,0x81,0x12, // LOAD_GLOBAL 'isinstance'
     0xb1, // LOAD_FAST 1
-    0x12,0x03, // LOAD_GLOBAL 'timedelta'
+    0x12,0x05, // LOAD_GLOBAL 'timedelta'
     0x34,0x02, // CALL_FUNCTION 2
     0x44,0x48, // POP_JUMP_IF_FALSE 8
     0xb0, // LOAD_FAST 0
-    0x14,0x2f, // LOAD_METHOD '__add__'
+    0x14,0x30, // LOAD_METHOD '__add__'
     0xb1, // LOAD_FAST 1
     0xd1, // UNARY_OP 1 __neg__
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
-    0x12,0x81,0x0d, // LOAD_GLOBAL 'isinstance'
+    0x12,0x81,0x12, // LOAD_GLOBAL 'isinstance'
     0xb1, // LOAD_FAST 1
-    0x12,0x10, // LOAD_GLOBAL 'datetime'
+    0x12,0x12, // LOAD_GLOBAL 'datetime'
     0x34,0x02, // CALL_FUNCTION 2
     0x44,0x52, // POP_JUMP_IF_FALSE 18
     0xb0, // LOAD_FAST 0
@@ -11244,13 +11262,13 @@ static const byte fun_data_datetime_datetime___sub__[66] = {
     0x30,0x02, // UNPACK_SEQUENCE 2
     0xc2, // STORE_FAST 2
     0xc3, // STORE_FAST 3
-    0x12,0x03, // LOAD_GLOBAL 'timedelta'
+    0x12,0x05, // LOAD_GLOBAL 'timedelta'
     0xb2, // LOAD_FAST 2
     0x80, // LOAD_CONST_SMALL_INT 0
     0xb3, // LOAD_FAST 3
     0x34,0x03, // CALL_FUNCTION 3
     0x63, // RETURN_VALUE
-    0x12,0x81,0x1a, // LOAD_GLOBAL 'TypeError'
+    0x12,0x81,0x1f, // LOAD_GLOBAL 'TypeError'
     0x65, // RAISE_OBJ
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
@@ -11278,7 +11296,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___sub__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 48,
+        .qstr_block_name_idx = 49,
         .line_info = fun_data_datetime_datetime___sub__ + 7,
         .line_info_top = fun_data_datetime_datetime___sub__ + 14,
         .opcodes = fun_data_datetime_datetime___sub__ + 14,
@@ -11294,21 +11312,21 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___sub__ = {
 // frozen bytecode for file datetime.py, scope datetime_datetime__sub
 static const byte fun_data_datetime_datetime__sub[115] = {
     0x62,0x2a, // prelude
-    0x65,0x81,0x08,0x81,0x0c, // names: _sub, self, other
-    0xa0,0xc7,0x24,0x2b,0x24,0x22,0x22,0x26,0x26,0x26,0x25,0x24,0x24,0x28,0x2c,0x2b, // code info
+    0x65,0x81,0x0d,0x81,0x11, // names: _sub, self, other
+    0xa0,0xcb,0x24,0x2b,0x24,0x22,0x22,0x26,0x26,0x26,0x25,0x24,0x24,0x28,0x2c,0x2b, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0xc2, // STORE_FAST 2
     0xb2, // LOAD_FAST 2
     0x51, // LOAD_CONST_NONE
     0xde, // BINARY_OP 7 <is>
     0xb1, // LOAD_FAST 1
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x51, // LOAD_CONST_NONE
     0xde, // BINARY_OP 7 <is>
     0xee, // BINARY_OP 23 __xor__
     0x44,0x44, // POP_JUMP_IF_FALSE 4
-    0x12,0x81,0x1a, // LOAD_GLOBAL 'TypeError'
+    0x12,0x81,0x1f, // LOAD_GLOBAL 'TypeError'
     0x65, // RAISE_OBJ
     0xb0, // LOAD_FAST 0
     0xc3, // STORE_FAST 3
@@ -11320,11 +11338,11 @@ static const byte fun_data_datetime_datetime__sub[115] = {
     0xd3, // UNARY_OP 3 <not>
     0x44,0x59, // POP_JUMP_IF_FALSE 25
     0xb3, // LOAD_FAST 3
-    0x14,0x4b, // LOAD_METHOD 'utcoffset'
+    0x14,0x4c, // LOAD_METHOD 'utcoffset'
     0x36,0x00, // CALL_METHOD 0
     0xc5, // STORE_FAST 5
     0xb4, // LOAD_FAST 4
-    0x14,0x4b, // LOAD_METHOD 'utcoffset'
+    0x14,0x4c, // LOAD_METHOD 'utcoffset'
     0x36,0x00, // CALL_METHOD 0
     0xc6, // STORE_FAST 6
     0xb5, // LOAD_FAST 5
@@ -11347,13 +11365,13 @@ static const byte fun_data_datetime_datetime__sub[115] = {
     0xc7, // STORE_FAST 7
     0xb3, // LOAD_FAST 3
     0x13,0x67, // LOAD_ATTR '_t'
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xb4, // LOAD_FAST 4
     0x13,0x67, // LOAD_ATTR '_t'
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0xf3, // BINARY_OP 28 __sub__
     0xc8, // STORE_FAST 8
-    0x12,0x76, // LOAD_GLOBAL 'divmod'
+    0x12,0x7b, // LOAD_GLOBAL 'divmod'
     0xb8, // LOAD_FAST 8
     0x23,0x03, // LOAD_CONST_OBJ 3
     0x34,0x02, // CALL_FUNCTION 2
@@ -11406,14 +11424,14 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime__sub = {
 // frozen bytecode for file datetime.py, scope datetime_datetime___eq__
 static const byte fun_data_datetime_datetime___eq__[35] = {
     0x22,0x12, // prelude
-    0x39,0x81,0x08,0x81,0x0c, // names: __eq__, self, other
-    0xa0,0xd8,0x2d,0x22, // code info
+    0x3a,0x81,0x0d,0x81,0x11, // names: __eq__, self, other
+    0xa0,0xdc,0x2d,0x22, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x51, // LOAD_CONST_NONE
     0xd9, // BINARY_OP 2 __eq__
     0xb1, // LOAD_FAST 1
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x51, // LOAD_CONST_NONE
     0xd9, // BINARY_OP 2 __eq__
     0xee, // BINARY_OP 23 __xor__
@@ -11451,7 +11469,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___eq__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 57,
+        .qstr_block_name_idx = 58,
         .line_info = fun_data_datetime_datetime___eq__ + 7,
         .line_info_top = fun_data_datetime_datetime___eq__ + 11,
         .opcodes = fun_data_datetime_datetime___eq__ + 11,
@@ -11467,8 +11485,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___eq__ = {
 // frozen bytecode for file datetime.py, scope datetime_datetime___le__
 static const byte fun_data_datetime_datetime___le__[18] = {
     0x22,0x0e, // prelude
-    0x3a,0x81,0x08,0x81,0x0c, // names: __le__, self, other
-    0xa0,0xdd, // code info
+    0x3b,0x81,0x0d,0x81,0x11, // names: __le__, self, other
+    0xa0,0xe1, // code info
     0xb0, // LOAD_FAST 0
     0x14,0x6a, // LOAD_METHOD '_cmp'
     0xb1, // LOAD_FAST 1
@@ -11500,7 +11518,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___le__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 58,
+        .qstr_block_name_idx = 59,
         .line_info = fun_data_datetime_datetime___le__ + 7,
         .line_info_top = fun_data_datetime_datetime___le__ + 9,
         .opcodes = fun_data_datetime_datetime___le__ + 9,
@@ -11516,8 +11534,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___le__ = {
 // frozen bytecode for file datetime.py, scope datetime_datetime___lt__
 static const byte fun_data_datetime_datetime___lt__[18] = {
     0x22,0x0e, // prelude
-    0x3b,0x81,0x08,0x81,0x0c, // names: __lt__, self, other
-    0xa0,0xe0, // code info
+    0x3c,0x81,0x0d,0x81,0x11, // names: __lt__, self, other
+    0xa0,0xe4, // code info
     0xb0, // LOAD_FAST 0
     0x14,0x6a, // LOAD_METHOD '_cmp'
     0xb1, // LOAD_FAST 1
@@ -11549,7 +11567,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___lt__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 59,
+        .qstr_block_name_idx = 60,
         .line_info = fun_data_datetime_datetime___lt__ + 7,
         .line_info_top = fun_data_datetime_datetime___lt__ + 9,
         .opcodes = fun_data_datetime_datetime___lt__ + 9,
@@ -11565,8 +11583,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___lt__ = {
 // frozen bytecode for file datetime.py, scope datetime_datetime___ge__
 static const byte fun_data_datetime_datetime___ge__[18] = {
     0x22,0x0e, // prelude
-    0x3c,0x81,0x08,0x81,0x0c, // names: __ge__, self, other
-    0xa0,0xe3, // code info
+    0x3d,0x81,0x0d,0x81,0x11, // names: __ge__, self, other
+    0xa0,0xe7, // code info
     0xb0, // LOAD_FAST 0
     0x14,0x6a, // LOAD_METHOD '_cmp'
     0xb1, // LOAD_FAST 1
@@ -11598,7 +11616,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___ge__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 60,
+        .qstr_block_name_idx = 61,
         .line_info = fun_data_datetime_datetime___ge__ + 7,
         .line_info_top = fun_data_datetime_datetime___ge__ + 9,
         .opcodes = fun_data_datetime_datetime___ge__ + 9,
@@ -11614,8 +11632,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___ge__ = {
 // frozen bytecode for file datetime.py, scope datetime_datetime___gt__
 static const byte fun_data_datetime_datetime___gt__[18] = {
     0x22,0x0e, // prelude
-    0x3d,0x81,0x08,0x81,0x0c, // names: __gt__, self, other
-    0xa0,0xe6, // code info
+    0x3e,0x81,0x0d,0x81,0x11, // names: __gt__, self, other
+    0xa0,0xea, // code info
     0xb0, // LOAD_FAST 0
     0x14,0x6a, // LOAD_METHOD '_cmp'
     0xb1, // LOAD_FAST 1
@@ -11647,7 +11665,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___gt__ = {
         .n_pos_args = 2,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 61,
+        .qstr_block_name_idx = 62,
         .line_info = fun_data_datetime_datetime___gt__ + 7,
         .line_info_top = fun_data_datetime_datetime___gt__ + 9,
         .opcodes = fun_data_datetime_datetime___gt__ + 9,
@@ -11663,8 +11681,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___gt__ = {
 // frozen bytecode for file datetime.py, scope datetime_datetime__cmp
 static const byte fun_data_datetime_datetime__cmp[58] = {
     0x32,0x20, // prelude
-    0x6a,0x81,0x08,0x81,0x0c, // names: _cmp, self, other
-    0xa0,0xea,0x2a,0x25,0x22,0x25,0x42,0x25,0x22,0x25,0x42, // code info
+    0x6a,0x81,0x0d,0x81,0x11, // names: _cmp, self, other
+    0xa0,0xee,0x2a,0x25,0x22,0x25,0x42,0x25,0x22,0x25,0x42, // code info
     0xb0, // LOAD_FAST 0
     0x14,0x65, // LOAD_METHOD '_sub'
     0xb1, // LOAD_FAST 1
@@ -11738,9 +11756,9 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime__cmp = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_date
 static const byte fun_data_datetime_datetime_date[17] = {
     0x19,0x0a, // prelude
-    0x0f,0x81,0x08, // names: date, self
-    0xa0,0xf8, // code info
-    0x12,0x0f, // LOAD_GLOBAL 'date'
+    0x11,0x81,0x0d, // names: date, self
+    0xa0,0xfc, // code info
+    0x12,0x11, // LOAD_GLOBAL 'date'
     0x14,0x55, // LOAD_METHOD 'fromordinal'
     0xb0, // LOAD_FAST 0
     0x13,0x66, // LOAD_ATTR '_d'
@@ -11770,7 +11788,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_date = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 15,
+        .qstr_block_name_idx = 17,
         .line_info = fun_data_datetime_datetime_date + 5,
         .line_info_top = fun_data_datetime_datetime_date + 7,
         .opcodes = fun_data_datetime_datetime_date + 7,
@@ -11786,14 +11804,14 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_date = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_time
 static const byte fun_data_datetime_datetime_time[25] = {
     0x29,0x0a, // prelude
-    0x02,0x81,0x08, // names: time, self
-    0xa0,0xfb, // code info
+    0x02,0x81,0x0d, // names: time, self
+    0xa0,0xff, // code info
     0x12,0x02, // LOAD_GLOBAL 'time'
     0x10,0x64, // LOAD_CONST_STRING 'microsecond'
     0xb0, // LOAD_FAST 0
     0x13,0x67, // LOAD_ATTR '_t'
-    0x13,0x2a, // LOAD_ATTR '_us'
-    0x10,0x26, // LOAD_CONST_STRING 'fold'
+    0x13,0x2b, // LOAD_ATTR '_us'
+    0x10,0x27, // LOAD_CONST_STRING 'fold'
     0xb0, // LOAD_FAST 0
     0x13,0x60, // LOAD_ATTR '_fd'
     0x34,0x84,0x00, // CALL_FUNCTION 512
@@ -11838,17 +11856,17 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_time = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_timetz
 static const byte fun_data_datetime_datetime_timetz[30] = {
     0x39,0x0a, // prelude
-    0x6b,0x81,0x08, // names: timetz, self
-    0xa0,0xfe, // code info
+    0x6b,0x81,0x0d, // names: timetz, self
+    0xb0,0x02, // code info
     0x12,0x02, // LOAD_GLOBAL 'time'
     0x10,0x64, // LOAD_CONST_STRING 'microsecond'
     0xb0, // LOAD_FAST 0
     0x13,0x67, // LOAD_ATTR '_t'
-    0x13,0x2a, // LOAD_ATTR '_us'
-    0x10,0x0c, // LOAD_CONST_STRING 'tzinfo'
+    0x13,0x2b, // LOAD_ATTR '_us'
+    0x10,0x0e, // LOAD_CONST_STRING 'tzinfo'
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
-    0x10,0x26, // LOAD_CONST_STRING 'fold'
+    0x13,0x4f, // LOAD_ATTR '_tz'
+    0x10,0x27, // LOAD_CONST_STRING 'fold'
     0xb0, // LOAD_FAST 0
     0x13,0x60, // LOAD_ATTR '_fd'
     0x34,0x86,0x00, // CALL_FUNCTION 768
@@ -11893,10 +11911,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_timetz = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_replace
 static const byte fun_data_datetime_datetime_replace[141] = {
     0xe9,0x98,0x84,0x80,0x41,0x42, // prelude
-    0x5d,0x81,0x08,0x57,0x58,0x59,0x61,0x62,0x63,0x64,0x0c,0x26, // names: replace, self, year, month, day, hour, minute, second, microsecond, tzinfo, fold
-    0xb0,0x0d,0x33,0x25,0x22,0x25,0x22,0x25,0x22,0x25,0x22,0x25,0x22,0x25,0x22,0x25,0x23,0x25,0x23,0x25,0x23, // code info
+    0x5d,0x81,0x0d,0x57,0x58,0x59,0x61,0x62,0x63,0x64,0x0e,0x27, // names: replace, self, year, month, day, hour, minute, second, microsecond, tzinfo, fold
+    0xb0,0x11,0x33,0x25,0x22,0x25,0x22,0x25,0x22,0x25,0x22,0x25,0x22,0x25,0x22,0x25,0x23,0x25,0x23,0x25,0x23, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x30,0x09, // UNPACK_SEQUENCE 9
     0xca, // STORE_FAST 10
@@ -11962,7 +11980,7 @@ static const byte fun_data_datetime_datetime_replace[141] = {
     0x44,0x43, // POP_JUMP_IF_FALSE 3
     0x24,0x12, // LOAD_FAST_N 18
     0xc9, // STORE_FAST 9
-    0x12,0x10, // LOAD_GLOBAL 'datetime'
+    0x12,0x12, // LOAD_GLOBAL 'datetime'
     0xb1, // LOAD_FAST 1
     0xb2, // LOAD_FAST 2
     0xb3, // LOAD_FAST 3
@@ -11971,7 +11989,7 @@ static const byte fun_data_datetime_datetime_replace[141] = {
     0xb6, // LOAD_FAST 6
     0xb7, // LOAD_FAST 7
     0xb8, // LOAD_FAST 8
-    0x10,0x26, // LOAD_CONST_STRING 'fold'
+    0x10,0x27, // LOAD_CONST_STRING 'fold'
     0xb9, // LOAD_FAST 9
     0x34,0x82,0x08, // CALL_FUNCTION 264
     0x63, // RETURN_VALUE
@@ -12013,46 +12031,44 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_replace = {
 
 // child of datetime_datetime
 // frozen bytecode for file datetime.py, scope datetime_datetime_astimezone
-static const byte fun_data_datetime_datetime_astimezone[114] = {
+static const byte fun_data_datetime_datetime_astimezone[111] = {
     0xd2,0x01,0x22, // prelude
-    0x6c,0x81,0x08,0x81,0x07, // names: astimezone, self, tz
-    0xb0,0x23,0x27,0x22,0x24,0x25,0x2a,0x1f,0x47,0x27,0x24,0x2a, // code info
+    0x6c,0x81,0x0d,0x81,0x0c, // names: astimezone, self, tz
+    0xb0,0x27,0x27,0x22,0x24,0x25,0x2b,0x1f,0x43,0x27,0x24,0x2a, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0xb1, // LOAD_FAST 1
     0xde, // BINARY_OP 7 <is>
     0x44,0x42, // POP_JUMP_IF_FALSE 2
     0xb0, // LOAD_FAST 0
     0x63, // RETURN_VALUE
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0xc2, // STORE_FAST 2
     0xb2, // LOAD_FAST 2
     0x51, // LOAD_CONST_NONE
     0xde, // BINARY_OP 7 <is>
-    0x44,0x70, // POP_JUMP_IF_FALSE 48
-    0x12,0x7f, // LOAD_GLOBAL 'int'
+    0x44,0x6d, // POP_JUMP_IF_FALSE 45
+    0x12,0x81,0x04, // LOAD_GLOBAL 'int'
     0xb0, // LOAD_FAST 0
     0x14,0x6d, // LOAD_METHOD '_mktime'
     0x36,0x00, // CALL_METHOD 0
     0x34,0x01, // CALL_FUNCTION 1
     0xc3, // STORE_FAST 3
-    0x12,0x10, // LOAD_GLOBAL 'datetime'
-    0x12,0x67, // LOAD_GLOBAL '_t'
-    0x14,0x53, // LOAD_METHOD 'localtime'
+    0x12,0x12, // LOAD_GLOBAL 'datetime'
+    0x12,0x74, // LOAD_GLOBAL '_localtime'
     0xb3, // LOAD_FAST 3
-    0x36,0x01, // CALL_METHOD 1
+    0x34,0x01, // CALL_FUNCTION 1
     0x51, // LOAD_CONST_NONE
     0x86, // LOAD_CONST_SMALL_INT 6
     0x2e,0x02, // BUILD_SLICE 2
     0x55, // LOAD_SUBSCR
     0x81, // LOAD_CONST_SMALL_INT 1
     0x35,0x01, // CALL_FUNCTION_VAR_KW 1
-    0x12,0x10, // LOAD_GLOBAL 'datetime'
-    0x12,0x67, // LOAD_GLOBAL '_t'
-    0x14,0x11, // LOAD_METHOD 'gmtime'
+    0x12,0x12, // LOAD_GLOBAL 'datetime'
+    0x12,0x73, // LOAD_GLOBAL '_gmtime'
     0xb3, // LOAD_FAST 3
-    0x36,0x01, // CALL_METHOD 1
+    0x34,0x01, // CALL_FUNCTION 1
     0x51, // LOAD_CONST_NONE
     0x86, // LOAD_CONST_SMALL_INT 6
     0x2e,0x02, // BUILD_SLICE 2
@@ -12063,7 +12079,7 @@ static const byte fun_data_datetime_datetime_astimezone[114] = {
     0xc4, // STORE_FAST 4
     0x42,0x47, // JUMP 7
     0xb2, // LOAD_FAST 2
-    0x14,0x4b, // LOAD_METHOD 'utcoffset'
+    0x14,0x4c, // LOAD_METHOD 'utcoffset'
     0xb0, // LOAD_FAST 0
     0x36,0x01, // CALL_METHOD 1
     0xc4, // STORE_FAST 4
@@ -12073,12 +12089,12 @@ static const byte fun_data_datetime_datetime_astimezone[114] = {
     0xc5, // STORE_FAST 5
     0xb5, // LOAD_FAST 5
     0x14,0x5d, // LOAD_METHOD 'replace'
-    0x10,0x0c, // LOAD_CONST_STRING 'tzinfo'
+    0x10,0x0e, // LOAD_CONST_STRING 'tzinfo'
     0xb1, // LOAD_FAST 1
     0x36,0x82,0x00, // CALL_METHOD 256
     0xc5, // STORE_FAST 5
     0xb1, // LOAD_FAST 1
-    0x14,0x4d, // LOAD_METHOD 'fromutc'
+    0x14,0x4e, // LOAD_METHOD 'fromutc'
     0xb5, // LOAD_FAST 5
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
@@ -12092,7 +12108,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_astimezone = {
     .fun_data = fun_data_datetime_datetime_astimezone,
     .children = NULL,
     #if MICROPY_PERSISTENT_CODE_SAVE
-    .fun_data_len = 114,
+    .fun_data_len = 111,
     .n_children = 0,
     #if MICROPY_EMIT_MACHINE_CODE
     .prelude_offset = 0,
@@ -12122,23 +12138,23 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_astimezone = {
 // frozen bytecode for file datetime.py, scope datetime_datetime__mktime
 static const byte fun_data_datetime_datetime__mktime[191] = {
     0x79,0x39, // prelude
-    0x6d,0x81,0x08, // names: _mktime, self
-    0xb0,0x30,0x65,0x2e,0x32,0x42,0x27,0x24,0x25,0x25,0x32,0x27,0x25,0x44,0x24,0x25,0x24,0x25,0x25,0x24,0x25,0x24,0x25,0x49,0x27,0x0b, // code info
+    0x6d,0x81,0x0d, // names: _mktime, self
+    0xb0,0x34,0x65,0x2e,0x32,0x42,0x27,0x24,0x25,0x25,0x32,0x27,0x25,0x44,0x24,0x25,0x24,0x25,0x25,0x24,0x25,0x24,0x25,0x49,0x27,0x0b, // code info
     0xbb, // LOAD_FAST 11
     0x20,0x00,0x01, // MAKE_CLOSURE 0
     0xc1, // STORE_FAST 1
-    0x12,0x10, // LOAD_GLOBAL 'datetime'
-    0x13,0x12, // LOAD_ATTR 'EPOCH'
+    0x12,0x12, // LOAD_GLOBAL 'datetime'
+    0x13,0x13, // LOAD_ATTR 'EPOCH'
     0x14,0x5d, // LOAD_METHOD 'replace'
-    0x10,0x0c, // LOAD_CONST_STRING 'tzinfo'
+    0x10,0x0e, // LOAD_CONST_STRING 'tzinfo'
     0x51, // LOAD_CONST_NONE
     0x36,0x82,0x00, // CALL_METHOD 256
     0x27,0x0b, // STORE_DEREF 11
-    0x12,0x76, // LOAD_GLOBAL 'divmod'
+    0x12,0x7b, // LOAD_GLOBAL 'divmod'
     0xb0, // LOAD_FAST 0
     0x25,0x0b, // LOAD_DEREF 11
     0xf3, // BINARY_OP 28 __sub__
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0x22,0xbd,0x84,0x40, // LOAD_CONST_SMALL_INT 1000000
     0x34,0x02, // CALL_FUNCTION 2
     0x30,0x02, // UNPACK_SEQUENCE 2
@@ -12166,7 +12182,7 @@ static const byte fun_data_datetime_datetime__mktime[191] = {
     0x44,0x62, // POP_JUMP_IF_FALSE 34
     0xb6, // LOAD_FAST 6
     0xb0, // LOAD_FAST 0
-    0x13,0x26, // LOAD_ATTR 'fold'
+    0x13,0x27, // LOAD_ATTR 'fold'
     0x44,0x46, // POP_JUMP_IF_FALSE 6
     0x22,0x85,0xa3,0x00, // LOAD_CONST_SMALL_INT 86400
     0x42,0x44, // JUMP 4
@@ -12217,15 +12233,15 @@ static const byte fun_data_datetime_datetime__mktime[191] = {
     0xc4, // STORE_FAST 4
     0x42,0x55, // JUMP 21
     0xb0, // LOAD_FAST 0
-    0x13,0x26, // LOAD_ATTR 'fold'
+    0x13,0x27, // LOAD_ATTR 'fold'
     0x44,0x49, // POP_JUMP_IF_FALSE 9
-    0x12,0x05, // LOAD_GLOBAL 'min'
+    0x12,0x07, // LOAD_GLOBAL 'min'
     0xb6, // LOAD_FAST 6
     0xb8, // LOAD_FAST 8
     0x34,0x02, // CALL_FUNCTION 2
     0xc4, // STORE_FAST 4
     0x42,0x47, // JUMP 7
-    0x12,0x0a, // LOAD_GLOBAL 'max'
+    0x12,0x0c, // LOAD_GLOBAL 'max'
     0xb6, // LOAD_FAST 6
     0xb8, // LOAD_FAST 8
     0x34,0x02, // CALL_FUNCTION 2
@@ -12239,15 +12255,14 @@ static const byte fun_data_datetime_datetime__mktime[191] = {
 };
 // child of datetime_datetime__mktime
 // frozen bytecode for file datetime.py, scope datetime_datetime__mktime_local
-static const byte fun_data_datetime_datetime__mktime_local[37] = {
+static const byte fun_data_datetime_datetime__mktime_local[35] = {
     0x2a,0x0e, // prelude
-    0x70,0x81,0x1d,0x81,0x1e, // names: local, *, u
-    0xb0,0x31, // code info
-    0x12,0x10, // LOAD_GLOBAL 'datetime'
-    0x12,0x67, // LOAD_GLOBAL '_t'
-    0x14,0x53, // LOAD_METHOD 'localtime'
+    0x70,0x81,0x22,0x81,0x23, // names: local, *, u
+    0xb0,0x35, // code info
+    0x12,0x12, // LOAD_GLOBAL 'datetime'
+    0x12,0x74, // LOAD_GLOBAL '_localtime'
     0xb1, // LOAD_FAST 1
-    0x36,0x01, // CALL_METHOD 1
+    0x34,0x01, // CALL_FUNCTION 1
     0x51, // LOAD_CONST_NONE
     0x86, // LOAD_CONST_SMALL_INT 6
     0x2e,0x02, // BUILD_SLICE 2
@@ -12256,7 +12271,7 @@ static const byte fun_data_datetime_datetime__mktime_local[37] = {
     0x35,0x01, // CALL_FUNCTION_VAR_KW 1
     0x25,0x00, // LOAD_DEREF 0
     0xf3, // BINARY_OP 28 __sub__
-    0x13,0x2a, // LOAD_ATTR '_us'
+    0x13,0x2b, // LOAD_ATTR '_us'
     0x22,0xbd,0x84,0x40, // LOAD_CONST_SMALL_INT 1000000
     0xf6, // BINARY_OP 31 __floordiv__
     0x63, // RETURN_VALUE
@@ -12270,7 +12285,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime__mktime_local =
     .fun_data = fun_data_datetime_datetime__mktime_local,
     .children = NULL,
     #if MICROPY_PERSISTENT_CODE_SAVE
-    .fun_data_len = 37,
+    .fun_data_len = 35,
     .n_children = 0,
     #if MICROPY_EMIT_MACHINE_CODE
     .prelude_offset = 0,
@@ -12335,18 +12350,18 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime__mktime = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_utcoffset
 static const byte fun_data_datetime_datetime_utcoffset[25] = {
     0x19,0x0a, // prelude
-    0x4b,0x81,0x08, // names: utcoffset, self
-    0xb0,0x4f, // code info
+    0x4c,0x81,0x0d, // names: utcoffset, self
+    0xb0,0x53, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x51, // LOAD_CONST_NONE
     0xde, // BINARY_OP 7 <is>
     0x44,0x42, // POP_JUMP_IF_FALSE 2
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
-    0x14,0x4b, // LOAD_METHOD 'utcoffset'
+    0x13,0x4f, // LOAD_ATTR '_tz'
+    0x14,0x4c, // LOAD_METHOD 'utcoffset'
     0xb0, // LOAD_FAST 0
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
@@ -12374,7 +12389,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_utcoffset = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 75,
+        .qstr_block_name_idx = 76,
         .line_info = fun_data_datetime_datetime_utcoffset + 5,
         .line_info_top = fun_data_datetime_datetime_utcoffset + 7,
         .opcodes = fun_data_datetime_datetime_utcoffset + 7,
@@ -12390,18 +12405,18 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_utcoffset = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_dst
 static const byte fun_data_datetime_datetime_dst[25] = {
     0x19,0x0a, // prelude
-    0x4c,0x81,0x08, // names: dst, self
-    0xb0,0x52, // code info
+    0x4d,0x81,0x0d, // names: dst, self
+    0xb0,0x56, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x51, // LOAD_CONST_NONE
     0xde, // BINARY_OP 7 <is>
     0x44,0x42, // POP_JUMP_IF_FALSE 2
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
-    0x14,0x4c, // LOAD_METHOD 'dst'
+    0x13,0x4f, // LOAD_ATTR '_tz'
+    0x14,0x4d, // LOAD_METHOD 'dst'
     0xb0, // LOAD_FAST 0
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
@@ -12429,7 +12444,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_dst = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 76,
+        .qstr_block_name_idx = 77,
         .line_info = fun_data_datetime_datetime_dst + 5,
         .line_info_top = fun_data_datetime_datetime_dst + 7,
         .opcodes = fun_data_datetime_datetime_dst + 7,
@@ -12445,18 +12460,18 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_dst = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_tzname
 static const byte fun_data_datetime_datetime_tzname[25] = {
     0x19,0x0a, // prelude
-    0x4a,0x81,0x08, // names: tzname, self
-    0xb0,0x55, // code info
+    0x4b,0x81,0x0d, // names: tzname, self
+    0xb0,0x59, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x51, // LOAD_CONST_NONE
     0xde, // BINARY_OP 7 <is>
     0x44,0x42, // POP_JUMP_IF_FALSE 2
     0x51, // LOAD_CONST_NONE
     0x63, // RETURN_VALUE
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
-    0x14,0x4a, // LOAD_METHOD 'tzname'
+    0x13,0x4f, // LOAD_ATTR '_tz'
+    0x14,0x4b, // LOAD_METHOD 'tzname'
     0xb0, // LOAD_FAST 0
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
@@ -12484,7 +12499,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_tzname = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 74,
+        .qstr_block_name_idx = 75,
         .line_info = fun_data_datetime_datetime_tzname + 5,
         .line_info_top = fun_data_datetime_datetime_tzname + 7,
         .opcodes = fun_data_datetime_datetime_tzname + 7,
@@ -12498,38 +12513,36 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_tzname = {
 
 // child of datetime_datetime
 // frozen bytecode for file datetime.py, scope datetime_datetime_timetuple
-static const byte fun_data_datetime_datetime_timetuple[65] = {
+static const byte fun_data_datetime_datetime_timetuple[61] = {
     0x31,0x14, // prelude
-    0x5b,0x81,0x08, // names: timetuple, self
-    0xb0,0x58,0x27,0x25,0x4f,0x25,0x25, // code info
+    0x5b,0x81,0x0d, // names: timetuple, self
+    0xb0,0x5c,0x27,0x23,0x4f,0x23,0x25, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x51, // LOAD_CONST_NONE
     0xde, // BINARY_OP 7 <is>
-    0x44,0x54, // POP_JUMP_IF_FALSE 20
-    0x12,0x67, // LOAD_GLOBAL '_t'
-    0x13,0x11, // LOAD_ATTR 'gmtime'
+    0x44,0x52, // POP_JUMP_IF_FALSE 18
+    0x12,0x73, // LOAD_GLOBAL '_gmtime'
     0xc1, // STORE_FAST 1
-    0x12,0x10, // LOAD_GLOBAL 'datetime'
-    0x13,0x12, // LOAD_ATTR 'EPOCH'
+    0x12,0x12, // LOAD_GLOBAL 'datetime'
+    0x13,0x13, // LOAD_ATTR 'EPOCH'
     0x14,0x5d, // LOAD_METHOD 'replace'
-    0x10,0x0c, // LOAD_CONST_STRING 'tzinfo'
+    0x10,0x0e, // LOAD_CONST_STRING 'tzinfo'
     0x51, // LOAD_CONST_NONE
     0x36,0x82,0x00, // CALL_METHOD 256
     0xc2, // STORE_FAST 2
-    0x42,0x4a, // JUMP 10
-    0x12,0x67, // LOAD_GLOBAL '_t'
-    0x13,0x53, // LOAD_ATTR 'localtime'
+    0x42,0x48, // JUMP 8
+    0x12,0x74, // LOAD_GLOBAL '_localtime'
     0xc1, // STORE_FAST 1
-    0x12,0x10, // LOAD_GLOBAL 'datetime'
-    0x13,0x12, // LOAD_ATTR 'EPOCH'
+    0x12,0x12, // LOAD_GLOBAL 'datetime'
+    0x13,0x13, // LOAD_ATTR 'EPOCH'
     0xc2, // STORE_FAST 2
     0xb1, // LOAD_FAST 1
-    0x12,0x81,0x0b, // LOAD_GLOBAL 'round'
+    0x12,0x81,0x10, // LOAD_GLOBAL 'round'
     0xb0, // LOAD_FAST 0
     0xb2, // LOAD_FAST 2
     0xf3, // BINARY_OP 28 __sub__
-    0x14,0x2d, // LOAD_METHOD 'total_seconds'
+    0x14,0x2e, // LOAD_METHOD 'total_seconds'
     0x36,0x00, // CALL_METHOD 0
     0x34,0x01, // CALL_FUNCTION 1
     0x34,0x01, // CALL_FUNCTION 1
@@ -12544,7 +12557,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_timetuple = {
     .fun_data = fun_data_datetime_datetime_timetuple,
     .children = NULL,
     #if MICROPY_PERSISTENT_CODE_SAVE
-    .fun_data_len = 65,
+    .fun_data_len = 61,
     .n_children = 0,
     #if MICROPY_EMIT_MACHINE_CODE
     .prelude_offset = 0,
@@ -12574,8 +12587,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_timetuple = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_toordinal
 static const byte fun_data_datetime_datetime_toordinal[11] = {
     0x09,0x0a, // prelude
-    0x5a,0x81,0x08, // names: toordinal, self
-    0xb0,0x61, // code info
+    0x5a,0x81,0x0d, // names: toordinal, self
+    0xb0,0x65, // code info
     0xb0, // LOAD_FAST 0
     0x13,0x66, // LOAD_ATTR '_d'
     0x63, // RETURN_VALUE
@@ -12619,10 +12632,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_toordinal = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_timestamp
 static const byte fun_data_datetime_datetime_timestamp[35] = {
     0x11,0x0e, // prelude
-    0x6e,0x81,0x08, // names: timestamp, self
-    0xb0,0x64,0x27,0x46, // code info
+    0x6e,0x81,0x0d, // names: timestamp, self
+    0xb0,0x68,0x27,0x46, // code info
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x51, // LOAD_CONST_NONE
     0xde, // BINARY_OP 7 <is>
     0x44,0x46, // POP_JUMP_IF_FALSE 6
@@ -12631,10 +12644,10 @@ static const byte fun_data_datetime_datetime_timestamp[35] = {
     0x36,0x00, // CALL_METHOD 0
     0x63, // RETURN_VALUE
     0xb0, // LOAD_FAST 0
-    0x12,0x10, // LOAD_GLOBAL 'datetime'
-    0x13,0x12, // LOAD_ATTR 'EPOCH'
+    0x12,0x12, // LOAD_GLOBAL 'datetime'
+    0x13,0x13, // LOAD_ATTR 'EPOCH'
     0xf3, // BINARY_OP 28 __sub__
-    0x14,0x2d, // LOAD_METHOD 'total_seconds'
+    0x14,0x2e, // LOAD_METHOD 'total_seconds'
     0x36,0x00, // CALL_METHOD 0
     0x63, // RETURN_VALUE
     0x51, // LOAD_CONST_NONE
@@ -12679,8 +12692,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_timestamp = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_weekday
 static const byte fun_data_datetime_datetime_weekday[15] = {
     0x11,0x0a, // prelude
-    0x5c,0x81,0x08, // names: weekday, self
-    0xb0,0x6a, // code info
+    0x5c,0x81,0x0d, // names: weekday, self
+    0xb0,0x6e, // code info
     0xb0, // LOAD_FAST 0
     0x13,0x66, // LOAD_ATTR '_d'
     0x86, // LOAD_CONST_SMALL_INT 6
@@ -12728,8 +12741,8 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_weekday = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_isoweekday
 static const byte fun_data_datetime_datetime_isoweekday[16] = {
     0x11,0x0a, // prelude
-    0x5e,0x81,0x08, // names: isoweekday, self
-    0xb0,0x6d, // code info
+    0x5e,0x81,0x0d, // names: isoweekday, self
+    0xb0,0x71, // code info
     0xb0, // LOAD_FAST 0
     0x13,0x66, // LOAD_ATTR '_d'
     0x87, // LOAD_CONST_SMALL_INT 7
@@ -12777,21 +12790,21 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_isoweekday = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_isoformat
 static const byte fun_data_datetime_datetime_isoformat[36] = {
     0xc3,0x80,0x01,0x12, // prelude
-    0x25,0x81,0x08,0x81,0x1c,0x81,0x05, // names: isoformat, self, sep, timespec
-    0xb0,0x70, // code info
-    0x12,0x1a, // LOAD_GLOBAL '_d2iso'
+    0x26,0x81,0x0d,0x81,0x21,0x81,0x0a, // names: isoformat, self, sep, timespec
+    0xb0,0x74, // code info
+    0x12,0x1b, // LOAD_GLOBAL '_d2iso'
     0xb0, // LOAD_FAST 0
     0x13,0x66, // LOAD_ATTR '_d'
     0x34,0x01, // CALL_FUNCTION 1
     0xb1, // LOAD_FAST 1
     0xf2, // BINARY_OP 27 __add__
-    0x12,0x22, // LOAD_GLOBAL '_t2iso'
+    0x12,0x23, // LOAD_GLOBAL '_t2iso'
     0xb0, // LOAD_FAST 0
     0x13,0x67, // LOAD_ATTR '_t'
     0xb2, // LOAD_FAST 2
     0xb0, // LOAD_FAST 0
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x34,0x04, // CALL_FUNCTION 4
     0xf2, // BINARY_OP 27 __add__
     0x63, // RETURN_VALUE
@@ -12819,7 +12832,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_isoformat = {
         .n_pos_args = 3,
         .n_kwonly_args = 0,
         .n_def_pos_args = 2,
-        .qstr_block_name_idx = 37,
+        .qstr_block_name_idx = 38,
         .line_info = fun_data_datetime_datetime_isoformat + 11,
         .line_info_top = fun_data_datetime_datetime_isoformat + 13,
         .opcodes = fun_data_datetime_datetime_isoformat + 13,
@@ -12835,10 +12848,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_isoformat = {
 // frozen bytecode for file datetime.py, scope datetime_datetime___repr__
 static const byte fun_data_datetime_datetime___repr__[49] = {
     0xa1,0x10,0x0e, // prelude
-    0x2b,0x81,0x08, // names: __repr__, self
-    0xb0,0x73,0x30,0x27, // code info
+    0x2c,0x81,0x0d, // names: __repr__, self
+    0xb0,0x77,0x30,0x27, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x30,0x09, // UNPACK_SEQUENCE 9
     0xc1, // STORE_FAST 1
@@ -12850,12 +12863,12 @@ static const byte fun_data_datetime_datetime___repr__[49] = {
     0xc7, // STORE_FAST 7
     0xc8, // STORE_FAST 8
     0xc9, // STORE_FAST 9
-    0x12,0x81,0x16, // LOAD_GLOBAL 'repr'
+    0x12,0x81,0x1b, // LOAD_GLOBAL 'repr'
     0xb8, // LOAD_FAST 8
     0x34,0x01, // CALL_FUNCTION 1
     0xc8, // STORE_FAST 8
     0x23,0x0a, // LOAD_CONST_OBJ 10
-    0x14,0x2c, // LOAD_METHOD 'format'
+    0x14,0x2d, // LOAD_METHOD 'format'
     0xb1, // LOAD_FAST 1
     0xb2, // LOAD_FAST 2
     0xb3, // LOAD_FAST 3
@@ -12891,7 +12904,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___repr__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 43,
+        .qstr_block_name_idx = 44,
         .line_info = fun_data_datetime_datetime___repr__ + 6,
         .line_info_top = fun_data_datetime_datetime___repr__ + 10,
         .opcodes = fun_data_datetime_datetime___repr__ + 10,
@@ -12907,10 +12920,10 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___repr__ = {
 // frozen bytecode for file datetime.py, scope datetime_datetime___str__
 static const byte fun_data_datetime_datetime___str__[15] = {
     0x19,0x0a, // prelude
-    0x3f,0x81,0x08, // names: __str__, self
-    0xb0,0x7a, // code info
+    0x40,0x81,0x0d, // names: __str__, self
+    0xb0,0x7e, // code info
     0xb0, // LOAD_FAST 0
-    0x14,0x25, // LOAD_METHOD 'isoformat'
+    0x14,0x26, // LOAD_METHOD 'isoformat'
     0x10,0x6f, // LOAD_CONST_STRING ' '
     0x36,0x01, // CALL_METHOD 1
     0x63, // RETURN_VALUE
@@ -12938,7 +12951,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___str__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 63,
+        .qstr_block_name_idx = 64,
         .line_info = fun_data_datetime_datetime___str__ + 5,
         .line_info_top = fun_data_datetime_datetime___str__ + 7,
         .opcodes = fun_data_datetime_datetime___str__ + 7,
@@ -12954,26 +12967,26 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___str__ = {
 // frozen bytecode for file datetime.py, scope datetime_datetime___hash__
 static const byte fun_data_datetime_datetime___hash__[42] = {
     0x21,0x0e, // prelude
-    0x40,0x81,0x08, // names: __hash__, self
-    0xb0,0x7d,0x2a,0x33, // code info
-    0x12,0x81,0x0e, // LOAD_GLOBAL 'hasattr'
+    0x41,0x81,0x0d, // names: __hash__, self
+    0xb0,0x81,0x2a,0x33, // code info
+    0x12,0x81,0x13, // LOAD_GLOBAL 'hasattr'
     0xb0, // LOAD_FAST 0
-    0x10,0x41, // LOAD_CONST_STRING '_hash'
+    0x10,0x42, // LOAD_CONST_STRING '_hash'
     0x34,0x02, // CALL_FUNCTION 2
     0x43,0x53, // POP_JUMP_IF_TRUE 19
-    0x12,0x81,0x0f, // LOAD_GLOBAL 'hash'
+    0x12,0x81,0x14, // LOAD_GLOBAL 'hash'
     0xb0, // LOAD_FAST 0
     0x13,0x66, // LOAD_ATTR '_d'
     0xb0, // LOAD_FAST 0
     0x13,0x67, // LOAD_ATTR '_t'
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0x2a,0x03, // BUILD_TUPLE 3
     0x34,0x01, // CALL_FUNCTION 1
     0xb0, // LOAD_FAST 0
-    0x18,0x41, // STORE_ATTR '_hash'
+    0x18,0x42, // STORE_ATTR '_hash'
     0xb0, // LOAD_FAST 0
-    0x13,0x41, // LOAD_ATTR '_hash'
+    0x13,0x42, // LOAD_ATTR '_hash'
     0x63, // RETURN_VALUE
 };
 #if MICROPY_PERSISTENT_CODE_SAVE
@@ -12999,7 +13012,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___hash__ = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 64,
+        .qstr_block_name_idx = 65,
         .line_info = fun_data_datetime_datetime___hash__ + 5,
         .line_info_top = fun_data_datetime_datetime___hash__ + 9,
         .opcodes = fun_data_datetime_datetime___hash__ + 9,
@@ -13015,16 +13028,16 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime___hash__ = {
 // frozen bytecode for file datetime.py, scope datetime_datetime_tuple
 static const byte fun_data_datetime_datetime_tuple[43] = {
     0x29,0x0e, // prelude
-    0x49,0x81,0x08, // names: tuple, self
-    0xb0,0x82,0x28,0x2d, // code info
-    0x12,0x16, // LOAD_GLOBAL '_o2ymd'
+    0x4a,0x81,0x0d, // names: tuple, self
+    0xb0,0x86,0x28,0x2d, // code info
+    0x12,0x17, // LOAD_GLOBAL '_o2ymd'
     0xb0, // LOAD_FAST 0
     0x13,0x66, // LOAD_ATTR '_d'
     0x34,0x01, // CALL_FUNCTION 1
     0xc1, // STORE_FAST 1
     0xb0, // LOAD_FAST 0
     0x13,0x67, // LOAD_ATTR '_t'
-    0x14,0x49, // LOAD_METHOD 'tuple'
+    0x14,0x4a, // LOAD_METHOD 'tuple'
     0x36,0x00, // CALL_METHOD 0
     0x81, // LOAD_CONST_SMALL_INT 1
     0x51, // LOAD_CONST_NONE
@@ -13035,7 +13048,7 @@ static const byte fun_data_datetime_datetime_tuple[43] = {
     0xb2, // LOAD_FAST 2
     0xf2, // BINARY_OP 27 __add__
     0xb0, // LOAD_FAST 0
-    0x13,0x4e, // LOAD_ATTR '_tz'
+    0x13,0x4f, // LOAD_ATTR '_tz'
     0xb0, // LOAD_FAST 0
     0x13,0x60, // LOAD_ATTR '_fd'
     0x2a,0x02, // BUILD_TUPLE 2
@@ -13065,7 +13078,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime_tuple = {
         .n_pos_args = 1,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 73,
+        .qstr_block_name_idx = 74,
         .line_info = fun_data_datetime_datetime_tuple + 5,
         .line_info_top = fun_data_datetime_datetime_tuple + 9,
         .opcodes = fun_data_datetime_datetime_tuple + 9,
@@ -13145,7 +13158,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime_datetime = {
         .n_pos_args = 0,
         .n_kwonly_args = 0,
         .n_def_pos_args = 0,
-        .qstr_block_name_idx = 16,
+        .qstr_block_name_idx = 18,
         .line_info = fun_data_datetime_datetime + 4,
         .line_info_top = fun_data_datetime_datetime + 77,
         .opcodes = fun_data_datetime_datetime + 77,
@@ -13181,7 +13194,7 @@ static const mp_raw_code_truncated_t proto_fun_datetime__lt_module_gt_ = {
     .fun_data = fun_data_datetime__lt_module_gt_,
     .children = (void *)&children_datetime__lt_module_gt_,
     #if MICROPY_PERSISTENT_CODE_SAVE
-    .fun_data_len = 337,
+    .fun_data_len = 361,
     .n_children = 16,
     #if MICROPY_EMIT_MACHINE_CODE
     .prelude_offset = 0,
@@ -13197,17 +13210,19 @@ static const mp_raw_code_truncated_t proto_fun_datetime__lt_module_gt_ = {
         .n_def_pos_args = 0,
         .qstr_block_name_idx = 1,
         .line_info = fun_data_datetime__lt_module_gt_ + 3,
-        .line_info_top = fun_data_datetime__lt_module_gt_ + 50,
-        .opcodes = fun_data_datetime__lt_module_gt_ + 50,
+        .line_info_top = fun_data_datetime__lt_module_gt_ + 54,
+        .opcodes = fun_data_datetime__lt_module_gt_ + 54,
     },
     #endif
     #endif
 };
 
-static const qstr_short_t const_qstr_table_data_datetime[159] = {
+static const qstr_short_t const_qstr_table_data_datetime[164] = {
     MP_QSTR_datetime_dot_py,
     MP_QSTR__lt_module_gt_,
     MP_QSTR_time,
+    MP_QSTR_gmtime,
+    MP_QSTR_localtime,
     MP_QSTR_timedelta,
     MP_QSTR_days,
     MP_QSTR_min,
@@ -13222,7 +13237,6 @@ static const qstr_short_t const_qstr_table_data_datetime[159] = {
     MP_QSTR_utc,
     MP_QSTR_date,
     MP_QSTR_datetime,
-    MP_QSTR_gmtime,
     MP_QSTR_EPOCH,
     MP_QSTR__leap,
     MP_QSTR__dim,
@@ -13288,7 +13302,6 @@ static const qstr_short_t const_qstr_table_data_datetime[159] = {
     MP_QSTR__name,
     MP_QSTR__ord,
     MP_QSTR_fromtimestamp,
-    MP_QSTR_localtime,
     MP_QSTR_today,
     MP_QSTR_fromordinal,
     MP_QSTR_fromisoformat,
@@ -13318,6 +13331,11 @@ static const qstr_short_t const_qstr_table_data_datetime[159] = {
     MP_QSTR_timestamp,
     MP_QSTR__space_,
     MP_QSTR_local,
+    MP_QSTR___import__,
+    MP_QSTR__tmod,
+    MP_QSTR__gmtime,
+    MP_QSTR__localtime,
+    MP_QSTR__epoch_time,
     MP_QSTR_MINYEAR,
     MP_QSTR_MAXYEAR,
     MP_QSTR_y,
@@ -13459,8 +13477,8 @@ MICROPY_FROZEN_LIST_ITEM("datetime", "datetime.py")
 
 /*
 byte sizes:
-qstr content: 173 unique, 2073 bytes
-bc content: 9309
+qstr content: 177 unique, 2126 bytes
+bc content: 9343
 const str content: 685
 const int content: 6
 const obj content: 880
@@ -13469,5 +13487,5 @@ const table ptr content: 72 entries, 288 bytes
 raw code content: 174 * 4 = 2784
 mp_frozen_mpy_names_content: 23
 mp_frozen_mpy_content_size: 8
-total: 16056
+total: 16143
 */

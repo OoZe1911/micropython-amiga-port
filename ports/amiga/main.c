@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "py/builtin.h"
+#include "py/misc.h"
 #include "py/compile.h"
 #include "py/runtime.h"
 #include "py/repl.h"
@@ -33,95 +34,71 @@ static mp_obj_t mp_builtin_quit(size_t n_args, const mp_obj_t *args) {
 MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(mp_builtin_quit_obj, 0, 1, mp_builtin_quit);
 MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(mp_builtin_exit_obj, 0, 1, mp_builtin_quit);
 
-// Concatenate two strings with an optional separator character.
-static char *strjoin(const char *s1, int sep_char, const char *s2) {
-    int l1 = strlen(s1);
-    int l2 = strlen(s2);
-    char *s = malloc(l1 + l2 + 2);
-    if (!s) {
-        return NULL;
-    }
-    memcpy(s, s1, l1);
-    if (sep_char != 0) {
-        s[l1] = sep_char;
-        l1 += 1;
-    }
-    memcpy(s + l1, s2, l2);
-    s[l1 + l2] = 0;
-    return s;
-}
-
-// Check if a line contains only a Ctrl-C character (typed at the AmigaOS console).
-static bool line_is_ctrl_c(const char *line) {
-    return line[0] == '\x03' && line[1] == '\0';
-}
-
-// Line-buffered REPL using fgets, suited for AmigaOS cooked console.
-static int do_repl(void) {
+// Line-buffered REPL using mp_hal_readline (fgets) + mp_repl_continue_with_input.
+static void do_repl(void) {
     mp_hal_stdout_tx_str("MicroPython " MICROPY_GIT_TAG " on " AMIGA_BUILD_TIMESTAMP
         " build " AMIGA_BUILD_NUM "; " MICROPY_BANNER_MACHINE "\n");
     mp_hal_stdout_tx_str("Use quit() or Ctrl-C to exit\n");
 
     for (;;) {
-        char *line = amiga_prompt(mp_repl_get_ps1());
-        if (line == NULL) {
-            // EOF
+        vstr_t line;
+        vstr_init(&line, 32);
+        int ret = mp_hal_readline(&line, ">>> ");
+        if (ret == 4) {  // Ctrl-D / EOF
+            vstr_clear(&line);
             break;
         }
-        if (line_is_ctrl_c(line)) {
-            free(line);
+
+        // Check for Ctrl-C
+        if (line.len == 1 && vstr_str(&line)[0] == '\x03') {
+            vstr_clear(&line);
             break;
         }
-        while (mp_repl_continue_with_input(line)) {
-            char *line2 = amiga_prompt(mp_repl_get_ps2());
-            if (line2 == NULL) {
+
+        // Multi-line input (if/for/def/class blocks)
+        while (mp_repl_continue_with_input(vstr_null_terminated_str(&line))) {
+            vstr_t extra;
+            vstr_init(&extra, 32);
+            ret = mp_hal_readline(&extra, "... ");
+            if (ret == 4) {
+                vstr_clear(&extra);
                 break;
             }
-            if (line_is_ctrl_c(line2)) {
-                // Ctrl-C during continuation: cancel this input
-                free(line2);
-                mp_hal_stdout_tx_str("\n");
-                goto input_restart;
+            vstr_add_char(&line, '\n');
+            vstr_add_strn(&line, vstr_str(&extra), extra.len);
+            vstr_clear(&extra);
+        }
+
+        if (line.len > 0) {
+            mp_lexer_t *lex = mp_lexer_new_from_str_len(
+                MP_QSTR__lt_stdin_gt_,
+                vstr_str(&line), line.len, 0);
+            if (lex == NULL) {
+                vstr_clear(&line);
+                continue;
             }
-            char *line3 = strjoin(line, '\n', line2);
-            free(line);
-            free(line2);
-            line = line3;
-        }
 
-        mp_lexer_t *lex = mp_lexer_new_from_str_len(MP_QSTR__lt_stdin_gt_, line, strlen(line), 0);
-        if (lex == NULL) {
-            free(line);
-            continue;
-        }
-
-        nlr_buf_t nlr;
-        if (nlr_push(&nlr) == 0) {
-            qstr source_name = lex->source_name;
-            mp_parse_tree_t parse_tree = mp_parse(lex, MP_PARSE_SINGLE_INPUT);
-            mp_obj_t module_fun = mp_compile(&parse_tree, source_name, true);
-            mp_call_function_0(module_fun);
-            nlr_pop();
-        } else {
-            // Check for SystemExit (raised by quit()/exit()/sys.exit())
-            if (mp_obj_is_subclass_fast(
-                    MP_OBJ_FROM_PTR(((mp_obj_base_t *)nlr.ret_val)->type),
-                    MP_OBJ_FROM_PTR(&mp_type_SystemExit))) {
-                free(line);
-                break;
+            nlr_buf_t nlr;
+            if (nlr_push(&nlr) == 0) {
+                qstr source_name = lex->source_name;
+                mp_parse_tree_t parse_tree = mp_parse(lex, MP_PARSE_SINGLE_INPUT);
+                mp_obj_t module_fun = mp_compile(&parse_tree, source_name, true);
+                mp_call_function_0(module_fun);
+                nlr_pop();
+            } else {
+                if (mp_obj_is_subclass_fast(
+                        MP_OBJ_FROM_PTR(((mp_obj_base_t *)nlr.ret_val)->type),
+                        MP_OBJ_FROM_PTR(&mp_type_SystemExit))) {
+                    vstr_clear(&line);
+                    break;
+                }
+                mp_obj_print_exception(&mp_plat_print, (mp_obj_t)nlr.ret_val);
             }
-            mp_obj_print_exception(&mp_plat_print, (mp_obj_t)nlr.ret_val);
         }
-
-        free(line);
-        continue;
-
-    input_restart:
-        free(line);
+        vstr_clear(&line);
     }
 
-    mp_hal_stdout_tx_str("\nBye!\n");
-    return 0;
+    mp_hal_stdout_tx_str("Bye!\n");
 }
 
 // Execute a .py script file. Returns 0 on success, non-zero on error.
