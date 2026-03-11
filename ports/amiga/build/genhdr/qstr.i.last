@@ -5699,42 +5699,446 @@ struct dtPrint;
 
   DOSBase;
 # 19 "main.c" 2
+# 1 "/opt/amiga/m68k-amigaos/ndk-include/proto/exec.h" 1 3 4
 
 
 
-# 21 "main.c"
+
+
+# 1 "/opt/amiga/m68k-amigaos/ndk-include/clib/exec_protos.h" 1 3 4
+# 18 "/opt/amiga/m68k-amigaos/ndk-include/clib/exec_protos.h" 3 4
+# 1 "/opt/amiga/m68k-amigaos/ndk-include/exec/execbase.h" 1 3 4
+# 17 "/opt/amiga/m68k-amigaos/ndk-include/exec/execbase.h" 3 4
+# 1 "/opt/amiga/m68k-amigaos/ndk-include/exec/interrupts.h" 1 3 4
+# 21 "/opt/amiga/m68k-amigaos/ndk-include/exec/interrupts.h" 3 4
+struct Interrupt {
+    struct Node is_Node;
+    APTR is_Data;
+    void (*is_Code)();
+};
+
+
+struct IntVector {
+    APTR iv_Data;
+    void (*iv_Code)();
+    struct Node *iv_Node;
+};
+
+
+struct SoftIntList {
+    struct List sh_List;
+    UWORD sh_Pad;
+};
+# 18 "/opt/amiga/m68k-amigaos/ndk-include/exec/execbase.h" 2 3 4
+# 33 "/opt/amiga/m68k-amigaos/ndk-include/exec/execbase.h" 3 4
+struct ExecBase {
+ struct Library LibNode;
+
+
+
+ UWORD SoftVer;
+ WORD LowMemChkSum;
+ ULONG ChkBase;
+ APTR ColdCapture;
+ APTR CoolCapture;
+ APTR WarmCapture;
+ APTR SysStkUpper;
+ APTR SysStkLower;
+ ULONG MaxLocMem;
+ APTR DebugEntry;
+ APTR DebugData;
+ APTR AlertData;
+ APTR MaxExtMem;
+
+ UWORD ChkSum;
+
+
+
+ struct IntVector IntVects[16];
+
+
+
+ struct Task *ThisTask;
+
+ ULONG IdleCount;
+ ULONG DispCount;
+ UWORD Quantum;
+ UWORD Elapsed;
+ UWORD SysFlags;
+ BYTE IDNestCnt;
+ BYTE TDNestCnt;
+
+ UWORD AttnFlags;
+
+ UWORD AttnResched;
+ APTR ResModules;
+ APTR TaskTrapCode;
+ APTR TaskExceptCode;
+ APTR TaskExitCode;
+ ULONG TaskSigAlloc;
+ UWORD TaskTrapAlloc;
+
+
+
+
+ struct List MemList;
+ struct List ResourceList;
+ struct List DeviceList;
+ struct List IntrList;
+ struct List LibList;
+ struct List PortList;
+ struct List TaskReady;
+ struct List TaskWait;
+
+ struct SoftIntList SoftInts[5];
+
+
+
+ LONG LastAlert[4];
+# 108 "/opt/amiga/m68k-amigaos/ndk-include/exec/execbase.h" 3 4
+ UBYTE VBlankFrequency;
+ UBYTE PowerSupplyFrequency;
+
+ struct List SemaphoreList;
+
+
+
+
+
+
+
+ APTR KickMemPtr;
+ APTR KickTagPtr;
+ APTR KickCheckSum;
+
+
+
+ UWORD ex_Pad0;
+ ULONG ex_LaunchPoint;
+ APTR ex_RamLibPrivate;
+
+
+
+
+
+ ULONG ex_EClockFrequency;
+ ULONG ex_CacheControl;
+ ULONG ex_TaskID;
+
+ ULONG ex_Reserved1[5];
+
+ APTR ex_MMULock;
+
+ ULONG ex_Reserved2[3];
+
+
+
+
+
+
+ struct MinList ex_MemHandlers;
+ APTR ex_MemHandler;
+};
+# 19 "/opt/amiga/m68k-amigaos/ndk-include/clib/exec_protos.h" 2 3 4
+
+
+
+
+
+# 1 "/opt/amiga/m68k-amigaos/ndk-include/exec/memory.h" 1 3 4
+# 19 "/opt/amiga/m68k-amigaos/ndk-include/exec/memory.h" 3 4
+struct MemChunk {
+    struct MemChunk *mc_Next;
+    ULONG mc_Bytes;
+};
+
+
+
+
+struct MemHeader {
+    struct Node mh_Node;
+    UWORD mh_Attributes;
+    struct MemChunk *mh_First;
+    APTR mh_Lower;
+    APTR mh_Upper;
+    ULONG mh_Free;
+};
+
+
+
+
+struct MemEntry {
+union {
+    ULONG meu_Reqs;
+    APTR meu_Addr;
+    } me_Un;
+    ULONG me_Length;
+};
+# 55 "/opt/amiga/m68k-amigaos/ndk-include/exec/memory.h" 3 4
+struct MemList {
+    struct Node ml_Node;
+    UWORD ml_NumEntries;
+    struct MemEntry ml_ME[1];
+};
+# 89 "/opt/amiga/m68k-amigaos/ndk-include/exec/memory.h" 3 4
+struct MemHandlerData
+{
+ ULONG memh_RequestSize;
+ ULONG memh_RequestFlags;
+ ULONG memh_Flags;
+};
+# 25 "/opt/amiga/m68k-amigaos/ndk-include/clib/exec_protos.h" 2 3 4
+
+
+
+
+
+# 1 "/opt/amiga/m68k-amigaos/ndk-include/exec/devices.h" 1 3 4
+# 24 "/opt/amiga/m68k-amigaos/ndk-include/exec/devices.h" 3 4
+struct Device {
+    struct Library dd_Library;
+};
+
+
+
+
+struct Unit {
+    struct MsgPort unit_MsgPort;
+
+    UBYTE unit_flags;
+    UBYTE unit_pad;
+    UWORD unit_OpenCnt;
+};
+# 31 "/opt/amiga/m68k-amigaos/ndk-include/clib/exec_protos.h" 2 3 4
+# 39 "/opt/amiga/m68k-amigaos/ndk-include/clib/exec_protos.h" 3 4
+# 1 "/opt/amiga/m68k-amigaos/ndk-include/exec/resident.h" 1 3 4
+# 17 "/opt/amiga/m68k-amigaos/ndk-include/exec/resident.h" 3 4
+struct Resident {
+    UWORD rt_MatchWord;
+    struct Resident *rt_MatchTag;
+    APTR rt_EndSkip;
+    UBYTE rt_Flags;
+    UBYTE rt_Version;
+    UBYTE rt_Type;
+    BYTE rt_Pri;
+    char *rt_Name;
+    char *rt_IdString;
+    APTR rt_Init;
+};
+# 40 "/opt/amiga/m68k-amigaos/ndk-include/clib/exec_protos.h" 2 3 4
+
+
+
+
+
+ULONG __attribute__((__stkparm__)) Supervisor( ULONG (*userFunction)() );
+
+
+void __attribute__((__stkparm__)) InitCode( ULONG startClass, ULONG version );
+void __attribute__((__stkparm__)) InitStruct( CONST_APTR initTable, APTR memory, ULONG size );
+struct Library * __attribute__((__stkparm__)) MakeLibrary( CONST_APTR funcInit, CONST_APTR structInit, ULONG (*libInit)(), ULONG dataSize, ULONG segList );
+void __attribute__((__stkparm__)) MakeFunctions( APTR target, CONST_APTR functionArray, ULONG funcDispBase );
+struct Resident * __attribute__((__stkparm__)) FindResident( CONST_STRPTR name );
+APTR __attribute__((__stkparm__)) InitResident( const struct Resident *resident, ULONG segList );
+
+void __attribute__((__stkparm__)) Alert( ULONG alertNum );
+void __attribute__((__stkparm__)) Debug( ULONG flags );
+
+void __attribute__((__stkparm__)) Disable( void );
+void __attribute__((__stkparm__)) Enable( void );
+void __attribute__((__stkparm__)) Forbid( void );
+void __attribute__((__stkparm__)) Permit( void );
+ULONG __attribute__((__stkparm__)) SetSR( ULONG newSR, ULONG mask );
+APTR __attribute__((__stkparm__)) SuperState( void );
+void __attribute__((__stkparm__)) UserState( APTR sysStack );
+struct Interrupt * __attribute__((__stkparm__)) SetIntVector( LONG intNumber, struct Interrupt *interrupt );
+void __attribute__((__stkparm__)) AddIntServer( LONG intNumber, struct Interrupt *interrupt );
+void __attribute__((__stkparm__)) RemIntServer( LONG intNumber, struct Interrupt *interrupt );
+void __attribute__((__stkparm__)) Cause( const struct Interrupt *interrupt );
+
+APTR __attribute__((__stkparm__)) Allocate( struct MemHeader *freeList, ULONG byteSize );
+void __attribute__((__stkparm__)) Deallocate( struct MemHeader *freeList, APTR memoryBlock, ULONG byteSize );
+APTR __attribute__((__stkparm__)) AllocMem( ULONG byteSize, ULONG requirements );
+APTR __attribute__((__stkparm__)) AllocAbs( ULONG byteSize, APTR location );
+void __attribute__((__stkparm__)) FreeMem( APTR memoryBlock, ULONG byteSize );
+ULONG __attribute__((__stkparm__)) AvailMem( ULONG requirements );
+struct MemList * __attribute__((__stkparm__)) AllocEntry( const struct MemList *entry );
+void __attribute__((__stkparm__)) FreeEntry( struct MemList *entry );
+
+void __attribute__((__stkparm__)) Insert( struct List *list, struct Node *node, struct Node *pred );
+void __attribute__((__stkparm__)) InsertMinNode( struct MinList *minlist, struct MinNode *minnode, struct MinNode *minpred );
+void __attribute__((__stkparm__)) AddHead( struct List *list, struct Node *node );
+void __attribute__((__stkparm__)) AddHeadMinList( struct MinList *minlist, struct MinNode *minnode );
+void __attribute__((__stkparm__)) AddTail( struct List *list, struct Node *node );
+void __attribute__((__stkparm__)) AddTailMinList( struct MinList *minlist, struct MinNode *minnode );
+void __attribute__((__stkparm__)) Remove( struct Node *node );
+void __attribute__((__stkparm__)) RemoveMinNode( struct MinNode *minnode );
+struct Node * __attribute__((__stkparm__)) RemHead( struct List *list );
+struct MinNode * __attribute__((__stkparm__)) RemHeadMinList( struct MinList *minlist );
+struct Node * __attribute__((__stkparm__)) RemTail( struct List *list );
+struct MinNode * __attribute__((__stkparm__)) RemTailMinList( struct MinList *minlist );
+void __attribute__((__stkparm__)) Enqueue( struct List *list, struct Node *node );
+struct Node * __attribute__((__stkparm__)) FindName( struct List *list, CONST_STRPTR name );
+
+APTR __attribute__((__stkparm__)) AddTask( struct Task *task, APTR initPC, APTR finalPC );
+void __attribute__((__stkparm__)) RemTask( struct Task *task );
+struct Task * __attribute__((__stkparm__)) FindTask( CONST_STRPTR name );
+BYTE __attribute__((__stkparm__)) SetTaskPri( struct Task *task, LONG priority );
+ULONG __attribute__((__stkparm__)) SetSignal( ULONG newSignals, ULONG signalSet );
+ULONG __attribute__((__stkparm__)) SetExcept( ULONG newSignals, ULONG signalSet );
+ULONG __attribute__((__stkparm__)) Wait( ULONG signalSet );
+void __attribute__((__stkparm__)) Signal( struct Task *task, ULONG signalSet );
+BYTE __attribute__((__stkparm__)) AllocSignal( LONG signalNum );
+void __attribute__((__stkparm__)) FreeSignal( LONG signalNum );
+LONG __attribute__((__stkparm__)) AllocTrap( LONG trapNum );
+void __attribute__((__stkparm__)) FreeTrap( LONG trapNum );
+
+void __attribute__((__stkparm__)) AddPort( struct MsgPort *port );
+void __attribute__((__stkparm__)) RemPort( struct MsgPort *port );
+void __attribute__((__stkparm__)) PutMsg( struct MsgPort *port, struct Message *message );
+struct Message * __attribute__((__stkparm__)) GetMsg( struct MsgPort *port );
+void __attribute__((__stkparm__)) ReplyMsg( struct Message *message );
+struct Message * __attribute__((__stkparm__)) WaitPort( struct MsgPort *port );
+struct MsgPort * __attribute__((__stkparm__)) FindPort( CONST_STRPTR name );
+
+void __attribute__((__stkparm__)) AddLibrary( struct Library *library );
+void __attribute__((__stkparm__)) RemLibrary( struct Library *library );
+struct Library * __attribute__((__stkparm__)) OldOpenLibrary( CONST_STRPTR libName );
+void __attribute__((__stkparm__)) CloseLibrary( struct Library *library );
+APTR __attribute__((__stkparm__)) SetFunction( struct Library *library, LONG funcOffset, ULONG (*newFunction)() );
+void __attribute__((__stkparm__)) SumLibrary( struct Library *library );
+
+void __attribute__((__stkparm__)) AddDevice( struct Device *device );
+void __attribute__((__stkparm__)) RemDevice( struct Device *device );
+BYTE __attribute__((__stkparm__)) OpenDevice( CONST_STRPTR devName, ULONG unit, struct IORequest *ioRequest, ULONG flags );
+void __attribute__((__stkparm__)) CloseDevice( struct IORequest *ioRequest );
+BYTE __attribute__((__stkparm__)) DoIO( struct IORequest *ioRequest );
+void __attribute__((__stkparm__)) SendIO( struct IORequest *ioRequest );
+struct IORequest * __attribute__((__stkparm__)) CheckIO( const struct IORequest *ioRequest );
+BYTE __attribute__((__stkparm__)) WaitIO( struct IORequest *ioRequest );
+void __attribute__((__stkparm__)) AbortIO( struct IORequest *ioRequest );
+
+void __attribute__((__stkparm__)) AddResource( APTR resource );
+void __attribute__((__stkparm__)) RemResource( APTR resource );
+APTR __attribute__((__stkparm__)) OpenResource( CONST_STRPTR resName );
+
+
+APTR __attribute__((__stkparm__)) RawDoFmt( CONST_STRPTR formatString, APTR dataStream, void (*putChProc)(), APTR putChData );
+ULONG __attribute__((__stkparm__)) GetCC( void );
+ULONG __attribute__((__stkparm__)) TypeOfMem( CONST_APTR address );
+ULONG __attribute__((__stkparm__)) Procure( struct SignalSemaphore *sigSem, struct SemaphoreMessage *bidMsg );
+void __attribute__((__stkparm__)) Vacate( struct SignalSemaphore *sigSem, struct SemaphoreMessage *bidMsg );
+struct Library * __attribute__((__stkparm__)) OpenLibrary( CONST_STRPTR libName, ULONG version );
+
+
+void __attribute__((__stkparm__)) InitSemaphore( struct SignalSemaphore *sigSem );
+void __attribute__((__stkparm__)) ObtainSemaphore( struct SignalSemaphore *sigSem );
+void __attribute__((__stkparm__)) ReleaseSemaphore( struct SignalSemaphore *sigSem );
+ULONG __attribute__((__stkparm__)) AttemptSemaphore( struct SignalSemaphore *sigSem );
+void __attribute__((__stkparm__)) ObtainSemaphoreList( struct List *sigSem );
+void __attribute__((__stkparm__)) ReleaseSemaphoreList( struct List *sigSem );
+struct SignalSemaphore * __attribute__((__stkparm__)) FindSemaphore( CONST_STRPTR name );
+void __attribute__((__stkparm__)) AddSemaphore( struct SignalSemaphore *sigSem );
+void __attribute__((__stkparm__)) RemSemaphore( struct SignalSemaphore *sigSem );
+
+ULONG __attribute__((__stkparm__)) SumKickData( void );
+
+void __attribute__((__stkparm__)) AddMemList( ULONG size, ULONG attributes, LONG pri, APTR base, STRPTR name );
+void __attribute__((__stkparm__)) CopyMem( CONST_APTR source, APTR dest, ULONG size );
+void __attribute__((__stkparm__)) CopyMemQuick( CONST_APTR source, APTR dest, ULONG size );
+
+
+void __attribute__((__stkparm__)) CacheClearU( void );
+void __attribute__((__stkparm__)) CacheClearE( APTR address, ULONG length, ULONG caches );
+ULONG __attribute__((__stkparm__)) CacheControl( ULONG cacheBits, ULONG cacheMask );
+
+APTR __attribute__((__stkparm__)) CreateIORequest( struct MsgPort *port, ULONG size );
+void __attribute__((__stkparm__)) DeleteIORequest( APTR iorequest );
+struct MsgPort * __attribute__((__stkparm__)) CreateMsgPort( void );
+void __attribute__((__stkparm__)) DeleteMsgPort( struct MsgPort *port );
+void __attribute__((__stkparm__)) ObtainSemaphoreShared( struct SignalSemaphore *sigSem );
+
+APTR __attribute__((__stkparm__)) AllocVec( ULONG byteSize, ULONG requirements );
+void __attribute__((__stkparm__)) FreeVec( APTR memoryBlock );
+
+APTR __attribute__((__stkparm__)) CreatePool( ULONG requirements, ULONG puddleSize, ULONG threshSize );
+void __attribute__((__stkparm__)) DeletePool( APTR poolHeader );
+APTR __attribute__((__stkparm__)) AllocPooled( APTR poolHeader, ULONG memSize );
+void __attribute__((__stkparm__)) FreePooled( APTR poolHeader, APTR memory, ULONG memSize );
+
+ULONG __attribute__((__stkparm__)) AttemptSemaphoreShared( struct SignalSemaphore *sigSem );
+void __attribute__((__stkparm__)) ColdReboot( void );
+void __attribute__((__stkparm__)) StackSwap( struct StackSwapStruct *newStack );
+
+
+APTR __attribute__((__stkparm__)) CachePreDMA( CONST_APTR address, ULONG *length, ULONG flags );
+void __attribute__((__stkparm__)) CachePostDMA( CONST_APTR address, ULONG *length, ULONG flags );
+
+
+
+void __attribute__((__stkparm__)) AddMemHandler( struct Interrupt *memhand );
+void __attribute__((__stkparm__)) RemMemHandler( struct Interrupt *memhand );
+
+ULONG __attribute__((__stkparm__)) ObtainQuickVector( APTR interruptCode );
+
+
+void __attribute__((__stkparm__)) NewMinList( struct MinList *minlist );
+# 7 "/opt/amiga/m68k-amigaos/ndk-include/proto/exec.h" 2 3 4
+
+
+
+
+
+
+# 1 "/opt/amiga/m68k-amigaos/ndk-include/inline/exec.h" 1 3 4
+# 14 "/opt/amiga/m68k-amigaos/ndk-include/proto/exec.h" 2 3 4
+# 27 "/opt/amiga/m68k-amigaos/ndk-include/proto/exec.h" 3 4
+  extern struct ExecBase *
+
+
+
+  SysBase;
+# 20 "main.c" 2
+
+
+
+# 22 "main.c"
 long __stack = 131072;
 
 static char *stack_top;
-static char heap[(512 * 1024)];
+static char *heap = 
+# 25 "main.c" 3 4
+                   ((void *)0)
+# 25 "main.c"
+                       ;
 
 
 static mp_obj_t mp_builtin_quit(size_t n_args, const mp_obj_t *args) {
     if (n_args == 0) {
         mp_raise_msg(&mp_type_SystemExit, 
-# 29 "main.c" 3 4
+# 30 "main.c" 3 4
        ((void *)0)
-# 29 "main.c"
+# 30 "main.c"
        );
     } else {
         mp_raise_type_arg(&mp_type_SystemExit, args[0]);
     }
 }
 const mp_obj_fun_builtin_var_t mp_builtin_quit_obj = {.base = {.type = &mp_type_fun_builtin_var}, .sig = ((uint32_t)((((uint32_t)(0)) << 17) | (((uint32_t)(1)) << 1) | ((
-# 34 "main.c" 3 4
-0
-# 34 "main.c"
-) ? 1 : 0))), .fun = {.var = mp_builtin_quit}};
-const mp_obj_fun_builtin_var_t mp_builtin_exit_obj = {.base = {.type = &mp_type_fun_builtin_var}, .sig = ((uint32_t)((((uint32_t)(0)) << 17) | (((uint32_t)(1)) << 1) | ((
 # 35 "main.c" 3 4
 0
 # 35 "main.c"
 ) ? 1 : 0))), .fun = {.var = mp_builtin_quit}};
+const mp_obj_fun_builtin_var_t mp_builtin_exit_obj = {.base = {.type = &mp_type_fun_builtin_var}, .sig = ((uint32_t)((((uint32_t)(0)) << 17) | (((uint32_t)(1)) << 1) | ((
+# 36 "main.c" 3 4
+0
+# 36 "main.c"
+) ? 1 : 0))), .fun = {.var = mp_builtin_quit}};
 
 
 static void do_repl(void) {
-    mp_hal_stdout_tx_str("MicroPython " "f111016e30-dirty" " on " "2026-03-11 15:37"
-        " build " "46" "; " "Amiga" " with " "M68020" "\n");
+    mp_hal_stdout_tx_str("MicroPython " "2aa2c07991-dirty" " on " "2026-03-11 18:14"
+        " build " "49" "; " "Amiga" " with " "M68020" "\n");
     mp_hal_stdout_tx_str("Use quit() or Ctrl-C to exit\n");
 
     for (;;) {
@@ -5771,9 +6175,9 @@ static void do_repl(void) {
                 MP_QSTR__lt_stdin_gt_,
                 vstr_str(&line), line.len, 0);
             if (lex == 
-# 76 "main.c" 3 4
+# 77 "main.c" 3 4
                       ((void *)0)
-# 76 "main.c"
+# 77 "main.c"
                           ) {
                 vstr_clear(&line);
                 continue;
@@ -5784,9 +6188,9 @@ static void do_repl(void) {
                 qstr source_name = lex->source_name;
                 mp_parse_tree_t parse_tree = mp_parse(lex, MP_PARSE_SINGLE_INPUT);
                 mp_obj_t module_fun = mp_compile(&parse_tree, source_name, 
-# 85 "main.c" 3 4
+# 86 "main.c" 3 4
                                                                           1
-# 85 "main.c"
+# 86 "main.c"
                                                                               );
                 mp_call_function_0(module_fun);
                 nlr_pop();
@@ -5810,9 +6214,9 @@ static void do_repl(void) {
 static int do_file(const char *filename) {
     FILE *f = fopen(filename, "r");
     if (f == 
-# 107 "main.c" 3 4
+# 108 "main.c" 3 4
             ((void *)0)
-# 107 "main.c"
+# 108 "main.c"
                 ) {
         printf("Error: cannot open file '%s'\n", filename);
         return 1;
@@ -5824,11 +6228,44 @@ static int do_file(const char *filename) {
 
 
 static void vm_init(int argc, char **argv) {
-    gc_init(heap, heap + sizeof(heap));
+    if (heap == 
+# 119 "main.c" 3 4
+               ((void *)0)
+# 119 "main.c"
+                   ) {
+        heap = (char *)
+# 120 "main.c" 3 4
+                      ({ ULONG _AllocMem_v1 = (
+# 120 "main.c"
+                      (512 * 1024)
+# 120 "main.c" 3 4
+                      ); ULONG _AllocMem_v2 = ((0UL) 
+# 120 "main.c"
+                      | 
+# 120 "main.c" 3 4
+                      (1UL<<16)); APTR _AllocMem_re2 = ({ register int _d1 __asm("d1"); register int _a0 __asm("a0"); register int _a1 __asm("a1"); register APTR _AllocMem_re __asm("d0"); register void *const _AllocMem_bn __asm("a6") = (SysBase); register ULONG _n1 __asm(
+# 120 "main.c"
+                      "d0"
+# 120 "main.c" 3 4
+                      ) = _AllocMem_v1; register ULONG _n2 __asm(
+# 120 "main.c"
+                      "d1"
+# 120 "main.c" 3 4
+                      ) = _AllocMem_v2; __asm volatile ("jsr a6@(-"
+# 120 "main.c"
+                      "0xc6"
+# 120 "main.c" 3 4
+                      ":W)" : "=r" (_AllocMem_re), "=r" (_d1), "=r" (_a0), "=r" (_a1) : "r" (_AllocMem_bn), "rf"(_n1), "rf"(_n2) : "fp0", "fp1", "cc", "memory"); _AllocMem_re; }); _AllocMem_re2; })
+# 120 "main.c"
+                                                                        ;
+    }
+    gc_init(heap, heap + (512 * 1024));
     mp_init();
+
     mp_obj_list_init(((void *)((((mp_obj_t)(&(mp_state_ctx.vm.mp_sys_argv_obj)))))), 0);
-    for (int i = 0; i < argc; i++) {
-        mp_obj_list_append((((mp_obj_t)(&(mp_state_ctx.vm.mp_sys_argv_obj)))), ((mp_obj_t)((((mp_uint_t)(qstr_from_str(argv[i]))) << 3) | 2)));
+    for (int i = 1; i < argc; i++) {
+        mp_obj_list_append((((mp_obj_t)(&(mp_state_ctx.vm.mp_sys_argv_obj)))),
+            ((mp_obj_t)((((mp_uint_t)(qstr_from_str(argv[i]))) << 3) | 2)));
     }
 }
 
@@ -5838,51 +6275,45 @@ int main(int argc, char **argv) {
 
 
     BPTR original_dir = 
-# 131 "main.c" 3 4
+# 137 "main.c" 3 4
                        ({ BPTR _CurrentDir_v1 = (
-# 131 "main.c"
+# 137 "main.c"
                        0
-# 131 "main.c" 3 4
+# 137 "main.c" 3 4
                        ); BPTR _CurrentDir_re2 = ({ register int _d1 __asm("d1"); register int _a0 __asm("a0"); register int _a1 __asm("a1"); register BPTR _CurrentDir_re __asm("d0"); register void *const _CurrentDir_bn __asm("a6") = (DOSBase); register BPTR _n1 __asm(
-# 131 "main.c"
+# 137 "main.c"
                        "d1"
-# 131 "main.c" 3 4
+# 137 "main.c" 3 4
                        ) = _CurrentDir_v1; __asm volatile ("jsr a6@(-"
-# 131 "main.c"
+# 137 "main.c"
                        "0x7e"
-# 131 "main.c" 3 4
+# 137 "main.c" 3 4
                        ":W)" : "=r" (_CurrentDir_re), "=r" (_d1), "=r" (_a0), "=r" (_a1) : "r" (_CurrentDir_bn), "rf"(_n1) : "fp0", "fp1", "cc", "memory"); _CurrentDir_re; }); _CurrentDir_re2; })
-# 131 "main.c"
+# 137 "main.c"
                                     ;
     
-# 132 "main.c" 3 4
+# 138 "main.c" 3 4
    ({ BPTR _CurrentDir_v1 = (
-# 132 "main.c"
+# 138 "main.c"
    original_dir
-# 132 "main.c" 3 4
+# 138 "main.c" 3 4
    ); BPTR _CurrentDir_re2 = ({ register int _d1 __asm("d1"); register int _a0 __asm("a0"); register int _a1 __asm("a1"); register BPTR _CurrentDir_re __asm("d0"); register void *const _CurrentDir_bn __asm("a6") = (DOSBase); register BPTR _n1 __asm(
-# 132 "main.c"
+# 138 "main.c"
    "d1"
-# 132 "main.c" 3 4
+# 138 "main.c" 3 4
    ) = _CurrentDir_v1; __asm volatile ("jsr a6@(-"
-# 132 "main.c"
+# 138 "main.c"
    "0x7e"
-# 132 "main.c" 3 4
+# 138 "main.c" 3 4
    ":W)" : "=r" (_CurrentDir_re), "=r" (_d1), "=r" (_a0), "=r" (_a1) : "r" (_CurrentDir_bn), "rf"(_n1) : "fp0", "fp1", "cc", "memory"); _CurrentDir_re; }); _CurrentDir_re2; })
-# 132 "main.c"
+# 138 "main.c"
                            ;
 
     int ret = 0;
     if (argc > 1) {
-
-        for (int i = 1; i < argc; i++) {
-            vm_init(argc, argv);
-            ret = do_file(argv[i]);
-            mp_deinit();
-            if (ret != 0) {
-                break;
-            }
-        }
+        vm_init(argc, argv);
+        ret = do_file(argv[1]);
+        mp_deinit();
     } else {
         vm_init(argc, argv);
         do_repl();
@@ -5890,22 +6321,60 @@ int main(int argc, char **argv) {
     }
 
 
+    if (heap != 
+# 152 "main.c" 3 4
+               ((void *)0)
+# 152 "main.c"
+                   ) {
+        
+# 153 "main.c" 3 4
+       ({ APTR _FreeMem_v1 = (
+# 153 "main.c"
+       heap
+# 153 "main.c" 3 4
+       ); ULONG _FreeMem_v2 = (
+# 153 "main.c"
+       (512 * 1024)
+# 153 "main.c" 3 4
+       ); { register int _d0 __asm("d0"); register int _d1 __asm("d1"); register int _a0 __asm("a0"); register int _a1 __asm("a1"); register void *const _FreeMem_bn __asm("a6") = (SysBase); register APTR _n1 __asm(
+# 153 "main.c"
+       "a1"
+# 153 "main.c" 3 4
+       ) = _FreeMem_v1; register ULONG _n2 __asm(
+# 153 "main.c"
+       "d0"
+# 153 "main.c" 3 4
+       ) = _FreeMem_v2; __asm volatile ("jsr a6@(-"
+# 153 "main.c"
+       "0xd2"
+# 153 "main.c" 3 4
+       ":W)" : "=r" (_d0), "=r" (_d1), "=r" (_a0), "=r" (_a1) : "r" (_FreeMem_bn), "rf"(_n1), "rf"(_n2) : "fp0", "fp1", "cc", "memory"); } })
+# 153 "main.c"
+                                       ;
+        heap = 
+# 154 "main.c" 3 4
+              ((void *)0)
+# 154 "main.c"
+                  ;
+    }
+
+
     
-# 152 "main.c" 3 4
+# 158 "main.c" 3 4
    ({ BPTR _CurrentDir_v1 = (
-# 152 "main.c"
+# 158 "main.c"
    original_dir
-# 152 "main.c" 3 4
+# 158 "main.c" 3 4
    ); BPTR _CurrentDir_re2 = ({ register int _d1 __asm("d1"); register int _a0 __asm("a0"); register int _a1 __asm("a1"); register BPTR _CurrentDir_re __asm("d0"); register void *const _CurrentDir_bn __asm("a6") = (DOSBase); register BPTR _n1 __asm(
-# 152 "main.c"
+# 158 "main.c"
    "d1"
-# 152 "main.c" 3 4
+# 158 "main.c" 3 4
    ) = _CurrentDir_v1; __asm volatile ("jsr a6@(-"
-# 152 "main.c"
+# 158 "main.c"
    "0x7e"
-# 152 "main.c" 3 4
+# 158 "main.c" 3 4
    ":W)" : "=r" (_CurrentDir_re), "=r" (_d1), "=r" (_a0), "=r" (_a1) : "r" (_CurrentDir_bn), "rf"(_n1) : "fp0", "fp1", "cc", "memory"); _CurrentDir_re; }); _CurrentDir_re2; })
-# 152 "main.c"
+# 158 "main.c"
                            ;
 
     return ret;
@@ -5922,26 +6391,26 @@ mp_lexer_t *mp_lexer_new_from_file(qstr filename) {
     const char *fname = qstr_str(filename);
     FILE *f = fopen(fname, "r");
     if (f == 
-# 167 "main.c" 3 4
+# 173 "main.c" 3 4
             ((void *)0)
-# 167 "main.c"
+# 173 "main.c"
                 ) {
         mp_raise_OSError(
-# 168 "main.c" 3 4
+# 174 "main.c" 3 4
                         2
-# 168 "main.c"
+# 174 "main.c"
                                  );
     }
     fseek(f, 0, 
-# 170 "main.c" 3 4
+# 176 "main.c" 3 4
                2
-# 170 "main.c"
+# 176 "main.c"
                        );
     long size = ftell(f);
     fseek(f, 0, 
-# 172 "main.c" 3 4
+# 178 "main.c" 3 4
                0
-# 172 "main.c"
+# 178 "main.c"
                        );
     char *buf = ((char *)(m_malloc(sizeof(char) * (size + 1))));
     long got = fread(buf, 1, size, f);
@@ -5956,23 +6425,23 @@ mp_obj_t mp_builtin_open(size_t n_args, const mp_obj_t *args, mp_map_t *kwargs) 
     (void)args;
     (void)kwargs;
     mp_raise_OSError(
-# 185 "main.c" 3 4
+# 191 "main.c" 3 4
                     2
-# 185 "main.c"
+# 191 "main.c"
                              );
 }
 const mp_obj_fun_builtin_var_t mp_builtin_open_obj = {.base = {.type = &mp_type_fun_builtin_var}, .sig = ((uint32_t)((((uint32_t)(1)) << 17) | (((uint32_t)((0xffff))) << 1) | ((
-# 187 "main.c" 3 4
+# 193 "main.c" 3 4
 1
-# 187 "main.c"
+# 193 "main.c"
 ) ? 1 : 0))), .fun = {.kw = mp_builtin_open}};
 
 mp_import_stat_t mp_import_stat(const char *path) {
     FILE *f = fopen(path, "r");
     if (f == 
-# 191 "main.c" 3 4
+# 197 "main.c" 3 4
             ((void *)0)
-# 191 "main.c"
+# 197 "main.c"
                 ) {
         return MP_IMPORT_STAT_NO_EXIST;
     }
@@ -5990,5 +6459,41 @@ void nlr_jump_fail(void *val) {
 void __assert_func(const char *file, int line, const char *func, const char *expr) {
     (void)func;
     printf("Assertion '%s' failed, at file %s:%d\n", expr, file, line);
+    if (heap != 
+# 214 "main.c" 3 4
+               ((void *)0)
+# 214 "main.c"
+                   ) {
+        
+# 215 "main.c" 3 4
+       ({ APTR _FreeMem_v1 = (
+# 215 "main.c"
+       heap
+# 215 "main.c" 3 4
+       ); ULONG _FreeMem_v2 = (
+# 215 "main.c"
+       (512 * 1024)
+# 215 "main.c" 3 4
+       ); { register int _d0 __asm("d0"); register int _d1 __asm("d1"); register int _a0 __asm("a0"); register int _a1 __asm("a1"); register void *const _FreeMem_bn __asm("a6") = (SysBase); register APTR _n1 __asm(
+# 215 "main.c"
+       "a1"
+# 215 "main.c" 3 4
+       ) = _FreeMem_v1; register ULONG _n2 __asm(
+# 215 "main.c"
+       "d0"
+# 215 "main.c" 3 4
+       ) = _FreeMem_v2; __asm volatile ("jsr a6@(-"
+# 215 "main.c"
+       "0xd2"
+# 215 "main.c" 3 4
+       ":W)" : "=r" (_d0), "=r" (_d1), "=r" (_a0), "=r" (_a1) : "r" (_FreeMem_bn), "rf"(_n1), "rf"(_n2) : "fp0", "fp1", "cc", "memory"); } })
+# 215 "main.c"
+                                       ;
+        heap = 
+# 216 "main.c" 3 4
+              ((void *)0)
+# 216 "main.c"
+                  ;
+    }
     exit(1);
 }

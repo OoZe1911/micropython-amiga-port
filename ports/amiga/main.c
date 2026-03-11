@@ -16,12 +16,13 @@
 #include "genhdr/amigaversion.h"
 
 #include <proto/dos.h>
+#include <proto/exec.h>
 
 // Tell AmigaOS/libnix to allocate a 128 KB stack for this process.
 long __stack = 131072;
 
 static char *stack_top;
-static char heap[MICROPY_HEAP_SIZE];
+static char *heap = NULL;
 
 // quit() and exit() builtins — raise SystemExit
 static mp_obj_t mp_builtin_quit(size_t n_args, const mp_obj_t *args) {
@@ -115,11 +116,16 @@ static int do_file(const char *filename) {
 
 // Initialise the VM and populate sys.argv.
 static void vm_init(int argc, char **argv) {
-    gc_init(heap, heap + sizeof(heap));
+    if (heap == NULL) {
+        heap = (char *)AllocMem(MICROPY_HEAP_SIZE, MEMF_ANY | MEMF_CLEAR);
+    }
+    gc_init(heap, heap + MICROPY_HEAP_SIZE);
     mp_init();
+    // Initialise sys.argv comme liste propre
     mp_obj_list_init(MP_OBJ_TO_PTR(mp_sys_argv), 0);
-    for (int i = 0; i < argc; i++) {
-        mp_obj_list_append(mp_sys_argv, MP_OBJ_NEW_QSTR(qstr_from_str(argv[i])));
+    for (int i = 1; i < argc; i++) {
+        mp_obj_list_append(mp_sys_argv,
+            MP_OBJ_NEW_QSTR(qstr_from_str(argv[i])));
     }
 }
 
@@ -133,19 +139,19 @@ int main(int argc, char **argv) {
 
     int ret = 0;
     if (argc > 1) {
-        // Execute each .py file with a fresh VM to avoid qstr pool overflow.
-        for (int i = 1; i < argc; i++) {
-            vm_init(argc, argv);
-            ret = do_file(argv[i]);
-            mp_deinit();
-            if (ret != 0) {
-                break;
-            }
-        }
+        vm_init(argc, argv);
+        ret = do_file(argv[1]);
+        mp_deinit();
     } else {
         vm_init(argc, argv);
         do_repl();
         mp_deinit();
+    }
+
+    // Free dynamically allocated heap.
+    if (heap != NULL) {
+        FreeMem(heap, MICROPY_HEAP_SIZE);
+        heap = NULL;
     }
 
     // Restore the shell's original directory.
@@ -205,6 +211,10 @@ void nlr_jump_fail(void *val) {
 void __assert_func(const char *file, int line, const char *func, const char *expr) {
     (void)func;
     printf("Assertion '%s' failed, at file %s:%d\n", expr, file, line);
+    if (heap != NULL) {
+        FreeMem(heap, MICROPY_HEAP_SIZE);
+        heap = NULL;
+    }
     exit(1);
 }
 #endif

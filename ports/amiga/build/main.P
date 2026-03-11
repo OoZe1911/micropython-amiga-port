@@ -85,7 +85,15 @@ build/main.o: main.c /opt/amiga/m68k-amigaos/sys-include/stdint.h \
  /opt/amiga/m68k-amigaos/ndk-include/graphics/copper.h \
  /opt/amiga/m68k-amigaos/ndk-include/hardware/custom.h \
  /opt/amiga/m68k-amigaos/ndk-include/graphics/modeid.h \
- /opt/amiga/m68k-amigaos/ndk-include/libraries/commodities.h
+ /opt/amiga/m68k-amigaos/ndk-include/libraries/commodities.h \
+ /opt/amiga/m68k-amigaos/ndk-include/proto/exec.h \
+ /opt/amiga/m68k-amigaos/ndk-include/clib/exec_protos.h \
+ /opt/amiga/m68k-amigaos/ndk-include/exec/execbase.h \
+ /opt/amiga/m68k-amigaos/ndk-include/exec/interrupts.h \
+ /opt/amiga/m68k-amigaos/ndk-include/exec/memory.h \
+ /opt/amiga/m68k-amigaos/ndk-include/exec/devices.h \
+ /opt/amiga/m68k-amigaos/ndk-include/exec/resident.h \
+ /opt/amiga/m68k-amigaos/ndk-include/inline/exec.h
 main.c /opt/amiga/m68k-amigaos/sys-include/stdint.h :
  /opt/amiga/m68k-amigaos/sys-include/machine/_default_types.h :
  /opt/amiga/m68k-amigaos/sys-include/sys/features.h :
@@ -174,3 +182,11 @@ main.c /opt/amiga/m68k-amigaos/sys-include/stdint.h :
  /opt/amiga/m68k-amigaos/ndk-include/hardware/custom.h :
  /opt/amiga/m68k-amigaos/ndk-include/graphics/modeid.h :
  /opt/amiga/m68k-amigaos/ndk-include/libraries/commodities.h :
+ /opt/amiga/m68k-amigaos/ndk-include/proto/exec.h :
+ /opt/amiga/m68k-amigaos/ndk-include/clib/exec_protos.h :
+ /opt/amiga/m68k-amigaos/ndk-include/exec/execbase.h :
+ /opt/amiga/m68k-amigaos/ndk-include/exec/interrupts.h :
+ /opt/amiga/m68k-amigaos/ndk-include/exec/memory.h :
+ /opt/amiga/m68k-amigaos/ndk-include/exec/devices.h :
+ /opt/amiga/m68k-amigaos/ndk-include/exec/resident.h :
+ /opt/amiga/m68k-amigaos/ndk-include/inline/exec.h :
