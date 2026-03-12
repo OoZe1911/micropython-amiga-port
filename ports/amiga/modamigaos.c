@@ -70,13 +70,19 @@ static mp_obj_t mod_os_getcwd(void) {
 static MP_DEFINE_CONST_FUN_OBJ_0(mod_os_getcwd_obj, mod_os_getcwd);
 
 // os.chdir(path) — change current directory.
+// original_dir is saved in main.c at startup; we must not UnLock it.
+extern BPTR original_dir;
+
 static mp_obj_t mod_os_chdir(mp_obj_t path_in) {
     const char *path = mp_obj_str_get_str(path_in);
     BPTR new_lock = Lock((CONST_STRPTR)path, SHARED_LOCK);
     if (new_lock == 0) {
         mp_raise_OSError(MP_ENOENT);
     }
-    CurrentDir(new_lock);
+    BPTR old_lock = CurrentDir(new_lock);
+    if (old_lock && old_lock != original_dir) {
+        UnLock(old_lock);
+    }
     return mp_const_none;
 }
 static MP_DEFINE_CONST_FUN_OBJ_1(mod_os_chdir_obj, mod_os_chdir);

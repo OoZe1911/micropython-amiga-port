@@ -288,6 +288,7 @@ typedef struct _mp_state_thread_t {
     // Locking of the GC is done per thread.
     // See GC_LOCK_DEPTH_SHIFT for an explanation of this field.
     uint16_t gc_lock_depth;
+    uint16_t _gc_lock_pad; // padding for 4-byte alignment on m68k
 
     ////////////////////////////////////////////////////////////
     // START ROOT POINTER SECTION

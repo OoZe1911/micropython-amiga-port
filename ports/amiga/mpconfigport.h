@@ -1,5 +1,8 @@
 #include <stdint.h>
 
+// Disable assertions (gc.c:952 triggers on m68k due to stack scan false positives)
+#define NDEBUG
+
 // MicroPython port configuration for AmigaOS m68k
 
 // Use core features level - gives us a useful REPL without bloat

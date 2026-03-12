@@ -32,6 +32,7 @@ SRC_C = \
 	modamigaos.c \
 	shared/readline/readline.c \
 	shared/runtime/pyexec.c \
+	shared/runtime/gchelper_generic.c \
 	shared/runtime/stdout_helpers.c \
 	shared/timeutils/timeutils.c \
 

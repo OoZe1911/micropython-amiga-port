@@ -2,8 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <setjmp.h>
+#include <stddef.h>
 #include "py/builtin.h"
+#include "py/mpstate.h"
 #include "py/misc.h"
 #include "py/compile.h"
 #include "py/runtime.h"
@@ -11,6 +13,8 @@
 #include "py/gc.h"
 #include "py/mperrno.h"
 #include "py/mphal.h"
+#include "py/stackctrl.h"
+#include "shared/runtime/gchelper.h"
 #include "shared/runtime/pyexec.h"
 #include "genhdr/mpversion.h"
 #include "genhdr/amigaversion.h"
@@ -18,17 +22,12 @@
 #include <proto/dos.h>
 #include <proto/exec.h>
 
-// Padding to align mp_sys_argv_obj in MP_STATE_VM on a 4-byte boundary.
-// In OBJ_REPR_A, object pointers must have bits 1:0 == 0. Without this,
-// mp_sys_argv_obj lands at an odd offset (e.g. +2 mod 4) and MicroPython
-// misidentifies it as a qstr instead of an object pointer.
-MP_REGISTER_ROOT_POINTER(int16_t _argv_align_pad);
-
 // Tell AmigaOS/libnix to allocate a 128 KB stack for this process.
 long __stack = 131072;
 
 static char *stack_top;
 static char *heap = NULL;
+BPTR original_dir = 0;
 
 // quit() and exit() builtins — raise SystemExit
 static mp_obj_t mp_builtin_quit(size_t n_args, const mp_obj_t *args) {
@@ -126,6 +125,8 @@ static void vm_init(int argc, char **argv) {
         heap = (char *)AllocMem(MICROPY_HEAP_SIZE, MEMF_ANY | MEMF_CLEAR);
     }
     gc_init(heap, heap + MICROPY_HEAP_SIZE);
+    mp_stack_ctrl_init();
+    mp_stack_set_top(stack_top);
     mp_init();
     // Populate sys.argv with argv[1:] (mp_init already created the empty list)
     for (int i = 1; i < argc; i++) {
@@ -139,7 +140,7 @@ int main(int argc, char **argv) {
     stack_top = (char *)&stack_dummy;
 
     // Save the shell's current directory lock so we can restore it on exit.
-    BPTR original_dir = CurrentDir(0);
+    original_dir = CurrentDir(0);
     CurrentDir(original_dir);
 
     int ret = 0;
@@ -166,9 +167,8 @@ int main(int argc, char **argv) {
 }
 
 void gc_collect(void) {
-    void *dummy;
     gc_collect_start();
-    gc_collect_root(&dummy, ((mp_uint_t)stack_top - (mp_uint_t)&dummy) / sizeof(mp_uint_t));
+    gc_helper_collect_regs_and_stack();
     gc_collect_end();
 }
 
@@ -209,6 +209,10 @@ mp_import_stat_t mp_import_stat(const char *path) {
 void nlr_jump_fail(void *val) {
     (void)val;
     printf("FATAL: uncaught NLR\n");
+    if (heap != NULL) {
+        FreeMem(heap, MICROPY_HEAP_SIZE);
+        heap = NULL;
+    }
     exit(1);
 }
 
