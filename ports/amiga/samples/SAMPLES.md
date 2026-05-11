@@ -185,3 +185,71 @@ same caveat as `amiga.intuition`).
 Demonstrates: the `amiga.asl` module, every supported keyword argument,
 cancel handling, list-valued multi-select results, path joining via
 `AddPart()` on the C side.
+
+### test_smtplib_offline.py — Exercise the email package locally
+
+Standalone smoke test for the frozen `email` package — no network, no
+SMTP. Builds a representative `MIMEMultipart` with a UTF-8 `MIMEText`
+body (accents) and a binary `MIMEApplication` attachment (full byte
+range `0x00–0xFF`), serializes it via `as_string()`, and asserts the
+expected structure: `MIME-Version: 1.0`, outer `multipart/mixed`
+boundary, RFC 2047 encoded Subject, `Content-Transfer-Encoding: base64`
+on the binary part, both boundary openers and the closing
+`--boundary--`, `walk()` yielding the right part tree, and the
+`text/plain` ASCII-vs-UTF-8 encoding selection.
+
+```
+micropython samples/test_smtplib_offline.py
+```
+
+Demonstrates: `email.utils`, `email.header.Header` (RFC 2047 encoded
+words), `email.message.Message` mapping interface, `MIMEText` /
+`MIMEMultipart` / `MIMEApplication` composition, `as_string()`
+serialization with CRLF line endings. Default 128 KB heap is plenty.
+
+### test_smtplib_online.py — Send a real email over SMTP
+
+Network test that actually delivers a message through `smtp.gmail.com`
+(or any other server you point it at). Two scenarios:
+
+- **A** — `smtplib.SMTP(host, 587)` with explicit `ehlo()` /
+  `starttls()` / `login()` / `send_message()` (STARTTLS upgrade)
+- **B** — `smtplib.SMTP_SSL(host, 465)` with implicit TLS from the
+  first byte
+
+```
+micropython -m 1024 samples/test_smtplib_online.py A      ; STARTTLS:587
+micropython -m 1024 samples/test_smtplib_online.py B      ; SMTP_SSL:465
+micropython -m 1024 samples/test_smtplib_online.py BOTH   ; both
+```
+
+Credentials are read from `mail_credentials.txt` in the current
+directory (gitignored — do NOT commit) with three lines:
+
+```
+user=monadresse@gmail.com
+pass=xxxxxxxxxxxxxxxx
+to=destinataire@example.com
+```
+
+…or from `MAIL_USER` / `MAIL_PASS` / `MAIL_TO` environment variables.
+For Gmail you need an **app password** (16 chars), generated at
+Google Account → Security → App passwords; the regular account
+password is rejected.
+
+The script enables `set_debuglevel(1)` so the full SMTP exchange
+(EHLO → STARTTLS → EHLO → AUTH PLAIN → MAIL FROM / RCPT TO → DATA →
+QUIT) is printed line by line. The composed message has an UTF-8
+body with French accents and a `€` symbol (outside Latin-1) to
+verify the full Unicode range survives the pipeline, plus a small
+binary attachment to exercise base64 encoding end-to-end.
+
+**A larger heap is required** (`-m 1024` minimum) for the TLS
+handshake. If you hit `MemoryError` during handshake, bump to
+`-m 2048`. The body itself is small and does not need extra heap.
+
+Demonstrates: `smtplib` (both STARTTLS and SMTP_SSL paths),
+`AUTH PLAIN`, ESMTP capability parsing, EHLO refresh after STARTTLS
+(Gmail only advertises `AUTH …` after TLS is established), the full
+`email` composition chain producing a multipart UTF-8 message with
+PJ that lands in any IMAP/Gmail client correctly.

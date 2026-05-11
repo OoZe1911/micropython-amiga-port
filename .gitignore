@@ -14,3 +14,8 @@ __pycache__/
 
 # Claude Code
 CLAUDE.md
+
+# Mail credentials for samples/test_smtplib_online.py
+mail_credentials.txt
+ports/amiga/samples/mail_credentials.txt
+ports/amiga/mail_credentials.txt

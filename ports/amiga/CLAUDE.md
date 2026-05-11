@@ -58,6 +58,8 @@ Compiler flags:
 | `modules/platform.py` | Frozen platform module: CPU/FPU/chipset/Kickstart detection via uos C helpers |
 | `modules/urequests.py` | Frozen HTTP/1.1 client (GET, POST, PUT, DELETE, HEAD, chunked TE) |
 | `modules/gzip.py` | Frozen gzip module: CPython-compatible compress()/decompress() |
+| `modules/smtplib.py` | Frozen SMTP client: SMTP / SMTP_SSL, STARTTLS, AUTH PLAIN/LOGIN, sendmail/send_message |
+| `modules/email/` | Frozen email package: Message, MIME{Base,Text,Multipart,Application}, Header, encoders, utils |
 | `patches/` | Patches to upstream MicroPython files (alignment, iter_buf heap alloc, VFS POSIX Latin-1) |
 | `run_tests.py` | Test runner: runs each test in a separate micropython process |
 
@@ -276,6 +278,8 @@ embedded in the C binary via `frozen_content.c`. Importable without a filesystem
 | `gzip` | local `modules/gzip.py` | `deflate`, `io` |
 | `zlib` | local `modules/zlib.py` | `_zlib` (C module), `deflate`, `io` |
 | `zipfile` | local `modules/zipfile.py` | `zlib`, `deflate`, `struct`, `os`, `io` |
+| `smtplib` | local `modules/smtplib.py` | `socket`, `ssl`, `base64`, `email` |
+| `email` (+ `email.mime`) | local `modules/email/` | `base64`, `binascii`, `time` |
 
 ### Adding a frozen module
 
@@ -600,6 +604,132 @@ used — it caused exit crashes due to its destructor double-closing AmiSSL
 libraries. All AmiSSL open/close is done manually in `ensure_amissl_init()` and
 `amissl_cleanup()`.
 
+## Module smtplib + email package (frozen Python)
+
+CPython-compatible email composition (`email/` sub-package) and SMTP client
+(`smtplib`). Phase 1 covers emission only — receiving (`poplib` + parser)
+is planned as Phase 2. Both modules are frozen Python (no C), built on top
+of the existing `socket` and `ssl` C modules.
+
+### smtplib
+
+`SMTP(host, port=25, local_hostname=None, timeout=None)` and
+`SMTP_SSL(host, port=465, ...)` classes. Both are context managers. Public
+methods:
+
+- `connect(host, port)` / `close()` / `quit()` — connection lifecycle.
+- `helo(name=None)` / `ehlo(name=None)` — `ehlo` parses ESMTP capabilities
+  into `self.esmtp_features` (dict of feature → param).
+- `has_extn(name)` — case-insensitive ESMTP capability lookup.
+- `starttls(server_hostname=None)` — wraps the socket with
+  `ssl.wrap_socket(..., server_hostname=host)`, then resets `ehlo_resp` and
+  `esmtp_features` (RFC 3207: capabilities must be re-queried under TLS).
+- `login(user, password)` — tries `AUTH PLAIN` then `AUTH LOGIN` based on
+  `esmtp_features['auth']`; raises `SMTPNotSupportedError` if neither is
+  advertised. CRAM-MD5 / DIGEST-MD5 / XOAUTH2 not supported.
+- `sendmail(from_addr, to_addrs, msg, mail_options=(), rcpt_options=())` —
+  MAIL FROM / per-recipient RCPT TO / DATA. Returns `{}` if all recipients
+  accepted, else `{recipient: (code, resp)}`.
+- `send_message(msg, from_addr=None, to_addrs=None)` — extracts From/Sender
+  and To/Cc/Bcc from the `Message`; strips Bcc/Resent-Bcc from headers
+  before serialization (so they remain envelope-only), then calls
+  `sendmail`. The caller's `Message` is left unmodified.
+- `set_debuglevel(level)` — level ≥ 1 prints `send:` / `reply:` traces.
+- Exceptions (all inherit `OSError` à la CPython 3.4+):
+  `SMTPException`, `SMTPServerDisconnected`, `SMTPResponseException`,
+  `SMTPSenderRefused`, `SMTPRecipientsRefused`, `SMTPDataError`,
+  `SMTPConnectError`, `SMTPHeloError`, `SMTPAuthenticationError`,
+  `SMTPNotSupportedError`.
+
+### Implementation notes
+
+- **No `socket.makefile()`** in MicroPython — `_LineReader` reads `recv(1024)`
+  chunks into a buffer and slices off `\r\n`-terminated lines. Buffer cap is
+  `_MAXLINE = 8192`.
+- **No `socket.create_connection()`** — manual
+  `getaddrinfo(host, port)[0][-1] + socket() + connect()`.
+- **No `ssl.SSLContext`** — `ssl.wrap_socket(sock, server_hostname=host)` is
+  used directly. `SMTP_SSL._get_socket()` wraps before any SMTP I/O so the
+  server greeting (`220 ...`) is read over TLS.
+- **`local_hostname`** defaults to `socket.gethostname()` if available, else
+  `'amiga.localdomain'`. The same fallback is in `email.utils._default_domain`
+  for `make_msgid()`.
+- **Dot-stuffing** in `_quotedata`: lines starting with `.` get a leading
+  `.` prefix so a stray `.\r\n` in the payload doesn't terminate DATA early.
+- **`timeout`** is accepted for API compat but not enforced — sockets are
+  always blocking on this port.
+- **Ctrl-C** inside a blocking `recv()` is consumed by `modsocket.c` and
+  surfaces as `KeyboardInterrupt`, not a partial OSError cascade.
+
+### email package layout
+
+```
+modules/
+├── smtplib.py
+└── email/
+    ├── __init__.py     (marker)
+    ├── utils.py        formatdate, formataddr, parseaddr, getaddresses, make_msgid
+    ├── header.py       Header (RFC 2047 =?utf-8?B?...?= encoding)
+    ├── encoders.py     encode_base64 / encode_quopri / encode_7or8bit / encode_noop
+    ├── message.py      Message: mapping interface, payload mgmt, walk(), as_string()
+    └── mime/
+        ├── __init__.py (marker)
+        ├── base.py     MIMEBase(Message): sets MIME-Version + Content-Type
+        ├── text.py     MIMEText: auto charset detect (ASCII->7bit, else UTF-8 base64)
+        ├── multipart.py MIMEMultipart: boundary auto-gen via ticks_us + counter
+        └── application.py MIMEApplication: defaults to encode_base64
+```
+
+### Encoding model
+
+- **`MIMEText('...', 'utf-8')`** auto-encodes the payload in base64 with
+  `Content-Transfer-Encoding: base64` so the body survives any relay,
+  whether the relay advertises `8BITMIME` or not.
+- **`Header(s, 'utf-8')`** produces RFC 2047 encoded-words
+  `=?utf-8?B?...?=`. Splitting respects UTF-8 codepoint boundaries (the
+  base64 chunker walks back over `0x80-0xBF` continuation bytes before
+  cutting). The full Unicode range round-trips: subjects with `é è ç à œ`
+  AND `€` (U+20AC, outside Latin-1) arrive intact in Gmail.
+- **`formataddr(('Name', 'addr'))`** quote-phrases ASCII names containing
+  `()<>@,;:\\"[].`, RFC 2047 encodes non-ASCII names, and returns
+  `Name <addr>` (or just `addr` if name is empty).
+- **`formatdate(localtime=True)`** computes the UTC offset by differencing
+  `time.localtime()` and `time.gmtime()` at the same `timeval` — MicroPython
+  doesn't expose `time.timezone`, so this is the portable path. On AmigaOS
+  the offset is supplied by `modtime.c` via `locale.library`'s `loc_GMTOffset`.
+
+### MicroPython 1.28 quirks the package works around
+
+- **`str.encode("ascii")` does NOT validate** in MicroPython 1.28 — it's
+  implemented via `bytes(s, "ascii")` and silently emits the UTF-8 bytes
+  regardless of the encoding name. The classic CPython idiom
+  `try: s.encode("ascii"); except UnicodeError:` is therefore unusable.
+  All "is this ASCII?" checks in `email.utils._is_ascii`,
+  `email.header._is_ascii` and `email.mime.text._is_ascii` iterate
+  codepoints (`for ch in s: if ord(ch) > 127: return False`) instead.
+- **`socket.makefile()` missing** — see `_LineReader` above.
+- **`time.timezone` not guaranteed** — see `formatdate` UTC offset
+  computation above.
+
+### Test harness
+
+`samples/test_smtplib_offline.py` — purely local, no network. Validates
+`email.utils` (`formatdate`/`formataddr`/`parseaddr`/`make_msgid`), Header
+RFC 2047 encoding, Message mapping interface, full multipart serialization
+(MIME-Version, multipart/mixed boundary, Subject RFC 2047 encoded, base64
+attachment, walk yields the right part tree), and MIMEText ASCII-vs-UTF-8
+encoding selection.
+
+`samples/test_smtplib_online.py [A|B|BOTH]` — network test, requires a
+`mail_credentials.txt` next to the binary (gitignored) with `user=`, `pass=`,
+`to=` lines, or `MAIL_USER`/`MAIL_PASS`/`MAIL_TO` env vars. Gmail needs an
+**app password**, not the main password. Scenario A exercises STARTTLS on
+port 587; Scenario B exercises SMTP_SSL on port 465. Both use
+`set_debuglevel(1)` so the EHLO/AUTH/MAIL/RCPT/DATA exchange is visible
+on stdout. Both have been validated against `smtp.gmail.com` on WinUAE.
+
+Run with `-m 1024` (TLS handshake needs more heap than the default 128 KB).
+
 ## Module time (AmigaOS)
 
 Implemented via `modtime.c` (included by extmod/modtime.c via
@@ -701,6 +831,8 @@ Console is restored to cooked mode in crash handlers (`nlr_jump_fail`,
 - `zlib`: CPython-compatible zlib API (compress, decompress, crc32) — native C crc32 + frozen Python
 - `zipfile`: read/write ZIP archives (stored + deflated, CRC32 verification, extractall)
 - `gzip`: CPython-compatible gzip.compress()/gzip.decompress() (frozen, wraps deflate)
+- `smtplib`: SMTP/SMTP_SSL client (STARTTLS, AUTH PLAIN/LOGIN, sendmail, send_message)
+- `email` (+ `email.mime`): CPython-compatible Message/MIME composition, Header (RFC 2047), utils
 
 ### Port-added builtins
 

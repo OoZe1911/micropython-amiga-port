@@ -33,11 +33,20 @@ The Amiga binary executable can be found in [micropython](ports/amiga/build/micr
 - **os.path**: join, split, basename, dirname, exists, isfile, isdir, abspath,
   normpath (with AmigaOS volume:path conventions)
 - **Modules**: re, json, math, struct, binascii, base64, time, datetime,
-  random, hashlib (sha256), errno, platform, socket, ssl, urequests, deflate, gzip, zlib, zipfile, arexx, gc, sys, io
+  random, hashlib (sha256), errno, platform, socket, ssl, urequests, smtplib,
+  email, deflate, gzip, zlib, zipfile, arexx, gc, sys, io
 - **Networking**: TCP/UDP sockets, DNS resolution via bsdsocket.library
 - **TLS/SSL**: HTTPS support via AmiSSL (requires amissl.library on Amiga)
 - **HTTP client**: `urequests.get()`, `post()`, `put()`, `delete()` with HTTP/1.1,
   chunked transfer encoding, gzip decompression, HTTP and HTTPS
+- **SMTP client**: `smtplib.SMTP` (with `STARTTLS`) and `smtplib.SMTP_SSL` (port
+  465 implicit TLS), `AUTH PLAIN` and `AUTH LOGIN`, `sendmail()` and
+  `send_message()`, context-manager and `set_debuglevel()` support
+- **Email composition**: CPython-compatible `email` sub-package
+  (`email.mime.text.MIMEText`, `email.mime.multipart.MIMEMultipart`,
+  `email.mime.application.MIMEApplication`, `email.utils.formatdate` /
+  `formataddr`, `email.header.Header`) — full UTF-8 support (subject and body
+  with accents, `€` and other non-Latin-1 codepoints survive intact)
 - **ARexx IPC**: `arexx.send()`, `arexx.exists()`, `arexx.ports()`, and
   `arexx.Port()` persistent client with context manager for inter-process
   communication with AmigaOS applications
